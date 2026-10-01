@@ -12,10 +12,22 @@ design system (Build Plan stage F1) and the generated backend API client (F2).
 | `citizen/index.html`            | Catalogue of every citizen screen, with its readiness status                             |
 | `citizen/pages/`                | 41 static screens: the citizen dashboard pages 1–40 plus the mobile Home design          |
 | `citizen/backend-coverage.html` | Every dashboard feature mapped to its `heartstone-backend` endpoint and launch readiness |
+| `website/index.html`            | Catalogue of every public website page (W1–W27)                                          |
+| `website/pages/`                | 27 static, responsive pages: the signed-out public website                               |
 
 Open `citizen/index.html` in a browser. Links between pages work, so the main journeys can be
 clicked through locally: find a service → apply → pay → track, appointments, documents,
 credentials, messages, renewals, "My government" areas and account pages.
+
+Open `website/index.html` for the public website: homepage, the three doors (individuals,
+businesses, officials), life events, topics, offices, digital ID, trust and safety pages, legal
+pages, error pages, and public versions of find a service, service detail, help and sign in.
+"Sign in" continues into the citizen dashboard, and "Sign out" in the dashboard returns to the
+website's signed-out page.
+
+The website pages are responsive single files (no separate phone versions) and were checked at
+1440px, 390px and 360px with no sideways scrolling. Text in `[SQUARE BRACKETS]` is a placeholder
+for a real value (phone numbers, addresses, the national digital ID provider, legal references).
 
 The editable source is the **HeartStone Citizen Dashboard** design canvas in Claude. Change the
 canvas first, then re-export here, so the two never drift apart.
@@ -43,7 +55,17 @@ tab bar (Home, Services, Applications, Messages, More), and "More" opens `Menu.h
 
 The native iOS/Android app is **not** covered here. It is a separate design, not yet started.
 
-## Pages that need backend work before launch
+## Website pages that need sign-off or backend work before launch
+
+- **Privacy notice, terms of use, accessibility statement:** drafts. Need legal review, the real
+  data-protection references, and an independent accessibility audit.
+- **Report a scam:** the form has no backend route to submit to yet.
+- **Service status:** needs a live status feed; the statuses shown are examples.
+- **Get a digital ID:** the eligibility rule shown (citizens and legal residents aged 16+) is an
+  example and must be confirmed with the national digital ID provider.
+- **"Official website" wording** in the top bar needs approval before any public deployment.
+
+## Dashboard pages that need backend work before launch
 
 Marked in `citizen/index.html` and detailed in the coverage map:
 

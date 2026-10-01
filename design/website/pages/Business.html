@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas (Public website page). -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Businesses and investors</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F7F3EA}
+a{color:#153146}a:hover{color:#091B29}
+.w{font-family:'Public Sans',system-ui,sans-serif;color:#17191B;background:#F7F3EA;min-height:100vh}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px;box-sizing:border-box;width:100%}
+.offbar{background:#091B29;color:#C9D2DA;font-size:13px}
+.offbar .wrap{display:flex;gap:16px;align-items:center;min-height:36px;flex-wrap:wrap}
+.hdr{background:#FFFFFF;border-bottom:1px solid #E6DFD0}
+.hdr .wrap{display:flex;align-items:center;gap:28px;min-height:76px}
+.mainnav{display:flex;gap:4px}
+.mainnav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;text-decoration:none;color:#17191B;font-size:15px;font-weight:600}
+.mainnav a:hover{background:#F1ECE0}
+.hright{margin-left:auto;display:flex;align-items:center;gap:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;white-space:nowrap;min-height:48px;padding:0 22px;border-radius:10px;background:#091B29;color:#FFFFFF;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+.btn:hover{background:#153146;color:#FFFFFF}
+.btn-gold{background:#DC9E48;color:#091B29}.btn-gold:hover{background:#D4AA65;color:#091B29}
+.btn2{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border-radius:10px;background:transparent;color:#F7F3EA;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:1.5px solid #5A6E80}
+.hero{background:#091B29;color:#F7F3EA;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:48px;padding-top:64px;padding-bottom:72px;align-items:center}
+.h1{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:56px;line-height:1.05}
+.search{display:flex;gap:10px;background:#FFFFFF;border-radius:12px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.search input{flex-grow:1;min-width:0;border:0;font:inherit;font-size:18px;padding:0 14px;color:#17191B;background:transparent}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid #2B4357;color:#E6EBEF;font-size:14px;text-decoration:none}
+.chip:hover{background:#142937;color:#FFFFFF}
+.signcard{background:#FFFFFF;color:#17191B;border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:16px;border-top:4px solid #DC9E48}
+.sec{padding:56px 0}
+.h2{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:34px;line-height:1.15;color:#091B29}
+.lead{margin:0;font-size:17px;line-height:1.55;color:#3A444E}
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.door{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:#17191B}
+.door:hover{border-color:#091B29}
+.dicon{width:52px;height:52px;border-radius:12px;background:#F1ECE0;display:flex;align-items:center;justify-content:center}
+.dtitle{font-size:20px;font-weight:700;color:#091B29}
+.dlist{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:15px;color:#3A444E}
+.more{font-size:15px;font-weight:700;color:#153146;margin-top:auto}
+.pop{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ptile{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:#17191B;min-height:96px;box-sizing:border-box}
+.ptile:hover{border-color:#091B29}
+.ptile b{font-size:16px;color:#153146}
+.ptile span{font-size:14px;color:#4A5560;line-height:1.45}
+.life{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ltile{display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px;padding:16px 18px;text-decoration:none;color:#17191B;font-size:16px;font-weight:600;min-height:64px;box-sizing:border-box}
+.ltile:hover{border-color:#091B29}
+.topics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 32px}
+.topics a{display:flex;flex-direction:column;gap:2px;padding:14px 0;border-top:1px solid #E0D9CB;text-decoration:none;color:#17191B}
+.topics b{font-size:16px;color:#153146}
+.topics span{font-size:14px;color:#4A5560}
+.help{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.hcard{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.ftr{background:#091B29;color:#C9D2DA;font-size:14px}
+.fgrid{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:32px;padding:48px 0 32px}
+.ftr a{color:#E6EBEF;text-decoration:none}
+.ftr a:hover{color:#FFFFFF;text-decoration:underline}
+.fh{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#D4AA65;margin:0 0 12px}
+.flist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.mtoggle{display:none}
+@media (max-width:1000px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.pop,.life{grid-template-columns:repeat(2,minmax(0,1fr))}.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.wrap{padding:0 16px}.mainnav,.hide-sm,.bars{display:none !important}.mtoggle{display:inline-flex}.hdr .wrap{gap:12px;min-height:64px}.hero .wrap{padding-top:32px;padding-bottom:40px;gap:28px}.h1{font-size:38px}.search{flex-direction:column}.search input{min-height:48px}.doors,.topics,.help{grid-template-columns:minmax(0,1fr)}.pop,.life{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ptile,.ltile{padding:14px}.sec{padding:40px 0}.h2{font-size:28px}.fgrid{grid-template-columns:minmax(0,1fr)}.signcard{padding:22px}.hdr .wrap>a img:first-child{height:34px !important}.hdr .wrap>a img+img{height:13px !important}.hright{gap:8px}.hright .btn{padding:0 14px !important}}
+
+.crumb{font-size:14px;color:#4A5560;padding:18px 0 0}
+.crumb a{color:#153146}
+.phero{background:#091B29;color:#F7F3EA}
+.phero .wrap{padding-top:44px;padding-bottom:48px;display:flex;flex-direction:column;gap:16px}
+.ph1{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:46px;line-height:1.08}
+.pintro{margin:0;font-size:18px;line-height:1.55;color:#C9D2DA;max-width:720px}
+.lhero{padding:36px 0 8px}
+.lh1{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:44px;line-height:1.08;color:#091B29}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:start}
+.card{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:14px}
+.pad{padding:24px}
+.h3{margin:0;font-size:20px;font-weight:700;color:#091B29}
+.meta{font-size:14px;color:#4A5560}
+.p{margin:0;font-size:16px;line-height:1.6;color:#3A444E}
+.links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.links a{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:52px;border-top:1px solid #EFE9DD;text-decoration:none;color:#153146;font-size:16px;font-weight:600}
+.links li:first-child a{border-top:0}
+.links small{font-size:13px;font-weight:500;color:#4A5560}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:48px minmax(0,1fr);gap:18px;padding:22px 0;border-top:1px solid #E0D9CB}
+.step:first-child{border-top:0}
+.num{width:40px;height:40px;border-radius:50%;background:#091B29;color:#F7F3EA;font-weight:700;display:flex;align-items:center;justify-content:center}
+.tag{display:inline-flex;align-items:center;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;background:#EFEBE2;color:#3A444E;white-space:nowrap}
+.tag-ok{background:#E4F2EA;color:#17603B}.tag-warn{background:#FDEEE3;color:#8A3B0A}.tag-info{background:#E7EEF5;color:#153146}
+.notice{background:#F3F6F9;border:1px solid #C9D6E3;border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.55;color:#3A444E}
+.warnbox{background:#FFF8F2;border:1px solid #F0C9A8;border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.55;color:#3A444E}
+.btn-out{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border-radius:10px;border:1.5px solid #C9C0AE;color:#091B29;font-size:16px;font-weight:600;text-decoration:none;background:#FFFFFF}
+.in{min-height:48px;border:1.5px solid #8F9AA5;border-radius:10px;padding:0 14px;font:inherit;font-size:16px;background:#FFFFFF;color:#17191B;box-sizing:border-box}
+.lbl{font-size:15px;font-weight:600}
+.mapph{border:2px dashed #C9C0AE;border-radius:14px;background:#EFEBE2;display:flex;align-items:center;justify-content:center;color:#4A5560;font-size:15px;font-weight:600;min-height:260px;text-align:center;padding:16px}
+details.faq{border-top:1px solid #E0D9CB}
+details.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;font-size:17px;font-weight:700;color:#091B29}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:'+';font-size:24px;font-weight:400;color:#153146}
+details.faq[open] summary::after{content:'–'}
+details.faq .ans{padding:0 0 18px;display:flex;flex-direction:column;gap:10px}
+@media (max-width:1000px){.split.half{grid-template-columns:minmax(0,1fr) !important}.ofind{grid-template-columns:minmax(0,1fr) !important}.split{grid-template-columns:minmax(0,1fr)}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.split.half{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.ofind{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto}
+.wrapbtn{white-space:normal !important;text-align:center}
+@media (max-width:760px){.wrapbtn{align-self:stretch !important}.kv{grid-template-columns:minmax(0,1fr) !important;gap:4px 0 !important}.kv dd{margin-bottom:10px !important}.ph1,.lh1{font-size:34px}.g2,.g3{grid-template-columns:minmax(0,1fr)}.phero .wrap{padding-top:28px;padding-bottom:32px}.mapph{min-height:180px}}
+
+</style>
+</helmet>
+<div class="w">
+<!-- 1. Official-site bar (trust) -->
+<div class="offbar" role="region" aria-label="Official website notice">
+<div class="wrap">
+<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DC9E48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/></svg>An official website of the Government of Antigua and Barbuda</span>
+<a href="Official.html" style="color: #D4AA65; font-weight: 600">How to tell</a>
+<span class="hide-sm" style="margin-left: auto">Design prototype. Not a live government service.</span>
+</div>
+</div>
+
+<header class="hdr">
+<div class="wrap">
+<a href="WebsiteHome.html" aria-label="HeartStone home" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none"><img src="../../brand/logo/heartstone-mark-midnight.png" alt="" style="height: 44px; width: auto"><img src="../../brand/logo/heartstone-wordmark-midnight.png" alt="HeartStone" style="height: 17px; width: auto"></a>
+<nav class="mainnav" aria-label="Main">
+<a href="PublicServices.html">Services</a>
+<a href="LifeEvents.html">Life events</a>
+<a href="Business.html">Business &amp; investors</a>
+<a href="PublicHelp.html">Help</a>
+</nav>
+<div class="hright">
+<a href="tel:[PHONE]" class="hide-sm" style="display: inline-flex; align-items: center; gap: 8px; color: #17191B; text-decoration: none; font-size: 14px; font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#153146" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>[PHONE]</a>
+<a href="PublicSignIn.html" class="btn" style="min-height: 44px; padding: 0 18px; font-size: 15px">Sign in</a>
+<button type="button" class="mtoggle" aria-label="Open menu" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #E6DFD0; background: #FFFFFF; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#17191B" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+</div>
+</div>
+</header>
+<main>
+
+<section class="phero" aria-labelledby="b-h"><div class="wrap">
+<nav aria-label="Breadcrumb" style="font-size: 14px; color: #A9B6C2"><a href="WebsiteHome.html" style="color: #D4AA65">Home</a> › Businesses and investors</nav>
+<h1 id="b-h" class="ph1">Services for businesses and investors</h1>
+<p class="pintro">Start, run and grow a business, and invest in Antigua and Barbuda. One account covers every department you deal with.</p>
+<form role="search" action="PublicServices.html" style="max-width: 640px"><label for="b-q" class="sr">Search business services</label><div class="search"><input id="b-q" type="search" placeholder="For example: get a trade licence"><button type="submit" class="btn" style="min-height: 52px">Search</button></div></form>
+</div></section>
+<div class="wrap" style="padding-top: 48px">
+<div class="g3">
+<section class="card pad" aria-labelledby="b-s" style="display: flex; flex-direction: column; gap: 12px"><h2 id="b-s" class="h3">Start a business</h2>
+<ul class="links"><li><a href="LifeEvent.html"><span style="display: flex; flex-direction: column; gap: 2px">Starting a business: step by step</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="PublicServices.html"><span style="display: flex; flex-direction: column; gap: 2px">Register a company</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="PublicServices.html"><span style="display: flex; flex-direction: column; gap: 2px">Register a business name</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="PublicServices.html"><span style="display: flex; flex-direction: column; gap: 2px">Register for tax</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li></ul></section>
+<section class="card pad" aria-labelledby="b-r" style="display: flex; flex-direction: column; gap: 12px"><h2 id="b-r" class="h3">Run your business</h2>
+<ul class="links"><li><a href="PublicServices.html"><span style="display: flex; flex-direction: column; gap: 2px">Licences and permits</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="PublicServiceDetail.html"><span style="display: flex; flex-direction: column; gap: 2px">Register as an employer</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="PublicServices.html"><span style="display: flex; flex-direction: column; gap: 2px">Work permits for staff</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="PublicServices.html"><span style="display: flex; flex-direction: column; gap: 2px">File business returns</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li></ul></section>
+<section class="card pad" aria-labelledby="b-i" style="display: flex; flex-direction: column; gap: 12px"><h2 id="b-i" class="h3">Invest and grow</h2>
+<ul class="links"><li><a href="PublicServices.html"><span style="display: flex; flex-direction: column; gap: 2px">Investor services</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="PublicServices.html"><span style="display: flex; flex-direction: column; gap: 2px">Special economic zone services</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="PublicServices.html"><span style="display: flex; flex-direction: column; gap: 2px">Strategic and major projects</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li><li><a href="PublicServices.html"><span style="display: flex; flex-direction: column; gap: 2px">Imports, exports and customs</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li></ul></section>
+</div></div>
+<div class="wrap"><div class="split" style="padding: 40px 0 48px">
+<div style="display: flex; flex-direction: column; gap: 28px; min-width: 0">
+<section aria-labelledby="b-rep" class="card pad" style="display: flex; flex-direction: column; gap: 12px">
+<h2 id="b-rep" class="h3">Acting for a business</h2>
+<p class="p">You can apply and file for a business only if the business has given you authority to represent it, and that authority is recorded. Being a director or employee is not enough on its own.</p>
+<p class="p">Once recorded, you can switch between yourself and the businesses you represent after signing in. Each authority shows what it covers and when it ends.</p>
+<a href="SignInHelp.html" style="font-size: 15px; font-weight: 600">How to get authority to act for a business</a>
+</section>
+<section aria-labelledby="b-inv" class="card pad" style="display: flex; flex-direction: column; gap: 12px; border-left: 0; background: #091B29; color: #F7F3EA; border-color: #091B29">
+<h2 id="b-inv" class="h3" style="color: #FFFFFF">Planning a significant investment?</h2>
+<p class="p" style="color: #C9D2DA">Investors in major projects can be assigned a named case manager who coordinates approvals across government.</p>
+<a href="PublicHelp.html" class="btn btn-gold" style="align-self: flex-start">Contact investor services</a>
+</section>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<aside class="card pad" style="display: flex; flex-direction: column; gap: 14px; border-top: 4px solid #DC9E48">
+<h2 class="h3">Your business account</h2>
+<p class="p" style="font-size: 15px">Sign in to see licences, filings, applications and messages for every business you represent.</p>
+<a href="PublicSignIn.html" class="btn" style="width: 100%; box-sizing: border-box">Sign in with your digital ID</a>
+<a href="DigitalId.html" style="font-size: 14px">Don't have a digital ID yet?</a>
+</aside>
+<aside class="card pad" style="display: flex; flex-direction: column; gap: 10px">
+<h2 class="h3" style="font-size: 17px">Need help?</h2>
+<p class="p" style="font-size: 15px">Service advisers can help by phone or in person.</p>
+<a href="tel:[PHONE]" style="font-size: 16px; font-weight: 700">[PHONE]</a>
+<a href="Offices.html" style="font-size: 15px">Find an office</a>
+</aside>
+</div>
+</div></div>
+</main>
+<!-- 9. Footer -->
+<footer class="ftr">
+<div class="wrap">
+<div class="fgrid">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<a href="WebsiteHome.html" aria-label="HeartStone home" style="display: inline-flex; align-items: center; gap: 12px"><img src="../../brand/logo/heartstone-mark-gold.png" alt="" style="height: 52px; width: auto"><img src="../../brand/logo/heartstone-wordmark-gold.png" alt="HeartStone" style="height: 18px; width: auto"></a>
+<p style="margin: 0; line-height: 1.6">The digital front door to government services in Antigua and Barbuda.</p>
+<div style="background: #8E1F17; color: #FFFFFF; border-radius: 10px; padding: 12px 14px; font-weight: 700">Emergency: call 911</div>
+</div>
+<div><p class="fh">Services</p><ul class="flist"><li><a href="PublicServices.html">All services</a></li><li><a href="LifeEvents.html">Life events</a></li><li><a href="Business.html">Business and investors</a></li><li><a href="../../citizen/pages/Verify.html">Check a document</a></li><li><a href="Status.html">Service status</a></li></ul></div>
+<div><p class="fh">Your account</p><ul class="flist"><li><a href="PublicSignIn.html">Sign in</a></li><li><a href="DigitalId.html">Get a digital ID</a></li><li><a href="SignInHelp.html">Help with signing in</a></li><li><a href="Officials.html">Government official sign in</a></li></ul></div>
+<div><p class="fh">About</p><ul class="flist"><li><a href="About.html">About this site</a></li><li><a href="Contact.html">Contact us</a></li><li><a href="Accessibility.html">Accessibility</a></li><li><a href="Privacy.html">Privacy</a></li><li><a href="Terms.html">Terms of use</a></li></ul></div>
+</div>
+<div style="border-top: 1px solid #1E3547; padding: 18px 0 28px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: #A9B6C2"><span>Official government websites end in .gov.ag and use https.</span><span>© Government of Antigua and Barbuda</span></div>
+</div>
+</footer>
+</div>
+</x-dc>
+</body>
+</html>

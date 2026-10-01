@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas (Public website page). -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Government services home</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F7F3EA}
+a{color:#153146}a:hover{color:#091B29}
+.w{font-family:'Public Sans',system-ui,sans-serif;color:#17191B;background:#F7F3EA;min-height:100vh}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px;box-sizing:border-box;width:100%}
+.offbar{background:#091B29;color:#C9D2DA;font-size:13px}
+.offbar .wrap{display:flex;gap:16px;align-items:center;min-height:36px;flex-wrap:wrap}
+.hdr{background:#FFFFFF;border-bottom:1px solid #E6DFD0}
+.hdr .wrap{display:flex;align-items:center;gap:28px;min-height:76px}
+.mainnav{display:flex;gap:4px}
+.mainnav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;text-decoration:none;color:#17191B;font-size:15px;font-weight:600}
+.mainnav a:hover{background:#F1ECE0}
+.hright{margin-left:auto;display:flex;align-items:center;gap:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;white-space:nowrap;min-height:48px;padding:0 22px;border-radius:10px;background:#091B29;color:#FFFFFF;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+.btn:hover{background:#153146;color:#FFFFFF}
+.btn-gold{background:#DC9E48;color:#091B29}.btn-gold:hover{background:#D4AA65;color:#091B29}
+.btn2{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border-radius:10px;background:transparent;color:#F7F3EA;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:1.5px solid #5A6E80}
+.hero{background:#091B29;color:#F7F3EA;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:48px;padding-top:64px;padding-bottom:72px;align-items:center}
+.h1{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:56px;line-height:1.05}
+.search{display:flex;gap:10px;background:#FFFFFF;border-radius:12px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.search input{flex-grow:1;min-width:0;border:0;font:inherit;font-size:18px;padding:0 14px;color:#17191B;background:transparent}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid #2B4357;color:#E6EBEF;font-size:14px;text-decoration:none}
+.chip:hover{background:#142937;color:#FFFFFF}
+.signcard{background:#FFFFFF;color:#17191B;border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:16px;border-top:4px solid #DC9E48}
+.sec{padding:56px 0}
+.h2{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:34px;line-height:1.15;color:#091B29}
+.lead{margin:0;font-size:17px;line-height:1.55;color:#3A444E}
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.door{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:#17191B}
+.door:hover{border-color:#091B29}
+.dicon{width:52px;height:52px;border-radius:12px;background:#F1ECE0;display:flex;align-items:center;justify-content:center}
+.dtitle{font-size:20px;font-weight:700;color:#091B29}
+.dlist{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:15px;color:#3A444E}
+.more{font-size:15px;font-weight:700;color:#153146;margin-top:auto}
+.pop{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ptile{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:#17191B;min-height:96px;box-sizing:border-box}
+.ptile:hover{border-color:#091B29}
+.ptile b{font-size:16px;color:#153146}
+.ptile span{font-size:14px;color:#4A5560;line-height:1.45}
+.life{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ltile{display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px;padding:16px 18px;text-decoration:none;color:#17191B;font-size:16px;font-weight:600;min-height:64px;box-sizing:border-box}
+.ltile:hover{border-color:#091B29}
+.topics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 32px}
+.topics a{display:flex;flex-direction:column;gap:2px;padding:14px 0;border-top:1px solid #E0D9CB;text-decoration:none;color:#17191B}
+.topics b{font-size:16px;color:#153146}
+.topics span{font-size:14px;color:#4A5560}
+.help{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.hcard{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.ftr{background:#091B29;color:#C9D2DA;font-size:14px}
+.fgrid{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:32px;padding:48px 0 32px}
+.ftr a{color:#E6EBEF;text-decoration:none}
+.ftr a:hover{color:#FFFFFF;text-decoration:underline}
+.fh{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#D4AA65;margin:0 0 12px}
+.flist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.mtoggle{display:none}
+@media (max-width:1000px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.pop,.life{grid-template-columns:repeat(2,minmax(0,1fr))}.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.wrap{padding:0 16px}.mainnav,.hide-sm,.bars{display:none !important}.mtoggle{display:inline-flex}.hdr .wrap{gap:12px;min-height:64px}.hero .wrap{padding-top:32px;padding-bottom:40px;gap:28px}.h1{font-size:38px}.search{flex-direction:column}.search input{min-height:48px}.doors,.topics,.help{grid-template-columns:minmax(0,1fr)}.pop,.life{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ptile,.ltile{padding:14px}.sec{padding:40px 0}.h2{font-size:28px}.fgrid{grid-template-columns:minmax(0,1fr)}.signcard{padding:22px}.hdr .wrap>a img:first-child{height:34px !important}.hdr .wrap>a img+img{height:13px !important}.hright{gap:8px}.hright .btn{padding:0 14px !important}}
+</style>
+</helmet>
+<div class="w">
+
+<!-- 1. Official-site bar (trust) -->
+<div class="offbar" role="region" aria-label="Official website notice">
+<div class="wrap">
+<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DC9E48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/></svg>An official website of the Government of Antigua and Barbuda</span>
+<a href="Official.html" style="color: #D4AA65; font-weight: 600">How to tell</a>
+<span class="hide-sm" style="margin-left: auto">Design prototype. Not a live government service.</span>
+</div>
+</div>
+
+<!-- 2. Header -->
+<header class="hdr">
+<div class="wrap">
+<a href="WebsiteHome.html" aria-label="HeartStone home" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none"><img src="../../brand/logo/heartstone-mark-midnight.png" alt="" style="height: 44px; width: auto"><img src="../../brand/logo/heartstone-wordmark-midnight.png" alt="HeartStone" style="height: 17px; width: auto"></a>
+<nav class="mainnav" aria-label="Main">
+<a href="PublicServices.html">Services</a>
+<a href="LifeEvents.html">Life events</a>
+<a href="Business.html">Business &amp; investors</a>
+<a href="PublicHelp.html">Help</a>
+</nav>
+<div class="hright">
+<a href="tel:[PHONE]" class="hide-sm" style="display: inline-flex; align-items: center; gap: 8px; color: #17191B; text-decoration: none; font-size: 14px; font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#153146" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>[PHONE]</a>
+<a href="PublicSignIn.html" class="btn" style="min-height: 44px; padding: 0 18px; font-size: 15px">Sign in</a>
+<button type="button" class="mtoggle" aria-label="Open menu" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #E6DFD0; background: #FFFFFF; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#17191B" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+</div>
+</div>
+</header>
+
+<main>
+<!-- 3. Hero: search first, sign-in beside it -->
+<section class="hero" aria-labelledby="h-hero">
+<div class="bars" aria-hidden="true" style="position: absolute; right: 40px; top: 0; bottom: 0; display: flex; gap: 14px; opacity: 0.18"><span style="width: 8px; background: #D4AA65"></span><span style="width: 8px; background: #DC9E48"></span><span style="width: 8px; background: #801E18"></span></div>
+<div class="wrap" style="position: relative">
+<div style="display: flex; flex-direction: column; gap: 22px">
+<h1 id="h-hero" class="h1">Government services,<br>in one place.</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #C9D2DA; max-width: 560px">Tell us what you need. You don't need to know which department handles it.</p>
+<form role="search" action="PublicServices.html">
+<label for="h-q" class="sr">What do you need to do?</label>
+<div class="search">
+<input id="h-q" type="search" placeholder="For example: renew my driving licence">
+<button type="submit" class="btn" style="min-height: 52px">Search</button>
+</div>
+</form>
+<div class="chips" aria-label="Common searches">
+<a href="PublicServices.html" class="chip">Register a business</a>
+<a href="PublicServices.html" class="chip">Work permit</a>
+<a href="PublicServices.html" class="chip">Birth certificate</a>
+<a href="PublicServices.html" class="chip">Pay a fee</a>
+</div>
+</div>
+
+<aside class="signcard" aria-labelledby="h-sign">
+<h2 id="h-sign" style="margin: 0; font-size: 22px; font-weight: 700; color: #091B29">Your government account</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3A444E">See your applications, documents, payments and messages, for yourself or a business you represent.</p>
+<a href="PublicSignIn.html" class="btn" style="width: 100%; box-sizing: border-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DC9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>Sign in with your digital ID</a>
+<a href="DigitalId.html" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 10px; border: 1.5px solid #C9C0AE; color: #091B29; font-size: 16px; font-weight: 600; text-decoration: none">Get a digital ID</a>
+<div style="border-top: 1px solid #EFE9DD; padding-top: 14px; display: flex; flex-direction: column; gap: 8px; font-size: 14px">
+<a href="../../citizen/pages/Verify.html">Check a government document is genuine</a>
+<a href="Officials.html">Government official? Sign in to your workstation</a>
+</div>
+</aside>
+</div>
+</section>
+
+<!-- 4. Three doors -->
+<section id="doors" class="sec" aria-labelledby="h-doors">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 28px">
+<h2 id="h-doors" class="h2">Who are you here as?</h2>
+<div class="doors">
+<a href="Individuals.html" class="door">
+<span class="dicon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#091B29" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+<span class="dtitle">Individuals and residents</span>
+<ul class="dlist"><li>IDs, certificates and civil records</li><li>Work, residency and immigration</li><li>Vehicles, property, tax and health</li></ul>
+<span class="more">Services for you →</span>
+</a>
+<a href="Business.html" class="door">
+<span class="dicon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#091B29" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg></span>
+<span class="dtitle">Businesses and investors</span>
+<ul class="dlist"><li>Register and run a company</li><li>Licences, permits and inspections</li><li>Hiring, customs, land and investment</li></ul>
+<span class="more">Services for business →</span>
+</a>
+<a href="Officials.html" class="door" style="background: #091B29; border-color: #091B29; color: #F7F3EA">
+<span class="dicon" style="background: #142937"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#DC9E48" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/></svg></span>
+<span class="dtitle" style="color: #FFFFFF">Government officials</span>
+<ul class="dlist" style="color: #C9D2DA"><li>Your work queue and cases</li><li>Reviews, inspections and decisions</li><li>Authorised staff only</li></ul>
+<span class="more" style="color: #D4AA65">Sign in to your workstation →</span>
+</a>
+</div>
+</div>
+</section>
+
+<!-- 5. Popular services -->
+<section class="sec" aria-labelledby="h-pop" style="padding-top: 0">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap"><h2 id="h-pop" class="h2">Popular services</h2><a href="PublicServices.html" style="font-size: 15px; font-weight: 600">All services</a></div>
+<div class="pop">
+<a href="PublicServices.html" class="ptile"><b>Renew a driving licence</b><span>Transport Board</span></a>
+<a href="PublicServices.html" class="ptile"><b>Apply for a work permit</b><span>Labour Department</span></a>
+<a href="PublicServices.html" class="ptile"><b>Register a business</b><span>Corporate Registration</span></a>
+<a href="PublicServices.html" class="ptile"><b>Get a birth certificate</b><span>Civil Registry</span></a>
+<a href="PublicServices.html" class="ptile"><b>Pay income tax</b><span>Inland Revenue</span></a>
+<a href="PublicServices.html" class="ptile"><b>Register a vehicle</b><span>Transport Board</span></a>
+<a href="PublicServices.html" class="ptile"><b>Renew residency</b><span>Immigration Department</span></a>
+<a href="PublicServiceDetail.html" class="ptile"><b>Register as an employer</b><span>Labour Department</span></a>
+</div>
+</div>
+</section>
+
+<!-- 6. Life events -->
+<section id="life-events" class="sec" aria-labelledby="h-life" style="background: #FFFFFF; border-top: 1px solid #E6DFD0; border-bottom: 1px solid #E6DFD0">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 8px"><h2 id="h-life" class="h2">Something happening in your life?</h2><p class="lead">Step-by-step guides that bring together everything you need to do, across every office.</p></div>
+<div class="life">
+<a href="LifeEvents.html" class="ltile" style="background: #F7F3EA">Having a baby</a>
+<a href="LifeEvent.html" class="ltile" style="background: #F7F3EA">Starting a business</a>
+<a href="LifeEvents.html" class="ltile" style="background: #F7F3EA">Moving to Antigua and Barbuda</a>
+<a href="LifeEvents.html" class="ltile" style="background: #F7F3EA">Buying or renting property</a>
+<a href="LifeEvents.html" class="ltile" style="background: #F7F3EA">Getting a job</a>
+<a href="LifeEvents.html" class="ltile" style="background: #F7F3EA">Learning to drive</a>
+<a href="LifeEvents.html" class="ltile" style="background: #F7F3EA">Retiring</a>
+<a href="LifeEvents.html" class="ltile" style="background: #F7F3EA">When someone dies</a>
+</div>
+</div>
+</section>
+
+<!-- 7. All topics -->
+<section class="sec" aria-labelledby="h-topics">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 22px">
+<h2 id="h-topics" class="h2">Browse by topic</h2>
+<div class="topics">
+<a href="Business.html"><b>Business and trade</b><span>Registration, licences, customs</span></a>
+<a href="Topics.html"><b>Work and residency</b><span>Permits, visas, citizenship</span></a>
+<a href="Topics.html"><b>Tax and revenue</b><span>Returns, payments, compliance</span></a>
+<a href="Topics.html"><b>Property and land</b><span>Titles, leases, building permits</span></a>
+<a href="Topic.html"><b>Vehicles and driving</b><span>Licences, registration, tests</span></a>
+<a href="Topics.html"><b>Health</b><span>Programmes, providers, research</span></a>
+<a href="Topics.html"><b>Family and civil records</b><span>Births, marriages, deaths</span></a>
+<a href="Topics.html"><b>Benefits and support</b><span>Assistance, grants, pensions</span></a>
+<a href="Topics.html"><b>Education</b><span>Schools, transcripts, scholarships</span></a>
+<a href="Business.html"><b>Investment and projects</b><span>Investor services, strategic projects</span></a>
+<a href="Topics.html"><b>Public safety</b><span>Alerts, reports, police certificates</span></a>
+<a href="Topics.html"><b>Justice and appeals</b><span>Reviews, complaints, courts</span></a>
+</div>
+</div>
+</section>
+
+<!-- 8. Help and trust -->
+<section class="sec" aria-labelledby="h-help" style="padding-top: 0">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 22px">
+<h2 id="h-help" class="h2">Need help?</h2>
+<div class="help">
+<div class="hcard"><span style="font-size: 18px; font-weight: 700; color: #091B29">Talk to someone</span><p class="lead" style="font-size: 15px">Service advisers can help you find a service or complete a form. Monday to Friday, 08:00–16:30.</p><a href="tel:[PHONE]" style="font-size: 16px; font-weight: 700">[PHONE]</a></div>
+<div class="hcard"><span style="font-size: 18px; font-weight: 700; color: #091B29">Visit an office</span><p class="lead" style="font-size: 15px">Find a government service centre near you, with opening hours and what to bring.</p><a href="Offices.html" style="font-size: 15px; font-weight: 600">Find an office</a></div>
+<div class="hcard" style="background: #FFF8F2; border-color: #F0C9A8"><span style="font-size: 18px; font-weight: 700; color: #8A3B0A">Beware of scams</span><p class="lead" style="font-size: 15px">Government will never ask for your password, sign-in code or card details by phone, text or email.</p><a href="Scam.html" style="font-size: 15px; font-weight: 600">Report a scam</a></div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- 9. Footer -->
+<footer class="ftr">
+<div class="wrap">
+<div class="fgrid">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<a href="WebsiteHome.html" aria-label="HeartStone home" style="display: inline-flex; align-items: center; gap: 12px"><img src="../../brand/logo/heartstone-mark-gold.png" alt="" style="height: 52px; width: auto"><img src="../../brand/logo/heartstone-wordmark-gold.png" alt="HeartStone" style="height: 18px; width: auto"></a>
+<p style="margin: 0; line-height: 1.6">The digital front door to government services in Antigua and Barbuda.</p>
+<div style="background: #8E1F17; color: #FFFFFF; border-radius: 10px; padding: 12px 14px; font-weight: 700">Emergency: call 911</div>
+</div>
+<div><p class="fh">Services</p><ul class="flist"><li><a href="PublicServices.html">All services</a></li><li><a href="LifeEvents.html">Life events</a></li><li><a href="Business.html">Business and investors</a></li><li><a href="../../citizen/pages/Verify.html">Check a document</a></li><li><a href="Status.html">Service status</a></li></ul></div>
+<div><p class="fh">Your account</p><ul class="flist"><li><a href="PublicSignIn.html">Sign in</a></li><li><a href="DigitalId.html">Get a digital ID</a></li><li><a href="SignInHelp.html">Help with signing in</a></li><li><a href="Officials.html">Government official sign in</a></li></ul></div>
+<div><p class="fh">About</p><ul class="flist"><li><a href="About.html">About this site</a></li><li><a href="Contact.html">Contact us</a></li><li><a href="Accessibility.html">Accessibility</a></li><li><a href="Privacy.html">Privacy</a></li><li><a href="Terms.html">Terms of use</a></li></ul></div>
+</div>
+<div style="border-top: 1px solid #1E3547; padding: 18px 0 28px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: #A9B6C2"><span>Official government websites end in .gov.ag and use https.</span><span>© Government of Antigua and Barbuda</span></div>
+</div>
+</footer>
+</div>
+</x-dc>
+</body>
+</html>

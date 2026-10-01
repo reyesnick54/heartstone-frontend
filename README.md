@@ -21,11 +21,13 @@ docs/
   deployment.md Cloudflare Workers deployment and access control
 design/
   brand/        Logo files
-  citizen/      Citizen screen designs (static reference), backend coverage map
+  citizen/      Citizen dashboard designs (static reference), backend coverage map
+  website/      Public website designs (static reference)
 ```
 
 `design/` holds reference material, not production code. Open `design/citizen/index.html` in a
-browser to click through the citizen designs; see `design/README.md`.
+browser to click through the citizen designs, and `design/website/index.html` for the public
+website; see `design/README.md`.
 
 Further packages (`ui`, `design-system`, `api-client`, `auth`, `permissions`, `forms`, …) are
 added in the stage that introduces them, per the Front-End Build Plan (29 Sep 2026). They are not
