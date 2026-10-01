@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "heartstone-admin",
+  "compatibility_date": "2026-09-24",
+  // Static single-page app: no Worker script. Every unknown path serves index.html.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+  },
+  // workers.dev and Preview URLs are enabled during the design build so reviewers have a URL
+  // before a custom domain exists. Both MUST sit behind Cloudflare Access (docs/deployment.md).
+  // Set workers_dev to false once the approved custom domain is attached.
+  "workers_dev": true,
+  "preview_urls": true,
+  "observability": {
+    "enabled": true,
+  },
+}
