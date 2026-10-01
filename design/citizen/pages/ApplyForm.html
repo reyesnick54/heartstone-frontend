@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Application: about the business</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F7F3EA}
+a{color:#153146}a:hover{color:#091B29}
+.tx{min-height:100vh;background:#F7F3EA;font-family:'Public Sans',system-ui,sans-serif;color:#17191B;display:flex;flex-direction:column}
+.txtop{background:#091B29;color:#F7F3EA;display:flex;align-items:center;gap:20px;padding:14px 32px;flex-wrap:wrap}
+.note{background:#153146;color:#F7F3EA;font-size:13px;padding:8px 32px}
+.body{max-width:760px;width:100%;margin:0 auto;padding:28px 24px 64px;box-sizing:border-box;display:flex;flex-direction:column;gap:22px}
+.card{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px}
+.h1{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:38px;line-height:1.1;color:#091B29}
+.meta{font-size:13px;color:#4A5560}
+.p{margin:0;font-size:15px;line-height:1.6;color:#3A444E}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.steps li{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#4A5560}
+.bar{height:5px;border-radius:3px;background:#E0D9CB}
+.f{display:flex;flex-direction:column;gap:6px}
+.lbl{font-size:16px;font-weight:600}
+.hint{font-size:14px;color:#4A5560}
+.in{height:48px;border:1.5px solid #8F9AA5;border-radius:8px;padding:0 12px;font:inherit;font-size:16px;background:#FFFFFF;color:#17191B;box-sizing:border-box;width:100%}
+.ta{min-height:96px;padding:12px;height:auto;resize:vertical}
+.err{border:2px solid #B3261E}
+.errtxt{font-size:15px;color:#B3261E;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 22px;border-radius:10px;background:#091B29;color:#FFFFFF;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+.btn:hover{background:#153146;color:#FFFFFF}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 22px;border-radius:10px;background:#FFFFFF;color:#091B29;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:1.5px solid #C9C0AE;cursor:pointer}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:700px){.txtop{padding:12px 16px}.note{padding:8px 16px}.body{padding:20px 16px 48px}.h1{font-size:30px}.two{grid-template-columns:minmax(0,1fr)}.steps li span:last-child{display:none}}
+/* mobile-pass */
+main a:not([class]),.txtop a{padding-block:12px;margin-block:-12px}
+@media (max-width:900px){.txtop img+img{display:none}}
+</style>
+</helmet>
+<div class="tx">
+<header class="txtop">
+<a href="Main.html" aria-label="HeartStone home" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none"><img src="../../brand/logo/heartstone-mark-gold.png" alt="" style="height: 30px; width: auto"><img src="../../brand/logo/heartstone-wordmark-gold.png" alt="HeartStone" style="height: 14px; width: auto"></a>
+<span style="font-size: 15px; color: #C9D2DA; border-left: 1px solid #2B4357; padding-left: 20px">Register as an employer</span>
+<span style="margin-left: auto; font-size: 13px; color: #A9B6C2">Draft saved 09:41</span>
+<a href="Main.html" style="color: #D4AA65; font-size: 14px; font-weight: 600">Save and exit</a>
+</header>
+<div role="note" class="note">Design prototype with sample data. Not a live government service.</div>
+
+<main class="body">
+<!-- Step indicator: steps come from the pinned form schema (GET /services/:slug/start → formSchema) -->
+<nav aria-label="Application progress">
+<ol class="steps">
+<li aria-current="step"><span class="bar" style="background: #091B29"></span><span style="font-weight: 700; color: #091B29">1. About the business</span></li>
+<li><span class="bar"></span><span>2. Employees</span></li>
+<li><span class="bar"></span><span>3. Documents</span></li>
+<li><span class="bar"></span><span>4. Check and submit</span></li>
+</ol>
+</nav>
+
+<!-- CreateCitizenApplicationDto: applicantCategory, organizationId, representativeAuthorityId -->
+<div class="card" style="padding: 14px 18px; display: flex; gap: 12px; align-items: center; border-color: #C9D6E3; background: #F3F6F9">
+<span style="width: 36px; height: 36px; flex-shrink: 0; border-radius: 8px; background: #FFFFFF; border: 1px solid #C9D6E3; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #091B29">JC</span>
+<p class="p" style="font-size: 14px">Applying for <strong>Joseph Catering Ltd</strong>. Your authority to act for this business covers licences and filings until 31 March 2027.</p>
+</div>
+
+<h1 class="h1">About the business</h1>
+
+<!-- Error summary: shown after a failed Continue; focus moves here -->
+<div role="alert" tabindex="-1" style="border: 3px solid #B3261E; border-radius: 10px; background: #FFFFFF; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 700">There is a problem</h2>
+<a href="#ap-reg" style="color: #B3261E; font-size: 15px; font-weight: 600">Enter the business registration number</a>
+</div>
+
+<form class="card" style="padding: 26px; display: flex; flex-direction: column; gap: 22px">
+<div class="f">
+<label for="ap-name" class="lbl">Business name</label>
+<span class="hint" id="ap-name-h">From the business register. If it is wrong, contact Corporate Registration.</span>
+<input id="ap-name" class="in" value="Joseph Catering Ltd" readonly aria-describedby="ap-name-h" style="background: #F7F3EA">
+</div>
+<div class="f">
+<label for="ap-reg" class="lbl">Business registration number</label>
+<span class="hint" id="ap-reg-h">On your certificate of incorporation, for example C-2024-01234</span>
+<span class="errtxt" id="ap-reg-e"><span class="sr" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Error:</span>Enter the business registration number</span>
+<input id="ap-reg" class="in err" aria-invalid="true" aria-describedby="ap-reg-h ap-reg-e" style="max-width: 320px">
+</div>
+<div class="f">
+<label for="ap-addr" class="lbl">Trading address</label>
+<span class="hint" id="ap-addr-h">Where your staff will work</span>
+<textarea id="ap-addr" class="in ta" aria-describedby="ap-addr-h">14 Market Street
+St. John's</textarea>
+</div>
+<div class="two">
+<div class="f"><label for="ap-tel" class="lbl">Business phone</label><input id="ap-tel" class="in" type="tel" value="268 555 0142" autocomplete="tel"></div>
+<div class="f"><label for="ap-mail" class="lbl">Business email</label><input id="ap-mail" class="in" type="email" value="hello@josephcatering.example" autocomplete="email"></div>
+</div>
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px">
+<legend class="lbl" style="padding: 0; margin-bottom: 4px">Does the business rent its premises?</legend>
+<span class="hint">If yes, we'll ask for your lease in the documents step.</span>
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px; font-size: 16px"><input type="radio" name="rent" checked style="width: 20px; height: 20px; accent-color: #091B29; margin: 0">Yes</label>
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px; font-size: 16px"><input type="radio" name="rent" style="width: 20px; height: 20px; accent-color: #091B29; margin: 0">No, we own them</label>
+</fieldset>
+</form>
+
+<div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center">
+<a href="Review.html" class="btn">Save and continue</a>
+<button type="button" class="btn2">Save as draft</button>
+</div>
+</main>
+</div>
+</x-dc>
+</body>
+</html>

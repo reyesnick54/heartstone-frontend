@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Pay invoice</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F7F3EA}
+a{color:#153146}a:hover{color:#091B29}
+.s{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh;font-family:'Public Sans',system-ui,sans-serif;color:#17191B;background:#F7F3EA}
+.nav{background:#091B29;color:#F7F3EA;display:flex;flex-direction:column;gap:22px;padding:26px 18px}
+.nav a{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:8px;color:#D7DEE4;text-decoration:none;font-size:14px}
+.nav a:hover{background:#142937;color:#FFFFFF}
+.nav a[aria-current]{background:#153146;color:#FFFFFF;font-weight:600}
+.nav-h{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#A9B6C2;padding:0 12px 6px}
+.top{background:#FFFFFF;border-bottom:1px solid #E6DFD0;display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:14px 32px}
+.note{background:#153146;color:#F7F3EA;font-size:13px;padding:8px 32px}
+.main{padding:24px 32px 56px;display:flex;flex-direction:column;gap:22px;max-width:1240px;width:100%;box-sizing:border-box}
+.card{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px}
+.h1{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:40px;line-height:1.1;color:#091B29}
+.h2{margin:0;font-size:18px;font-weight:700;color:#091B29}
+.meta{font-size:13px;color:#4A5560}
+.p{margin:0;font-size:15px;line-height:1.6;color:#3A444E}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.warn{background:#FDEEE3;color:#8A3B0A}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 24px;border-radius:10px;background:#091B29;color:#FFFFFF;font:inherit;font-size:17px;font-weight:600;text-decoration:none;border:0}
+.btn:hover{background:#153146;color:#FFFFFF}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start}
+.sec{padding:22px 24px;display:flex;flex-direction:column;gap:14px}
+.kv{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px 16px;margin:0;font-size:15px}
+.kv dt{color:#4A5560;margin:0}.kv dd{margin:0;font-weight:600}
+.line{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid #EFE9DD;font-size:15px}
+.opt{display:flex;align-items:center;gap:12px;min-height:52px;padding:0 14px;border:1.5px solid #C9C0AE;border-radius:10px;font-size:16px;background:#FFFFFF;cursor:pointer}
+.opt input{width:20px;height:20px;accent-color:#091B29;margin:0}
+.opt.sel{border-color:#091B29;background:#F4F6F8;font-weight:600}
+@media (max-width:1100px){.split{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.s{grid-template-columns:minmax(0,1fr)}.nav{display:none}.main{padding:16px 16px 40px}.top{padding:12px 16px}.note{padding:8px 16px}.h1{font-size:32px}}
+/* mobile-pass */
+.mlogo{display:none}
+.mtabs{display:none}
+@media (max-width:900px){
+.mlogo{display:inline-flex;align-items:center;gap:8px;margin-right:auto;text-decoration:none;min-height:44px}
+.mtabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:20;background:#FFFFFF;border-top:1px solid #E6DFD0;padding:4px 4px calc(8px + env(safe-area-inset-bottom))}
+.mtabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;text-decoration:none;color:#4A5560;font-size:11px;font-weight:500}
+.mtabs a[aria-current]{color:#091B29;font-weight:700}
+main{padding-bottom:104px !important}
+main a:not([class]),main a.rt{padding-block:12px;margin-block:-12px}
+.hs-side{display:none !important}
+.hs-top{flex-wrap:wrap !important;padding:12px 16px !important;gap:10px !important}
+.hs-top form{order:3;flex-basis:100%;max-width:none !important}
+}
+</style>
+</helmet>
+<div class="s">
+<nav class="nav" aria-label="Main">
+<a href="Main.html" aria-label="HeartStone home" style="display: flex; align-items: center; gap: 12px; padding: 0 8px; text-decoration: none"><img src="../../brand/logo/heartstone-mark-gold.png" alt="" style="height: 46px; width: auto"><span style="display: flex; flex-direction: column; gap: 6px"><img src="../../brand/logo/heartstone-wordmark-gold.png" alt="HeartStone" style="height: 18px; width: auto"><span style="font-size: 11px; color: #A9B6C2; letter-spacing: 0.06em">Government services</span></span></a>
+<div style="background: #142937; border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 10px"><div style="width: 34px; height: 34px; border-radius: 50%; background: #153146; border: 2px solid #DC9E48; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px">AJ</div><div style="display: flex; flex-direction: column; gap: 2px"><div style="font-size: 11px; color: #A9B6C2; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600">Acting as</div><div style="font-size: 14px; font-weight: 600">Amara Joseph</div></div></div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<a href="Main.html">Home</a><a href="Services.html">Find a service</a><a href="Applications.html">Applications</a><a href="Appointments.html">Appointments</a><a href="Documents.html">Documents</a><a href="Credentials.html">Credentials &amp; certificates</a><a href="Payments.html" aria-current="page">Payments</a><a href="Messages.html">Messages</a><a href="Renewals.html">Renewals</a><a href="Appeals.html">Appeals &amp; reviews</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px"><div class="nav-h">My government</div><a href="Work.html">Work &amp; employment</a><a href="Immigration.html">Immigration &amp; residency</a><a href="Tax.html">Tax &amp; revenue</a><a href="Property.html">Property &amp; land</a><a href="Vehicles.html">Vehicles &amp; driving</a><a href="Health.html">Health</a><a href="Benefits.html">Benefits &amp; support</a><a href="Education.html">Education</a><a href="CivilRecords.html">Civil records</a><a href="PublicSafety.html">Public safety</a></div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 2px; border-top: 1px solid #1E3547; padding-top: 14px"><a href="Settings.html">Settings &amp; notifications</a><a href="Help.html">Help</a><a href="SignIn.html">Sign out</a></div>
+</nav>
+<div style="display: flex; flex-direction: column; min-width: 0">
+<div role="note" class="note">Design prototype with sample data. Not a live government service.</div>
+<header class="top"><a href="Main.html" class="mlogo" aria-label="HeartStone home"><img src="../../brand/logo/heartstone-mark-midnight.png" alt="" style="height: 32px; width: auto"><img src="../../brand/logo/heartstone-wordmark-midnight.png" alt="" style="height: 14px; width: auto"></a><button type="button" aria-label="Messages, 2 unread" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #E6DFD0; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17191B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg></button><button type="button" aria-label="Account menu, Amara Joseph" style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px 0 6px; border-radius: 10px; border: 1px solid #E6DFD0; background: #FFFFFF; font: inherit"><span style="width: 32px; height: 32px; border-radius: 50%; background: #091B29; color: #F7F3EA; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px">AJ</span><span style="font-size: 14px; font-weight: 600">Amara</span></button></header>
+
+<main class="main">
+<nav aria-label="Breadcrumb" class="meta" style="font-size: 14px"><a href="Payments.html">Payments</a> <span aria-hidden="true">›</span> INV-2026-018204</nav>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h1 class="h1">Pay registration fee</h1>
+<span class="meta" style="font-size: 14px">Invoice INV-2026-018204 · Labour Department</span>
+</div>
+
+<div class="split">
+<!-- GET /experience/citizen/payments/:id → lines[], totalAmountCents, amountPaidCents, balanceCents -->
+<section class="card sec" aria-labelledby="iv-h">
+<div style="display: flex; justify-content: space-between; gap: 12px; align-items: center"><h2 id="iv-h" class="h2">Invoice</h2><span class="chip warn">Due 15 October 2026</span></div>
+<dl class="kv">
+<dt>For</dt><dd><a href="Applications.html">Register as an employer · EMP-2026-000215</a></dd>
+<dt>Billed to</dt><dd>Joseph Catering Ltd</dd>
+<dt>Issued</dt><dd>1 October 2026</dd>
+<dt>Assessment</dt><dd>FA-2026-009914</dd>
+</dl>
+<div style="display: flex; flex-direction: column">
+<div class="line"><span>Employer registration fee</span><span>[AMOUNT]</span></div>
+<div class="line" style="font-weight: 700"><span>Total</span><span>[AMOUNT]</span></div>
+<div class="line"><span>Paid so far</span><span>0.00</span></div>
+<div class="line" style="font-weight: 700; font-size: 17px; border-top: 2px solid #091B29"><span>Amount due</span><span>[AMOUNT]</span></div>
+</div>
+</section>
+
+<!-- POST /experience/citizen/payments/:invoiceId/intents → hands off to the payment provider. HeartStone never collects card numbers. -->
+<section class="card sec" aria-labelledby="iv-pay">
+<h2 id="iv-pay" class="h2">How would you like to pay?</h2>
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px">
+<legend style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Payment method</legend>
+<label class="opt sel"><input type="radio" name="pm" checked>Debit or credit card</label>
+<label class="opt"><input type="radio" name="pm">Online bank transfer</label>
+</fieldset>
+<p class="p" style="font-size: 14px">You'll go to our secure payment provider to enter your details, then come back here. HeartStone never sees or stores your card number.</p>
+<a href="PaymentReceipt.html" class="btn">Continue to pay [AMOUNT]</a>
+<div style="background: #F7F3EA; border-radius: 8px; padding: 12px 14px; font-size: 14px; line-height: 1.5; color: #3A444E"><strong style="color: #17191B">Paying does not approve your application.</strong> The Labour Department will check your documents once the fee is paid.</div>
+<a href="#" style="font-size: 14px">Other ways to pay, including at an office</a>
+</section>
+</div>
+</main>
+</div>
+</div>
+<nav class="mtabs" aria-label="Main"><a href="Main.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</a><a href="Services.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Services</a><a href="Applications.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8l3 3v13H5V4z"/><path d="M9 11h6M9 15h6"/></svg>Applications</a><a href="Messages.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Messages</a><a href="Menu.html" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>More</a></nav>
+</x-dc>
+</body>
+</html>

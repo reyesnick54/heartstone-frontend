@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Citizen design reference</title>
+<style>
+body{margin:0;background:#F7F3EA;font-family:'Public Sans',system-ui,sans-serif;color:#17191B}
+header{background:#091B29;color:#F7F3EA;padding:28px 32px;display:flex;align-items:center;gap:18px}
+header img{height:56px}
+main{max-width:900px;margin:0 auto;padding:32px 20px 64px;display:flex;flex-direction:column;gap:20px}
+h1{margin:0;font-family:'EB Garamond',Georgia,serif;font-size:36px;color:#091B29}
+p{margin:0;line-height:1.6;color:#3A444E}
+.note{background:#FFF8F2;border:1px solid #F0C9A8;border-radius:10px;padding:14px 16px}
+ol{list-style:none;margin:0;padding:0;background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px}
+li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-top:1px solid #EFE9DD}
+li:first-child{border-top:0}
+a{color:#153146;font-weight:600}
+.chip{font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.ok{background:#E4F2EA;color:#17603B}.warn{background:#FDEEE3;color:#8A3B0A}
+</style>
+</head>
+<body>
+<header><img src="../brand/logo/heartstone-mark-gold.png" alt=""><img src="../brand/logo/heartstone-wordmark-gold.png" alt="HeartStone" style="height:22px"></header>
+<main>
+<h1>Citizen experience — design reference</h1>
+<p>Static design pages for the citizen web experience. Open any page and click through: links between pages work. Sample data only.</p>
+<p class="note"><strong>Not production code.</strong> These pages define layout, content and behaviour for the React build. Every feature is mapped to its backend endpoint in the <a href="backend-coverage.html">backend coverage map</a>.</p>
+<ol>
+<li><a href="pages/Main.html">1 · Citizen Home — Desktop</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Mobile.html">1 · Citizen Home — Mobile</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Services.html">2 · Find a service</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/ServiceDetail.html">3 · Service detail</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Eligibility.html">4 · Check eligibility</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/ApplyForm.html">5 · Application form</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Review.html">6 · Check and submit</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Submitted.html">7 · Submitted</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Applications.html">8 · My applications</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/ApplicationDetail.html">9 · Application detail</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Appointments.html">10 · Appointments</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/AppointmentDetail.html">11 · Appointment detail</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Documents.html">12 · Documents</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/DocumentView.html">13 · Document viewer</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Credentials.html">14 · Credentials &amp; certificates</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/CredentialDetail.html">15 · Credential detail</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Payments.html">16 · Payments</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Invoice.html">17 · Invoice and pay</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/PaymentReceipt.html">18 · Payment receipt</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Messages.html">19 · Messages</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/MessageDetail.html">20 · Message detail</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Renewals.html">21 · Renewals</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Work.html">24 · Work &amp; employment</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Immigration.html">25 · Immigration &amp; residency</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Tax.html">26 · Tax &amp; revenue</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Property.html">27 · Property &amp; land</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Vehicles.html">28 · Vehicles &amp; driving</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Health.html">29 · Health (consent centre not built)</a><span class="chip warn">Needs backend work</span></li>
+<li><a href="pages/Benefits.html">30 · Benefits &amp; support</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Education.html">31 · Education</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/CivilRecords.html">32 · Civil records</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/PublicSafety.html">33 · Public safety</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Appeals.html">22 · Appeals &amp; reviews (needs backend)</a><span class="chip warn">Needs backend work</span></li>
+<li><a href="pages/RequestReview.html">23 · Request a review (needs backend)</a><span class="chip warn">Needs backend work</span></li>
+<li><a href="pages/Profile.html">34 · Profile &amp; identity (view only)</a><span class="chip warn">Needs backend work</span></li>
+<li><a href="pages/Representation.html">35 · Businesses you represent</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Settings.html">36 · Settings (saving needs backend)</a><span class="chip warn">Needs backend work</span></li>
+<li><a href="pages/Help.html">37 · Help</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/SignIn.html">38 · Sign in (needs OIDC + MFA)</a><span class="chip warn">Needs backend work</span></li>
+<li><a href="pages/Verify.html">39 · Check a document (public)</a><span class="chip ok">Designed</span></li>
+<li><a href="pages/Menu.html">40 · Menu (phone &quot;More&quot; tab)</a><span class="chip ok">Designed</span></li>
+</ol>
+</main>
+</body>
+</html>

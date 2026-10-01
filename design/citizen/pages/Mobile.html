@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Citizen Home (mobile)</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#153146}a:hover{color:#091B29}
+.m-card{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px}
+.m-h2{margin:0;font-size:17px;font-weight:700;color:#091B29}
+.m-chip{display:inline-flex;align-items:center;font-size:12px;font-weight:600;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.m-warn{background:#FDEEE3;color:#8A3B0A}.m-info{background:#E7EEF5;color:#153146}.m-ok{background:#E4F2EA;color:#17603B}.m-neutral{background:#EFEBE2;color:#3A444E}
+.m-meta{font-size:13px;color:#4A5560}
+.m-btn{display:flex;align-items:center;justify-content:center;height:48px;border-radius:10px;background:#091B29;color:#FFFFFF;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:0}
+.m-btn2{display:flex;align-items:center;justify-content:center;height:48px;border-radius:10px;background:#FFFFFF;color:#091B29;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:1.5px solid #C9C0AE}
+.m-tab{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 0;min-height:44px;text-decoration:none;color:#4A5560;font-size:11px;font-weight:500}
+.m-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+/* mobile-pass */
+main a:not([class]){padding-block:12px;margin-block:-12px}
+</style>
+</helmet>
+<div style="width: 390px; height: 2560px; box-sizing: border-box; display: flex; flex-direction: column; background: #F7F3EA; font-family: 'Public Sans', system-ui, sans-serif; color: #17191B; overflow: hidden">
+
+<header style="background: #091B29; color: #F7F3EA; padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="Main.html" aria-label="HeartStone home" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none"><img src="../../brand/logo/heartstone-mark-gold.png" alt="" style="height: 32px; width: auto"><img src="../../brand/logo/heartstone-wordmark-gold.png" alt="HeartStone" style="height: 14px; width: auto"></a>
+<button type="button" aria-label="Account and acting as: Amara Joseph" style="display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 10px 0 4px; border-radius: 22px; border: 0; background: #142937; color: #F7F3EA; font: inherit">
+<span style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid #DC9E48; background: #153146; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600">AJ</span>
+<span style="font-size: 13px; font-weight: 600">Yourself</span>
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A9B6C2" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: 'EB Garamond', Georgia, serif; font-size: 32px; font-weight: 600; line-height: 1.1">Good morning, Amara</h1>
+<div style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #D4AA65">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#DC9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>Identity assurance: High</div>
+</div>
+<form role="search">
+<label for="m-search" class="m-sr">Describe what you need</label>
+<div style="display: flex; align-items: center; gap: 10px; background: #FFFFFF; border-radius: 10px; padding: 0 14px; height: 50px">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+<input id="m-search" type="search" placeholder="Describe what you need" style="flex-grow: 1; border: 0; background: transparent; font: inherit; font-size: 16px; color: #17191B">
+</div>
+</form>
+</header>
+
+<div role="note" style="background: #153146; color: #F7F3EA; font-size: 12px; padding: 7px 20px">Design prototype with sample data. Not a live government service.</div>
+
+<main style="flex-grow: 1; padding: 22px 20px; display: flex; flex-direction: column; gap: 28px">
+
+<section aria-labelledby="m-glance">
+<h2 id="m-glance" class="m-sr">At a glance</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<a href="#m-actions" class="m-card" style="padding: 14px; display: flex; flex-direction: column; gap: 2px; text-decoration: none; color: #17191B; background: #FFF8F2; border-color: #F0C9A8"><span style="font-size: 26px; font-weight: 700; color: #8A3B0A">5</span><span style="font-size: 13px; font-weight: 600">Actions for you</span></a>
+<a href="Applications.html" class="m-card" style="padding: 14px; display: flex; flex-direction: column; gap: 2px; text-decoration: none; color: #17191B"><span style="font-size: 26px; font-weight: 700; color: #091B29">3</span><span style="font-size: 13px; font-weight: 600">Active applications</span></a>
+<a href="Payments.html" class="m-card" style="padding: 14px; display: flex; flex-direction: column; gap: 2px; text-decoration: none; color: #17191B"><span style="font-size: 26px; font-weight: 700; color: #091B29">1</span><span style="font-size: 13px; font-weight: 600">Payment due</span></a>
+<a href="Messages.html" class="m-card" style="padding: 14px; display: flex; flex-direction: column; gap: 2px; text-decoration: none; color: #17191B"><span style="font-size: 26px; font-weight: 700; color: #091B29">2</span><span style="font-size: 13px; font-weight: 600">Unread messages</span></a>
+</div>
+</section>
+
+<section aria-labelledby="m-actions" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="m-actions" class="m-h2">Things to do</h2>
+<a href="Applications.html" style="font-size: 14px; font-weight: 500">All 5</a>
+</div>
+<article class="m-card" style="padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<span class="m-chip m-warn" style="align-self: flex-start">Provide missing information</span>
+<div style="font-size: 16px; font-weight: 600">Upload proof of your current address</div>
+<div class="m-meta">Labour Department · Work permit</div>
+<div style="font-size: 13px; color: #8A3B0A; font-weight: 600">Due 8 October</div>
+<a href="Applications.html" class="m-btn">Upload</a>
+</article>
+<article class="m-card" style="padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<span class="m-chip m-warn" style="align-self: flex-start">Pay invoice</span>
+<div style="font-size: 16px; font-weight: 600">Application fee — [AMOUNT]</div>
+<div class="m-meta">Business Licensing · Due 10 October</div>
+<a href="Invoice.html" class="m-btn2">Pay</a>
+</article>
+<article class="m-card" style="padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<span class="m-chip m-info" style="align-self: flex-start">Respond to request</span>
+<div style="font-size: 16px; font-weight: 600">Confirm your current employer</div>
+<div class="m-meta">Immigration Department · Due 15 October</div>
+<a href="Immigration.html" class="m-btn2">Respond</a>
+</article>
+</section>
+
+<section aria-labelledby="m-apps" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="m-apps" class="m-h2">My applications</h2>
+<a href="Applications.html" style="font-size: 14px; font-weight: 500">View all</a>
+</div>
+<article class="m-card" style="padding: 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 600">Food service licence</span><span class="m-meta">BL-2026-001377</span></div>
+<span class="m-chip m-info" style="align-self: flex-start">Under review</span>
+</div>
+<ol aria-label="Progress" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px">
+<li style="display: flex; gap: 12px; align-items: center"><span style="width: 12px; height: 12px; border-radius: 50%; background: #17603B"></span><span style="font-size: 14px; flex-grow: 1">Submitted</span><span class="m-meta">18 Sep</span></li>
+<li style="display: flex; gap: 12px; align-items: center"><span style="width: 12px; height: 12px; border-radius: 50%; background: #17603B"></span><span style="font-size: 14px; flex-grow: 1">Documents checked</span><span class="m-meta">22 Sep</span></li>
+<li aria-current="step" style="display: flex; gap: 12px; align-items: center"><span style="width: 12px; height: 12px; border-radius: 50%; background: #153146; box-shadow: 0 0 0 4px #D5E0EB"></span><span style="font-size: 14px; font-weight: 700; color: #153146; flex-grow: 1">Inspection</span><span class="m-meta">Now</span></li>
+<li style="display: flex; gap: 12px; align-items: center"><span style="width: 12px; height: 12px; border-radius: 50%; border: 2px solid #C9C0AE; box-sizing: border-box"></span><span style="font-size: 14px; color: #4A5560; flex-grow: 1">Decision</span><span class="m-meta">By 30 Oct</span></li>
+<li style="display: flex; gap: 12px; align-items: center"><span style="width: 12px; height: 12px; border-radius: 50%; border: 2px solid #C9C0AE; box-sizing: border-box"></span><span style="font-size: 14px; color: #4A5560; flex-grow: 1">Licence issued</span></li>
+</ol>
+</article>
+<div class="m-card">
+<a href="Applications.html" style="display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 14px 16px; border-bottom: 1px solid #EFE9DD; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Work permit</span><span class="m-chip m-warn">Waiting for you</span></a>
+<a href="Applications.html" style="display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 14px 16px; border-bottom: 1px solid #EFE9DD; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Vehicle transfer</span><span class="m-chip m-ok">Approved</span></a>
+<a href="ApplyForm.html" style="display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 14px 16px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Sole trader registration</span><span class="m-chip m-neutral">Draft</span></a>
+</div>
+</section>
+
+<section aria-labelledby="m-appt" style="display: flex; flex-direction: column; gap: 12px">
+<h2 id="m-appt" class="m-h2">Next appointment</h2>
+<article class="m-card" style="padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; gap: 14px">
+<div style="width: 52px; flex-shrink: 0; border-radius: 8px; background: #F1ECE0; display: flex; flex-direction: column; align-items: center; padding: 6px 0"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #801E18">OCT</span><span style="font-size: 22px; font-weight: 700; color: #091B29">14</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 16px; font-weight: 600">Premises inspection</span><span class="m-meta">Tuesday 10:30 · At your premises</span><span class="m-chip m-warn" style="align-self: flex-start">Please confirm</span></div>
+</div>
+<button type="button" class="m-btn">Confirm</button>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<button type="button" class="m-btn2" style="font-size: 15px">Another time</button>
+<button type="button" class="m-btn2" style="font-size: 15px; color: #B3261E">Cancel</button>
+</div>
+</article>
+</section>
+
+<section aria-labelledby="m-hubs" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="m-hubs" class="m-h2">My government</h2>
+<a href="Work.html" style="font-size: 14px; font-weight: 500">All 10</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<a href="Work.html" class="m-card" style="padding: 14px; min-height: 84px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Work</span><span class="m-meta">Permit in progress</span></a>
+<a href="Immigration.html" class="m-card" style="padding: 14px; min-height: 84px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Residency</span><span class="m-meta">Active · 1 request</span></a>
+<a href="Tax.html" class="m-card" style="padding: 14px; min-height: 84px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Tax</span><span class="m-meta">1 notice to read</span></a>
+<a href="Vehicles.html" class="m-card" style="padding: 14px; min-height: 84px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Vehicles</span><span class="m-meta">Licence expiring</span></a>
+<a href="Health.html" class="m-card" style="padding: 14px; min-height: 84px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Health</span><span class="m-meta">Programmes, trials</span></a>
+<a href="CivilRecords.html" class="m-card" style="padding: 14px; min-height: 84px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Civil records</span><span class="m-meta">Birth certificate</span></a>
+</div>
+</section>
+
+<section aria-labelledby="m-cred" style="display: flex; flex-direction: column; gap: 12px">
+<h2 id="m-cred" class="m-h2">Credentials &amp; certificates</h2>
+<a href="CredentialDetail.html" style="border: 1px solid #E8C995; background: #FCF6EC; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B">
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #6B4710">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="#DC9E48" stroke="#6B4710" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="10" r="6"/><path d="M9 15 8 22l4-2 4 2-1-7" fill="none"/></svg>Government issued</span>
+<span style="font-size: 16px; font-weight: 600">Vehicle registration certificate</span>
+<span class="m-meta">Valid until 21 September 2027</span>
+</a>
+<a href="Verify.html" style="font-size: 14px; font-weight: 500">Check that a government document is genuine</a>
+</section>
+
+<p style="margin: 0; font-size: 12px; color: #4A5560; line-height: 1.5">This page summarises your records. The official record is held by the office that issued each decision or document.</p>
+</main>
+
+<nav aria-label="Main" style="background: #FFFFFF; border-top: 1px solid #E6DFD0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 6px 4px 22px">
+<a href="Main.html" aria-current="page" class="m-tab" style="color: #091B29; font-weight: 700">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#091B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</a>
+<a href="Applications.html" class="m-tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8l3 3v13H5V4z"/><path d="M9 11h6M9 15h6"/></svg>Applications</a>
+<a href="Credentials.html" class="m-tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M9 13.5 8 21l4-2 4 2-1-7.5"/></svg>Credentials</a>
+<a href="Messages.html" class="m-tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Messages</a>
+<a href="Profile.html" class="m-tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>More</a>
+</nav>
+</div>
+</x-dc>
+</body>
+</html>

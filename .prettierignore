@@ -3,3 +3,5 @@ coverage
 .turbo
 .wrangler
 pnpm-lock.yaml
+# Exported design reference pages (generated from the design canvas)
+design/citizen/

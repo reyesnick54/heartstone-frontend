@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Application submitted</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F7F3EA}
+a{color:#153146}a:hover{color:#091B29}
+.tx{min-height:100vh;background:#F7F3EA;font-family:'Public Sans',system-ui,sans-serif;color:#17191B;display:flex;flex-direction:column}
+.txtop{background:#091B29;color:#F7F3EA;display:flex;align-items:center;gap:20px;padding:14px 32px;flex-wrap:wrap}
+.note{background:#153146;color:#F7F3EA;font-size:13px;padding:8px 32px}
+.body{max-width:760px;width:100%;margin:0 auto;padding:32px 24px 64px;box-sizing:border-box;display:flex;flex-direction:column;gap:22px}
+.card{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px}
+.h2{margin:0;font-size:18px;font-weight:700;color:#091B29}
+.meta{font-size:13px;color:#4A5560}
+.p{margin:0;font-size:15px;line-height:1.6;color:#3A444E}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 22px;border-radius:10px;background:#091B29;color:#FFFFFF;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:0}
+.btn:hover{background:#153146;color:#FFFFFF}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 22px;border-radius:10px;background:#FFFFFF;color:#091B29;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:1.5px solid #C9C0AE}
+.st{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:14px;align-items:start;font-size:15px}
+.dot{width:14px;height:14px;border-radius:50%;margin-top:4px;box-sizing:border-box}
+@media (max-width:700px){.txtop{padding:12px 16px}.note{padding:8px 16px}.body{padding:20px 16px 48px}}
+/* mobile-pass */
+main a:not([class]),.txtop a{padding-block:12px;margin-block:-12px}
+@media (max-width:900px){.txtop img+img{display:none}}
+</style>
+</helmet>
+<div class="tx">
+<header class="txtop">
+<a href="Main.html" aria-label="HeartStone home" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none"><img src="../../brand/logo/heartstone-mark-gold.png" alt="" style="height: 30px; width: auto"><img src="../../brand/logo/heartstone-wordmark-gold.png" alt="HeartStone" style="height: 14px; width: auto"></a>
+<span style="font-size: 15px; color: #C9D2DA; border-left: 1px solid #2B4357; padding-left: 20px">Register as an employer</span>
+<a href="Main.html" style="margin-left: auto; color: #D4AA65; font-size: 14px; font-weight: 600">Go to home</a>
+</header>
+<div role="note" class="note">Design prototype with sample data. Not a live government service.</div>
+
+<main class="body">
+<!-- Shown only after POST /applications/:id/submit returns success. Submission is not a decision. -->
+<section role="status" aria-labelledby="sb-h" style="background: #17603B; color: #FFFFFF; border-radius: 14px; padding: 32px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+<span style="width: 48px; height: 48px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17603B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span>
+<h1 id="sb-h" style="margin: 0; font-family: 'EB Garamond', Georgia, serif; font-size: 40px; font-weight: 600; line-height: 1.1">Application submitted</h1>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 15px; color: #D8EEE1">Your reference number</span>
+<span style="font-size: 28px; font-weight: 700; letter-spacing: 0.04em">EMP-2026-000215</span>
+</div>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #E8F5ED">Submitted 1 October 2026 at 09:53 for Joseph Catering Ltd. A copy is in your messages.</p>
+</section>
+
+<!-- Fee invoice raised after submission; PAY_INVOICE action. Payment ≠ approval. -->
+<section class="card" aria-labelledby="sb-pay" style="padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; border: 2px solid #F0C9A8">
+<div style="display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap">
+<div style="display: flex; flex-direction: column; gap: 4px"><h2 id="sb-pay" class="h2">Pay the registration fee</h2><span class="meta">[AMOUNT] · due by 15 October 2026</span></div>
+<a href="Invoice.html" class="btn">Pay now</a>
+</div>
+<p class="p" style="font-size: 14px">Your application will be checked once the fee is paid. Paying does not mean your registration is approved.</p>
+</section>
+
+<section class="card" aria-labelledby="sb-next" style="padding: 22px 24px; display: flex; flex-direction: column; gap: 16px">
+<h2 id="sb-next" class="h2">What happens next</h2>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px">
+<li class="st"><span class="dot" style="background: #17603B"></span><div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Submitted</span><span class="meta">Today</span></div><span></span></li>
+<li class="st"><span class="dot" style="border: 2px solid #153146"></span><div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Documents checked</span><span class="meta">The Labour Department checks your documents. If anything is missing, we'll ask you here.</span></div><span class="meta">About 2 working days</span></li>
+<li class="st"><span class="dot" style="border: 2px solid #C9C0AE"></span><div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Review</span></div><span class="meta">About 5 working days</span></li>
+<li class="st"><span class="dot" style="border: 2px solid #C9C0AE"></span><div style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Decision</span><span class="meta">You'll get the decision and the reasons in your messages.</span></div><span class="meta">About 3 working days</span></li>
+</ol>
+</section>
+
+<div style="display: flex; gap: 12px; flex-wrap: wrap">
+<a href="Applications.html" class="btn">Track this application</a>
+<a href="#" class="btn2">Download submission receipt</a>
+</div>
+<p class="meta" style="margin: 0">Your receipt records exactly what you submitted and when.</p>
+</main>
+</div>
+</x-dc>
+</body>
+</html>

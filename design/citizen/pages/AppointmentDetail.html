@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Premises inspection</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F7F3EA}
+a{color:#153146}a:hover{color:#091B29}
+.s{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh;font-family:'Public Sans',system-ui,sans-serif;color:#17191B;background:#F7F3EA}
+.nav{background:#091B29;color:#F7F3EA;display:flex;flex-direction:column;gap:22px;padding:26px 18px}
+.nav a{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:8px;color:#D7DEE4;text-decoration:none;font-size:14px}
+.nav a:hover{background:#142937;color:#FFFFFF}
+.nav a[aria-current]{background:#153146;color:#FFFFFF;font-weight:600}
+.nav-h{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#A9B6C2;padding:0 12px 6px}
+.top{background:#FFFFFF;border-bottom:1px solid #E6DFD0;display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:14px 32px}
+.note{background:#153146;color:#F7F3EA;font-size:13px;padding:8px 32px}
+.main{padding:24px 32px 56px;display:flex;flex-direction:column;gap:22px;max-width:1240px;width:100%;box-sizing:border-box}
+.card{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px}
+.h1{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:40px;line-height:1.1;color:#091B29}
+.h2{margin:0;font-size:18px;font-weight:700;color:#091B29}
+.meta{font-size:13px;color:#4A5560}
+.p{margin:0;font-size:15px;line-height:1.6;color:#3A444E}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.warn{background:#FDEEE3;color:#8A3B0A}.info{background:#E7EEF5;color:#153146}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 20px;border-radius:10px;background:#091B29;color:#FFFFFF;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+.btn:hover{background:#153146;color:#FFFFFF}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 20px;border-radius:10px;background:#FFFFFF;color:#091B29;font:inherit;font-size:16px;font-weight:600;text-decoration:none;border:1.5px solid #C9C0AE;cursor:pointer}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
+.sec{padding:22px 24px;display:flex;flex-direction:column;gap:14px}
+.kv{display:grid;grid-template-columns:130px minmax(0,1fr);gap:12px 16px;margin:0;font-size:15px}
+.kv dt{color:#4A5560;margin:0}.kv dd{margin:0;font-weight:600;line-height:1.5}
+.lbl{font-size:15px;font-weight:600}
+.in{height:48px;border:1.5px solid #8F9AA5;border-radius:8px;padding:0 12px;font:inherit;font-size:16px;background:#FFFFFF;color:#17191B;box-sizing:border-box;width:100%}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:1100px){.split{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.s{grid-template-columns:minmax(0,1fr)}.nav{display:none}.main{padding:16px 16px 40px}.top{padding:12px 16px}.note{padding:8px 16px}.h1{font-size:32px}.two{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr);gap:2px}.kv dd{margin-bottom:10px}}
+/* mobile-pass */
+.mlogo{display:none}
+.mtabs{display:none}
+@media (max-width:900px){
+.mlogo{display:inline-flex;align-items:center;gap:8px;margin-right:auto;text-decoration:none;min-height:44px}
+.mtabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:20;background:#FFFFFF;border-top:1px solid #E6DFD0;padding:4px 4px calc(8px + env(safe-area-inset-bottom))}
+.mtabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;text-decoration:none;color:#4A5560;font-size:11px;font-weight:500}
+.mtabs a[aria-current]{color:#091B29;font-weight:700}
+main{padding-bottom:104px !important}
+main a:not([class]),main a.rt{padding-block:12px;margin-block:-12px}
+.hs-side{display:none !important}
+.hs-top{flex-wrap:wrap !important;padding:12px 16px !important;gap:10px !important}
+.hs-top form{order:3;flex-basis:100%;max-width:none !important}
+}
+</style>
+</helmet>
+<div class="s">
+<nav class="nav" aria-label="Main">
+<a href="Main.html" aria-label="HeartStone home" style="display: flex; align-items: center; gap: 12px; padding: 0 8px; text-decoration: none"><img src="../../brand/logo/heartstone-mark-gold.png" alt="" style="height: 46px; width: auto"><span style="display: flex; flex-direction: column; gap: 6px"><img src="../../brand/logo/heartstone-wordmark-gold.png" alt="HeartStone" style="height: 18px; width: auto"><span style="font-size: 11px; color: #A9B6C2; letter-spacing: 0.06em">Government services</span></span></a>
+<div style="background: #142937; border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 10px"><div style="width: 34px; height: 34px; border-radius: 50%; background: #153146; border: 2px solid #DC9E48; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px">AJ</div><div style="display: flex; flex-direction: column; gap: 2px"><div style="font-size: 11px; color: #A9B6C2; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600">Acting as</div><div style="font-size: 14px; font-weight: 600">Amara Joseph</div></div></div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<a href="Main.html">Home</a><a href="Services.html">Find a service</a><a href="Applications.html">Applications</a><a href="Appointments.html" aria-current="page">Appointments</a><a href="Documents.html">Documents</a><a href="Credentials.html">Credentials &amp; certificates</a><a href="Payments.html">Payments</a><a href="Messages.html">Messages</a><a href="Renewals.html">Renewals</a><a href="Appeals.html">Appeals &amp; reviews</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px"><div class="nav-h">My government</div><a href="Work.html">Work &amp; employment</a><a href="Immigration.html">Immigration &amp; residency</a><a href="Tax.html">Tax &amp; revenue</a><a href="Property.html">Property &amp; land</a><a href="Vehicles.html">Vehicles &amp; driving</a><a href="Health.html">Health</a><a href="Benefits.html">Benefits &amp; support</a><a href="Education.html">Education</a><a href="CivilRecords.html">Civil records</a><a href="PublicSafety.html">Public safety</a></div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 2px; border-top: 1px solid #1E3547; padding-top: 14px"><a href="Settings.html">Settings &amp; notifications</a><a href="Help.html">Help</a><a href="SignIn.html">Sign out</a></div>
+</nav>
+<div style="display: flex; flex-direction: column; min-width: 0">
+<div role="note" class="note">Design prototype with sample data. Not a live government service.</div>
+<header class="top"><a href="Main.html" class="mlogo" aria-label="HeartStone home"><img src="../../brand/logo/heartstone-mark-midnight.png" alt="" style="height: 32px; width: auto"><img src="../../brand/logo/heartstone-wordmark-midnight.png" alt="" style="height: 14px; width: auto"></a><button type="button" aria-label="Messages, 2 unread" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #E6DFD0; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17191B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg></button><button type="button" aria-label="Account menu, Amara Joseph" style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px 0 6px; border-radius: 10px; border: 1px solid #E6DFD0; background: #FFFFFF; font: inherit"><span style="width: 32px; height: 32px; border-radius: 50%; background: #091B29; color: #F7F3EA; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px">AJ</span><span style="font-size: 14px; font-weight: 600">Amara</span></button></header>
+
+<main class="main">
+<nav aria-label="Breadcrumb" class="meta" style="font-size: 14px"><a href="Appointments.html">Appointments</a> <span aria-hidden="true">›</span> Premises inspection</nav>
+
+<!-- GET /experience/citizen/appointments/:id → status SCHEDULED, availableActions [VIEW, CONFIRM, RESCHEDULE_REQUEST, CANCEL] -->
+<div style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: flex-start">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h1 class="h1">Premises inspection</h1>
+<span style="font-size: 18px; font-weight: 600; color: #091B29">Tuesday 14 October 2026, 10:30 – 11:30</span>
+</div>
+<span class="chip warn" style="font-size: 14px; padding: 6px 14px">Please confirm this time</span>
+</div>
+
+<section aria-label="Respond to this appointment" class="card" style="padding: 20px 24px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; border: 2px solid #F0C9A8; background: #FFF8F2">
+<p class="p" style="flex-grow: 1; min-width: 260px">Can you make this time? Confirm so the inspector knows to come.</p>
+<button type="button" class="btn">Confirm this time</button>
+<a href="#ad-resched" class="btn2">Ask for another time</a>
+</section>
+
+<div class="split">
+<div style="display: flex; flex-direction: column; gap: 20px; min-width: 0">
+<section class="card sec" aria-labelledby="ap-det">
+<h2 id="ap-det" class="h2">Details</h2>
+<dl class="kv">
+<dt>Where</dt><dd>At your premises: 14 Market Street, St. John's</dd>
+<dt>With</dt><dd>Business Licensing inspector</dd>
+<dt>For</dt><dd><a href="ApplicationDetail.html">Food service licence · BL-2026-001377</a></dd>
+<dt>Reference</dt><dd>APT-2026-03318</dd>
+</dl>
+</section>
+
+<section class="card sec" aria-labelledby="ap-prep">
+<h2 id="ap-prep" class="h2">How to prepare</h2>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5; color: #3A444E">
+<li>Make sure someone can give access to the kitchen, storage and washing areas.</li>
+<li>Have your food handler certificates available to show.</li>
+<li>The inspector will show official identification when they arrive.</li>
+</ul>
+</section>
+
+<!-- POST /appointments/:id/reschedule-request → AppointmentRescheduleStatus PENDING | APPROVED | REJECTED -->
+<section id="ad-resched" class="card sec" aria-labelledby="ap-rs">
+<h2 id="ap-rs" class="h2">Ask for another time</h2>
+<p class="p">Suggest times that suit you. The office will accept one or offer another time. Until they reply, your current time still stands.</p>
+<form style="display: flex; flex-direction: column; gap: 16px">
+<div class="two">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="rs-1" class="lbl">First choice</label><input id="rs-1" class="in" type="date" value="2026-10-16"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="rs-2" class="lbl">Second choice (optional)</label><input id="rs-2" class="in" type="date" value="2026-10-20"></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="rs-r" class="lbl">Why do you need a different time?</label><textarea id="rs-r" class="in" style="height: 96px; padding: 12px; resize: vertical">The kitchen is being repainted until 15 October.</textarea></div>
+<div><button type="button" class="btn2">Send request</button></div>
+</form>
+</section>
+</div>
+
+<aside style="display: flex; flex-direction: column; gap: 16px">
+<section class="card sec" aria-labelledby="ap-cal" style="gap: 10px">
+<h2 id="ap-cal" class="h2" style="font-size: 16px">Add to calendar</h2>
+<a href="#" style="font-size: 14px">Download calendar file</a>
+</section>
+<section class="card sec" aria-labelledby="ap-cancel" style="gap: 10px">
+<h2 id="ap-cancel" class="h2" style="font-size: 16px">Cancel this appointment</h2>
+<p class="p" style="font-size: 14px">Your application cannot be decided without an inspection, so cancelling may delay it.</p>
+<button type="button" style="align-self: flex-start; height: 44px; padding: 0; background: transparent; border: 0; font: inherit; font-size: 15px; font-weight: 600; color: #B3261E; text-decoration: underline; cursor: pointer">Cancel appointment</button>
+</section>
+</aside>
+</div>
+
+<footer style="border-top: 1px solid #E6DFD0; padding-top: 18px" class="meta">Booking or attending an appointment does not mean your application is approved.</footer>
+</main>
+</div>
+</div>
+<nav class="mtabs" aria-label="Main"><a href="Main.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</a><a href="Services.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Services</a><a href="Applications.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8l3 3v13H5V4z"/><path d="M9 11h6M9 15h6"/></svg>Applications</a><a href="Messages.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Messages</a><a href="Menu.html" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>More</a></nav>
+</x-dc>
+</body>
+</html>

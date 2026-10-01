@@ -19,7 +19,13 @@ packages/
   config/       Shared strict TypeScript configuration
 docs/
   deployment.md Cloudflare Workers deployment and access control
+design/
+  brand/        Logo files
+  citizen/      Citizen screen designs (static reference), backend coverage map
 ```
+
+`design/` holds reference material, not production code. Open `design/citizen/index.html` in a
+browser to click through the citizen designs; see `design/README.md`.
 
 Further packages (`ui`, `design-system`, `api-client`, `auth`, `permissions`, `forms`, …) are
 added in the stage that introduces them, per the Front-End Build Plan (29 Sep 2026). They are not

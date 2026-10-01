@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Sign in</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F7F3EA}
+a{color:#153146}a:hover{color:#091B29}
+.s{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh;font-family:'Public Sans',system-ui,sans-serif;color:#17191B;background:#F7F3EA}
+.nav{background:#091B29;color:#F7F3EA;display:flex;flex-direction:column;gap:22px;padding:26px 18px}
+.nav a{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:8px;color:#D7DEE4;text-decoration:none;font-size:14px}
+.nav a:hover{background:#142937;color:#FFFFFF}
+.nav a[aria-current]{background:#153146;color:#FFFFFF;font-weight:600}
+.nav-h{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#A9B6C2;padding:0 12px 6px}
+.top{background:#FFFFFF;border-bottom:1px solid #E6DFD0;display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:14px 32px}
+.note{background:#153146;color:#F7F3EA;font-size:13px;padding:8px 32px}
+.main{padding:28px 32px 56px;display:flex;flex-direction:column;gap:22px;max-width:1240px;width:100%;box-sizing:border-box}
+.card{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px}
+.h1{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:40px;line-height:1.1;color:#091B29}
+.h2{margin:0;font-size:18px;font-weight:700;color:#091B29}
+.meta{font-size:13px;color:#4A5560}
+.p{margin:0;font-size:15px;line-height:1.6;color:#3A444E}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.warn{background:#FDEEE3;color:#8A3B0A}.info{background:#E7EEF5;color:#153146}.ok{background:#E4F2EA;color:#17603B}.neutral{background:#EFEBE2;color:#3A444E}.bad{background:#F6E3E1;color:#8E1F17}
+.official{background:#FCF6EC;color:#6B4710;border:1px solid #E8C995}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:9px;background:#091B29;color:#FFFFFF;font:inherit;font-size:15px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+.btn:hover{background:#153146;color:#FFFFFF}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:9px;background:#FFFFFF;color:#091B29;font:inherit;font-size:15px;font-weight:600;text-decoration:none;border:1.5px solid #C9C0AE;cursor:pointer}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
+.sec{padding:20px 22px;display:flex;flex-direction:column;gap:12px}
+.col{display:flex;flex-direction:column;gap:20px;min-width:0}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:14px 0;border-top:1px solid #EFE9DD;align-items:center}
+.rt{font-size:15px;font-weight:600}
+.kv{display:grid;grid-template-columns:170px minmax(0,1fr);gap:10px 16px;margin:0;font-size:15px}
+.kv dt{color:#4A5560;margin:0}.kv dd{margin:0;font-weight:600}
+.callout{background:#F3F6F9;border:1px solid #C9D6E3;border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.55;color:#3A444E}
+.links{display:flex;flex-direction:column;gap:10px;font-size:14px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.lbl{font-size:15px;font-weight:600}
+.in{height:48px;border:1.5px solid #8F9AA5;border-radius:8px;padding:0 12px;font:inherit;font-size:16px;background:#FFFFFF;color:#17191B;box-sizing:border-box;width:100%}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:1100px){.split{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.s{grid-template-columns:minmax(0,1fr)}.nav{display:none}.main{padding:16px 16px 40px}.top{padding:12px 16px}.note{padding:8px 16px}.h1{font-size:32px}.g2{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr);gap:2px}.kv dd{margin-bottom:10px}}
+@media (max-width:900px){.si{grid-template-columns:minmax(0,1fr) !important}.si-brand{padding:32px 20px !important}.si main{padding:32px 20px !important}}
+/* mobile-pass */
+main a:not([class]),header a:not([class]){padding-block:12px;margin-block:-12px;display:inline-block}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); font-family: 'Public Sans', system-ui, sans-serif; color: #17191B" class="si">
+<section aria-label="About HeartStone" class="si-brand" style="background: #091B29; color: #F7F3EA; padding: 56px 64px; display: flex; flex-direction: column; gap: 28px">
+<img src="../../brand/logo/heartstone-lockup-gold.png" alt="HeartStone" style="width: 240px; max-width: 70%; height: auto">
+<h2 style="margin: 0; font-family: 'EB Garamond', Georgia, serif; font-size: 44px; font-weight: 600; line-height: 1.1">One front door for government services</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9D2DA; max-width: 460px">Apply, pay, book and track everything in one place, for yourself or a business you represent.</p>
+</section>
+<main style="background: #F7F3EA; padding: 56px 64px; display: flex; flex-direction: column; justify-content: center">
+<div role="note" class="note" style="border-radius: 8px; margin-bottom: 28px; max-width: 440px">Design prototype. Not a live government service.</div>
+<div style="max-width: 440px; display: flex; flex-direction: column; gap: 22px">
+<img src="../../brand/logo/heartstone-mark-midnight.png" alt="" style="height: 64px; width: auto; align-self: flex-start"><h1 class="h1">Sign in</h1>
+<a href="Main.html" class="btn" style="height: 56px; font-size: 17px; gap: 12px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#DC9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>Continue with [NATIONAL DIGITAL ID]</a>
+<p class="p" style="font-size: 14px">You'll confirm it's you with your digital ID, then with a code on your phone.</p>
+<div style="border-top: 1px solid #E0D9CB; padding-top: 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+<a href="Help.html">I don't have a digital ID yet</a>
+<a href="Help.html">I can't sign in</a>
+<a href="Verify.html">Check a government document without signing in</a>
+</div>
+<p class="callout" style="margin: 0">We will never ask for your password or a sign-in code by email, text message or phone call.</p>
+</div>
+</main>
+</div>
+</x-dc>
+</body>
+</html>

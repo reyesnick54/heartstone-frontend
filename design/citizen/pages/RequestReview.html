@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Request a review</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F7F3EA}
+a{color:#153146}a:hover{color:#091B29}
+.s{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh;font-family:'Public Sans',system-ui,sans-serif;color:#17191B;background:#F7F3EA}
+.nav{background:#091B29;color:#F7F3EA;display:flex;flex-direction:column;gap:22px;padding:26px 18px}
+.nav a{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:8px;color:#D7DEE4;text-decoration:none;font-size:14px}
+.nav a:hover{background:#142937;color:#FFFFFF}
+.nav a[aria-current]{background:#153146;color:#FFFFFF;font-weight:600}
+.nav-h{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#A9B6C2;padding:0 12px 6px}
+.top{background:#FFFFFF;border-bottom:1px solid #E6DFD0;display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:14px 32px}
+.note{background:#153146;color:#F7F3EA;font-size:13px;padding:8px 32px}
+.main{padding:28px 32px 56px;display:flex;flex-direction:column;gap:22px;max-width:1240px;width:100%;box-sizing:border-box}
+.card{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px}
+.h1{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:40px;line-height:1.1;color:#091B29}
+.h2{margin:0;font-size:18px;font-weight:700;color:#091B29}
+.meta{font-size:13px;color:#4A5560}
+.p{margin:0;font-size:15px;line-height:1.6;color:#3A444E}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.warn{background:#FDEEE3;color:#8A3B0A}.info{background:#E7EEF5;color:#153146}.ok{background:#E4F2EA;color:#17603B}.neutral{background:#EFEBE2;color:#3A444E}.bad{background:#F6E3E1;color:#8E1F17}
+.official{background:#FCF6EC;color:#6B4710;border:1px solid #E8C995}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:9px;background:#091B29;color:#FFFFFF;font:inherit;font-size:15px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+.btn:hover{background:#153146;color:#FFFFFF}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:9px;background:#FFFFFF;color:#091B29;font:inherit;font-size:15px;font-weight:600;text-decoration:none;border:1.5px solid #C9C0AE;cursor:pointer}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
+.sec{padding:20px 22px;display:flex;flex-direction:column;gap:12px}
+.col{display:flex;flex-direction:column;gap:20px;min-width:0}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:14px 0;border-top:1px solid #EFE9DD;align-items:center}
+.rt{font-size:15px;font-weight:600}
+.kv{display:grid;grid-template-columns:170px minmax(0,1fr);gap:10px 16px;margin:0;font-size:15px}
+.kv dt{color:#4A5560;margin:0}.kv dd{margin:0;font-weight:600}
+.callout{background:#F3F6F9;border:1px solid #C9D6E3;border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.55;color:#3A444E}
+.links{display:flex;flex-direction:column;gap:10px;font-size:14px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.lbl{font-size:15px;font-weight:600}
+.in{height:48px;border:1.5px solid #8F9AA5;border-radius:8px;padding:0 12px;font:inherit;font-size:16px;background:#FFFFFF;color:#17191B;box-sizing:border-box;width:100%}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:1100px){.split{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.s{grid-template-columns:minmax(0,1fr)}.nav{display:none}.main{padding:16px 16px 40px}.top{padding:12px 16px}.note{padding:8px 16px}.h1{font-size:32px}.g2{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr);gap:2px}.kv dd{margin-bottom:10px}}
+.tx{min-height:100vh;background:#F7F3EA;font-family:'Public Sans',system-ui,sans-serif;color:#17191B;display:flex;flex-direction:column}
+.txtop{background:#091B29;color:#F7F3EA;display:flex;align-items:center;gap:20px;padding:14px 32px;flex-wrap:wrap}
+.body{max-width:760px;width:100%;margin:0 auto;padding:30px 24px 64px;box-sizing:border-box;display:flex;flex-direction:column;gap:22px}
+.f{display:flex;flex-direction:column;gap:6px}.hint{font-size:14px;color:#4A5560}
+@media (max-width:700px){.txtop{padding:12px 16px}.body{padding:20px 16px 48px}}
+/* mobile-pass */
+main a:not([class]),.txtop a{padding-block:12px;margin-block:-12px}
+@media (max-width:900px){.txtop img+img{display:none}}
+</style>
+</helmet>
+<div class="tx">
+<header class="txtop"><a href="Main.html" aria-label="HeartStone home" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none"><img src="../../brand/logo/heartstone-mark-gold.png" alt="" style="height: 30px; width: auto"><img src="../../brand/logo/heartstone-wordmark-gold.png" alt="HeartStone" style="height: 14px; width: auto"></a><span style="font-size: 15px; color: #C9D2DA; border-left: 1px solid #2B4357; padding-left: 20px">Request a review</span><a href="Appeals.html" style="margin-left: auto; color: #D4AA65; font-size: 14px; font-weight: 600">Save and exit</a></header>
+<div role="note" class="note">Design prototype with sample data. Not a live government service.</div>
+<main class="body">
+<h1 class="h1">Request a review of a decision</h1>
+<form class="card" style="padding: 26px; display: flex; flex-direction: column; gap: 22px">
+<div class="f"><label for="rv-d" class="lbl">Which decision do you disagree with?</label><select id="rv-d" class="in"><option>Notice of assessment 2025 · Inland Revenue · 28 September 2026</option><option>Vehicle registration transfer · Transport Board · 22 September 2026</option></select><span class="hint" style="color: #8A3B0A; font-weight: 600">Request by 28 October 2026 (30 days after the decision)</span></div>
+<div class="f"><label for="rv-w" class="lbl">Why do you disagree?</label><span class="hint" id="rv-wh">Explain what you think is wrong. You don't need legal language.</span><textarea id="rv-w" class="in" aria-describedby="rv-wh" style="height: 140px; padding: 12px; resize: vertical">The assessment counts my 2025 bonus twice. It appears in both employment income and other income.</textarea></div>
+<div class="f"><label for="rv-o" class="lbl">What outcome are you asking for?</label><input id="rv-o" class="in" value="Recalculate my 2025 tax without the duplicated bonus"></div>
+<div class="f"><span class="lbl">Supporting documents (optional)</span><span class="hint">For example, your payslip or employer letter</span><div style="border: 2px dashed #C9C0AE; border-radius: 10px; padding: 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap"><span class="p" style="font-size: 14px">payslip-december-2025.pdf <span class="chip info">Uploaded · will be checked</span></span><button type="button" class="btn2">Add another file</button></div></div>
+<label style="display: grid; grid-template-columns: 24px minmax(0,1fr); gap: 12px; font-size: 15px; line-height: 1.5"><input type="checkbox" style="width: 22px; height: 22px; accent-color: #091B29; margin: 0"><span><strong>Ask for the decision to be paused</strong> while it is reviewed. The office decides whether to pause it.</span></label>
+<label style="display: grid; grid-template-columns: 24px minmax(0,1fr); gap: 12px; font-size: 15px; line-height: 1.5"><input type="checkbox" checked style="width: 22px; height: 22px; accent-color: #091B29; margin: 0"><span>The information I have given is true to the best of my knowledge.</span></label>
+</form>
+<p class="meta" style="margin: 0; line-height: 1.5">A different officer will look at your request. Until the review is decided, the original decision still applies unless the office pauses it.</p>
+<div><a href="Appeals.html" class="btn" style="height: 52px; padding: 0 26px; font-size: 17px">Send request</a></div>
+</main>
+</div>
+</x-dc>
+</body>
+</html>

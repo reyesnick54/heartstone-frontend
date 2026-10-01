@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Dashboard backend coverage</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600&amp;family=Public+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400&amp;display=swap">
+<style>
+body{margin:0}
+.cv-row{display:grid;grid-template-columns:260px minmax(0,1fr) 190px;gap:20px;padding:13px 0;border-bottom:1px solid #E6DFD0;align-items:start}
+.cv-f{font-size:14px;font-weight:600}
+.cv-e{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#153146;line-height:1.5}
+.cv-n{font-size:13px;color:#4A5560;line-height:1.5;margin-top:4px;font-family:'Public Sans',sans-serif}
+.cv-chip{justify-self:start;display:inline-flex;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px}
+.ok{background:#E4F2EA;color:#17603B}
+.stub{background:#E7EEF5;color:#153146}
+.work{background:#FDEEE3;color:#8A3B0A}
+.none{background:#F6E3E1;color:#8E1F17}
+</style>
+</helmet>
+<div style="width: 1240px; height: 1960px; box-sizing: border-box; padding: 56px 64px; background: #FFFFFF; font-family: 'Public Sans', system-ui, sans-serif; color: #17191B; display: flex; flex-direction: column; gap: 24px">
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.3em; color: #091B29">HEARTSTONE</div>
+<h1 style="margin: 0; font-family: 'EB Garamond', Georgia, serif; font-size: 40px; font-weight: 600; color: #091B29">Citizen dashboard — backend coverage</h1>
+<p style="margin: 0; font-size: 15px; color: #4A5560; max-width: 860px; line-height: 1.5">Every feature on the citizen Home screen, the heartstone-backend endpoint that feeds it, and whether it can ship. Checked against main @ 26c1e75 (28 Sep 2026). Routes are under /experience/citizen unless shown otherwise.</p>
+</div>
+
+<div style="display: flex; gap: 16px; flex-wrap: wrap">
+<span class="cv-chip ok">Ready: API exists</span>
+<span class="cv-chip stub">Works on a test provider</span>
+<span class="cv-chip work">Needs backend work before launch</span>
+<span class="cv-chip none">Not built</span>
+</div>
+
+<div style="display: flex; flex-direction: column">
+<div class="cv-row" style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #4A5560; border-bottom: 2px solid #091B29"><span>Dashboard feature</span><span>Backend source</span><span>Status</span></div>
+
+<div class="cv-row"><span class="cv-f">Sign-in</span><div><div class="cv-e">POST /identity/auth/login (password, DB session)</div><div class="cv-n">OIDC and MFA are not implemented; production config disables password login, so there is no production sign-in path yet.</div></div><span class="cv-chip work">Needs backend work</span></div>
+
+<div class="cv-row"><span class="cv-f">Acting as / business representation</span><div><div class="cv-e">GET /me → representationRelationships, organizationRelationships</div><div class="cv-n">Each representation carries scope, status and effective dates.</div></div><span class="cv-chip ok">Ready</span></div>
+
+<div class="cv-row"><span class="cv-f">Identity assurance badge</span><div><div class="cv-e">GET /me → accountAssurance.assuranceLevel (NONE · LOW · MEDIUM · HIGH)</div><div class="cv-n">Show the level returned; never a generic "verified".</div></div><span class="cv-chip ok">Ready</span></div>
+
+<div class="cv-row"><span class="cv-f">At a glance counts</span><div><div class="cv-e">GET /home → counts (10 values)</div><div class="cv-n">activeApplications, actionRequired, pendingGovernmentRequests, recentDecisions, issuedCredentials, outstandingPayments, upcomingExpirations, unreadMessages, appealsRedressMatters, upcomingAppointments.</div></div><span class="cv-chip ok">Ready</span></div>
+
+<div class="cv-row"><span class="cv-f">Things to do</span><div><div class="cv-e">GET /actions → actionCode, priority, dueAt, attribution, deepLink</div><div class="cv-n">8 action codes: provide missing information, pay invoice, review message, acknowledge notice, renew, respond to request, submit appeal, complete draft. The workflow has no RFI step yet, so "application paused" is not enforced server-side.</div></div><span class="cv-chip ok">Ready</span></div>
+
+<div class="cv-row"><span class="cv-f">Describe what you need</span><div><div class="cv-e">POST /services/match · GET /services/:slug · POST /services/:slug/eligibility</div><div class="cv-n">Rule-based matching. No AI involved.</div></div><span class="cv-chip ok">Ready</span></div>
+
+<div class="cv-row"><span class="cv-f">My applications and progress tracker</span><div><div class="cv-e">GET /applications · GET /cases/:id/status → publicStatusLabel, publicStageLabel, publicMessage, milestones</div><div class="cv-n">Protocol Art. 47's 12 status categories still need mapping to public labels.</div></div><span class="cv-chip ok">Ready</span></div>
+
+<div class="cv-row"><span class="cv-f">Appointment confirm / reschedule / cancel</span><div><div class="cv-e">GET /appointments · POST /appointments/:id/confirm | reschedule-request | cancel</div><div class="cv-n">Known overbooking race in scheduling.</div></div><span class="cv-chip ok">Ready</span></div>
+
+<div class="cv-row"><span class="cv-f">My government (domain hubs)</span><div><div class="cv-e">/employment · /immigration · /revenue · /property · /transportation · /healthcare · /benefits · /education · /civil-status · /public-safety</div><div class="cv-n">Read projections. Immigration, transportation, education and labour accept requesterIdentityId from the query string (cross-user access risk).</div></div><span class="cv-chip work">Needs backend work</span></div>
+
+<div class="cv-row"><span class="cv-f">Suggested for you</span><div><div class="cv-e">GET /home → serviceRecommendations[].recommendationReason</div></div><span class="cv-chip ok">Ready</span></div>
+
+<div class="cv-row"><span class="cv-f">"Government issued" credentials</span><div><div class="cv-e">GET /credentials · GET /certificates · GET /vital-records</div><div class="cv-n">Records exist, but SIGNED/SEALED are flags with no cryptography. The gold "Government issued" label must not ship until real signing exists.</div></div><span class="cv-chip work">Needs backend work</span></div>
+
+<div class="cv-row"><span class="cv-f">Check a document is genuine</span><div><div class="cv-e">GET /public/instruments/verify/:verificationCode</div><div class="cv-n">Verification codes are random strings, not cryptographic; rate limiter is in memory.</div></div><span class="cv-chip work">Needs backend work</span></div>
+
+<div class="cv-row"><span class="cv-f">Payments</span><div><div class="cv-e">GET /payments · POST /payments/:invoiceId/intents</div><div class="cv-n">Ledger is real; payment provider is a test stub with a hard-coded fallback webhook secret.</div></div><span class="cv-chip stub">Test provider</span></div>
+
+<div class="cv-row"><span class="cv-f">Messages</span><div><div class="cv-e">GET /messages · POST /messages/:id/acknowledge</div><div class="cv-n">In-app inbox works; email and SMS delivery adapters are stubs.</div></div><span class="cv-chip stub">Test provider</span></div>
+
+<div class="cv-row"><span class="cv-f">Renewals</span><div><div class="cv-e">GET /renewals</div><div class="cv-n">Listing works; no scheduler, so reminders are not sent automatically.</div></div><span class="cv-chip ok">Ready</span></div>
+
+<div class="cv-row"><span class="cv-f">Recent activity</span><div><div class="cv-e">GET /home → recentItems (with institution attribution)</div></div><span class="cv-chip ok">Ready</span></div>
+
+<div class="cv-row"><span class="cv-f">Appeals and reviews</span><div><div class="cv-e">/redress/matters (not under /experience/citizen)</div><div class="cv-n">No citizen-facing redress route; two competing model sets; determination routes unguarded.</div></div><span class="cv-chip work">Needs backend work</span></div>
+
+<div class="cv-row"><span class="cv-f">Clinical trial discovery (inside Health)</span><div><div class="cv-e">GET /public/clinical-trials/discover</div></div><span class="cv-chip ok">Ready</span></div>
+
+<div class="cv-row"><span class="cv-f">Health consent centre</span><div><div class="cv-e">— no citizen route</div><div class="cv-n">Consent models exist but are not bound to patient or recipient. Left off the dashboard.</div></div><span class="cv-chip none">Not built</span></div>
+
+<div class="cv-row"><span class="cv-f">AI assistant</span><div><div class="cv-e">— no model integration or AI registry</div><div class="cv-n">Left off the dashboard. "Describe what you need" uses rule-based matching instead.</div></div><span class="cv-chip none">Not built</span></div>
+
+<div class="cv-row" style="border-bottom: 0"><span class="cv-f">Page disclaimer</span><div><div class="cv-e">GET /home → disclaimer (localized)</div></div><span class="cv-chip ok">Ready</span></div>
+</div>
+</div>
+</x-dc>
+</body>
+</html>

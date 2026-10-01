@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Citizen Home (desktop)</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F7F3EA}
+a{color:#153146}a:hover{color:#091B29}
+.hs-shell{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh}
+.hs-body{display:grid;grid-template-columns:minmax(0,1fr) 336px;gap:32px}
+.hs-glance{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.hs-hubs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.hs-nav a{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:8px;color:#D7DEE4;text-decoration:none;font-size:14px}
+.hs-nav a:hover{background:#142937;color:#FFFFFF}
+.hs-card{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px}
+.hs-h2{margin:0;font-size:18px;font-weight:700;color:#091B29}
+.hs-chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.hs-warn{background:#FDEEE3;color:#8A3B0A}
+.hs-info{background:#E7EEF5;color:#153146}
+.hs-ok{background:#E4F2EA;color:#17603B}
+.hs-neutral{background:#EFEBE2;color:#3A444E}
+.hs-official{background:#FCF6EC;color:#6B4710;border:1px solid #E8C995}
+.hs-btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;border-radius:9px;background:#091B29;color:#FFFFFF;font:inherit;font-size:14px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+.hs-btn2{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;border-radius:9px;background:#FFFFFF;color:#091B29;font:inherit;font-size:14px;font-weight:600;text-decoration:none;border:1.5px solid #C9C0AE;cursor:pointer}
+.hs-meta{font-size:13px;color:#4A5560}
+.hs-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:1220px){.hs-body{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.hs-shell{grid-template-columns:minmax(0,1fr)}.hs-side{display:none}.hs-glance,.hs-hubs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* mobile-pass */
+.mlogo{display:none}
+.mtabs{display:none}
+@media (max-width:900px){
+.mlogo{display:inline-flex;align-items:center;gap:8px;margin-right:auto;text-decoration:none;min-height:44px}
+.mtabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:20;background:#FFFFFF;border-top:1px solid #E6DFD0;padding:4px 4px calc(8px + env(safe-area-inset-bottom))}
+.mtabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;text-decoration:none;color:#4A5560;font-size:11px;font-weight:500}
+.mtabs a[aria-current]{color:#091B29;font-weight:700}
+main{padding-bottom:104px !important}
+main a:not([class]),main a.rt{padding-block:12px;margin-block:-12px}
+.hs-side{display:none !important}
+.hs-top{flex-wrap:wrap !important;padding:12px 16px !important;gap:10px !important}
+.hs-top form{order:3;flex-basis:100%;max-width:none !important}
+}
+</style>
+</helmet>
+<div class="hs-shell" style="font-family: 'Public Sans', system-ui, sans-serif; color: #17191B; background: #F7F3EA">
+
+<!-- ============ SIDEBAR ============ -->
+<nav class="hs-side hs-nav" aria-label="Main" style="background: #091B29; color: #F7F3EA; display: flex; flex-direction: column; gap: 22px; padding: 26px 18px">
+<a href="Main.html" aria-label="HeartStone home" style="display: flex; align-items: center; gap: 12px; padding: 0 8px; text-decoration: none"><img src="../../brand/logo/heartstone-mark-gold.png" alt="" style="height: 46px; width: auto"><span style="display: flex; flex-direction: column; gap: 6px"><img src="../../brand/logo/heartstone-wordmark-gold.png" alt="HeartStone" style="height: 18px; width: auto"><span style="font-size: 11px; color: #A9B6C2; letter-spacing: 0.06em">Government services</span></span></a>
+
+<!-- Acting as: identity + representation relationships (GET /experience/citizen/me) -->
+<div style="background: #142937; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #A9B6C2">Acting as</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: #153146; border: 2px solid #DC9E48; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px">AJ</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 14px; font-weight: 600">Amara Joseph</div>
+<div style="font-size: 12px; color: #A9B6C2">Yourself</div>
+</div>
+</div>
+<div style="border-top: 1px solid #1E3547; padding-top: 10px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 12px; color: #A9B6C2">You can also act for</div>
+<a href="Representation.html" style="padding: 6px 0; display: flex; flex-direction: column; gap: 2px; color: #F7F3EA">
+<span style="font-size: 13px; font-weight: 600">Joseph Catering Ltd</span>
+<span style="font-size: 12px; color: #A9B6C2">Licences and filings · until 31 Mar 2027</span>
+</a>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 2px">
+<a href="Main.html" aria-current="page" style="background: #153146; color: #FFFFFF; font-weight: 600">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC9E48" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</a>
+<a href="Services.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Find a service</a>
+<a href="Applications.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8l3 3v13H5V4z"/><path d="M9 11h6M9 15h6"/></svg><span style="flex-grow: 1">Applications</span><span style="font-size: 12px; color: #A9B6C2">3</span></a>
+<a href="Appointments.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Appointments</a>
+<a href="Documents.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h6l2 2h10v10H3z"/></svg>Documents</a>
+<a href="Credentials.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M9 13.5 8 21l4-2 4 2-1-7.5"/></svg>Credentials &amp; certificates</a>
+<a href="Payments.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg><span style="flex-grow: 1">Payments</span><span style="font-size: 12px; color: #A9B6C2">1</span></a>
+<a href="Messages.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg><span style="flex-grow: 1">Messages</span><span style="background: #DC9E48; color: #091B29; font-size: 11px; font-weight: 700; border-radius: 10px; padding: 1px 7px">2</span></a>
+<a href="Renewals.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v4h-4"/></svg>Renewals</a>
+<a href="Appeals.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 7h14M5 7l-3 7a4 4 0 0 0 6 0zM19 7l-3 7a4 4 0 0 0 6 0z"/></svg>Appeals &amp; reviews</a>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #A9B6C2; padding: 0 12px 6px">My government</div>
+<a href="Work.html">Work &amp; employment</a>
+<a href="Immigration.html">Immigration &amp; residency</a>
+<a href="Tax.html">Tax &amp; revenue</a>
+<a href="Property.html">Property &amp; land</a>
+<a href="Vehicles.html">Vehicles &amp; driving</a>
+<a href="Health.html">Health</a>
+<a href="Benefits.html">Benefits &amp; support</a>
+<a href="Education.html">Education</a>
+<a href="CivilRecords.html">Civil records</a>
+<a href="PublicSafety.html">Public safety</a>
+</div>
+
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 2px; border-top: 1px solid #1E3547; padding-top: 14px">
+<a href="Settings.html">Settings &amp; notifications</a>
+<a href="Help.html">Help</a>
+<a href="SignIn.html">Sign out</a>
+</div>
+</nav>
+
+<!-- ============ MAIN ============ -->
+<div style="display: flex; flex-direction: column; min-width: 0">
+
+<div role="note" style="background: #153146; color: #F7F3EA; font-size: 13px; padding: 8px 32px">Design prototype with sample data. Not a live government service.</div>
+
+<header class="hs-top" style="background: #FFFFFF; border-bottom: 1px solid #E6DFD0; display: flex; align-items: center; gap: 20px; padding: 16px 32px"><a href="Main.html" class="mlogo" aria-label="HeartStone home"><img src="../../brand/logo/heartstone-mark-midnight.png" alt="" style="height: 32px; width: auto"><img src="../../brand/logo/heartstone-wordmark-midnight.png" alt="" style="height: 14px; width: auto"></a>
+<form role="search" style="flex-grow: 1; max-width: 680px">
+<label for="hs-search" class="hs-sr">Describe what you need</label>
+<div style="display: flex; align-items: center; gap: 10px; background: #F7F3EA; border: 1px solid #D9D1C0; border-radius: 10px; padding: 0 6px 0 14px; height: 50px">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A5560" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+<input id="hs-search" type="search" placeholder="Describe what you need, e.g. &quot;I want to open a restaurant&quot;" style="flex-grow: 1; border: 0; background: transparent; font: inherit; font-size: 15px; color: #17191B">
+<button type="submit" class="hs-btn" style="height: 38px">Find services</button>
+</div>
+</form>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 12px">
+<button type="button" aria-label="Messages, 2 unread" style="position: relative; width: 44px; height: 44px; border-radius: 10px; border: 1px solid #E6DFD0; background: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17191B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg>
+<span style="position: absolute; top: 8px; right: 9px; width: 9px; height: 9px; border-radius: 50%; background: #B3261E; border: 2px solid #FFFFFF"></span>
+</button>
+<button type="button" aria-label="Account menu, Amara Joseph" style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px 0 6px; border-radius: 10px; border: 1px solid #E6DFD0; background: #FFFFFF; font: inherit; cursor: pointer">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #091B29; color: #F7F3EA; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px">AJ</span>
+<span style="font-size: 14px; font-weight: 600">Amara</span>
+</button>
+</div>
+</header>
+
+<main style="padding: 32px 32px 56px; display: flex; flex-direction: column; gap: 28px; max-width: 1240px; width: 100%; box-sizing: border-box">
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 40px; line-height: 1.1; color: #091B29">Good morning, Amara</h1>
+<p style="margin: 0; font-size: 16px; color: #4A5560">5 things need your attention. The most urgent is due 8 October.</p>
+</div>
+
+<!-- AT A GLANCE (GET /experience/citizen/home → counts) -->
+<section aria-labelledby="hs-glance">
+<h2 id="hs-glance" class="hs-sr">At a glance</h2>
+<div class="hs-glance">
+<a href="#hs-actions" class="hs-card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B; border-color: #F0C9A8; background: #FFF8F2">
+<span style="font-size: 28px; font-weight: 700; color: #8A3B0A">5</span><span style="font-size: 14px; font-weight: 600">Actions for you</span></a>
+<a href="Applications.html" class="hs-card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B">
+<span style="font-size: 28px; font-weight: 700; color: #091B29">3</span><span style="font-size: 14px; font-weight: 600">Active applications</span></a>
+<a href="Payments.html" class="hs-card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B">
+<span style="font-size: 28px; font-weight: 700; color: #091B29">1</span><span style="font-size: 14px; font-weight: 600">Payment due</span></a>
+<a href="Appointments.html" class="hs-card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B">
+<span style="font-size: 28px; font-weight: 700; color: #091B29">1</span><span style="font-size: 14px; font-weight: 600">Upcoming appointment</span></a>
+<a href="Messages.html" class="hs-card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B">
+<span style="font-size: 28px; font-weight: 700; color: #091B29">2</span><span style="font-size: 14px; font-weight: 600">Unread messages</span></a>
+<a href="Renewals.html" class="hs-card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B">
+<span style="font-size: 28px; font-weight: 700; color: #091B29">1</span><span style="font-size: 14px; font-weight: 600">Expiring soon</span></a>
+<a href="Credentials.html" class="hs-card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B">
+<span style="font-size: 28px; font-weight: 700; color: #091B29">2</span><span style="font-size: 14px; font-weight: 600">Credentials held</span></a>
+<a href="Appeals.html" class="hs-card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #17191B">
+<span style="font-size: 28px; font-weight: 700; color: #091B29">0</span><span style="font-size: 14px; font-weight: 600">Appeals open</span></a>
+</div>
+</section>
+
+<div class="hs-body">
+<div style="display: flex; flex-direction: column; gap: 32px; min-width: 0">
+
+<!-- ACTION CENTRE (GET /experience/citizen/actions) -->
+<section aria-labelledby="hs-actions" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="hs-actions" class="hs-h2">Things to do</h2>
+<span class="hs-meta">Sorted by due date</span>
+</div>
+<ul class="hs-card" style="list-style: none; margin: 0; padding: 0">
+
+<li style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px 20px; padding: 18px 22px; border-bottom: 1px solid #EFE9DD; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap"><span class="hs-chip hs-warn">Provide missing information</span><span class="hs-meta">Labour Department · Work permit</span></div>
+<div style="font-size: 16px; font-weight: 600">Upload proof of your current address</div>
+<div style="font-size: 13px; color: #8A3B0A; font-weight: 600">Due 8 October · application paused until received</div>
+</div>
+<a href="Applications.html" class="hs-btn">Upload</a>
+</li>
+
+<li style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px 20px; padding: 18px 22px; border-bottom: 1px solid #EFE9DD; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap"><span class="hs-chip hs-warn">Pay invoice</span><span class="hs-meta">Business Licensing · Food service licence</span></div>
+<div style="font-size: 16px; font-weight: 600">Application fee — [AMOUNT]</div>
+<div class="hs-meta">Due 10 October · paying does not decide your application</div>
+</div>
+<a href="Invoice.html" class="hs-btn">Pay</a>
+</li>
+
+<li style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px 20px; padding: 18px 22px; border-bottom: 1px solid #EFE9DD; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap"><span class="hs-chip hs-info">Respond to request</span><span class="hs-meta">Immigration Department · Residency</span></div>
+<div style="font-size: 16px; font-weight: 600">Confirm your current employer</div>
+<div class="hs-meta">Due 15 October</div>
+</div>
+<a href="Immigration.html" class="hs-btn2">Respond</a>
+</li>
+
+<li style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px 20px; padding: 18px 22px; border-bottom: 1px solid #EFE9DD; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap"><span class="hs-chip hs-neutral">Acknowledge notice</span><span class="hs-meta">Inland Revenue · Income tax</span></div>
+<div style="font-size: 16px; font-weight: 600">Notice of assessment for 2025</div>
+<div class="hs-meta">Received 28 September</div>
+</div>
+<a href="MessageDetail.html" class="hs-btn2">Read notice</a>
+</li>
+
+<li style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px 20px; padding: 18px 22px; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap"><span class="hs-chip hs-neutral">Renew</span><span class="hs-meta">Transport Board · Driving licence</span></div>
+<div style="font-size: 16px; font-weight: 600">Your driving licence expires 2 December</div>
+<div class="hs-meta">Renewal opens 2 November</div>
+</div>
+<a href="Renewals.html" class="hs-btn2">See how to renew</a>
+</li>
+</ul>
+</section>
+
+<!-- APPLICATION + CASE STATUS (GET /applications, /cases/:id/status) -->
+<section aria-labelledby="hs-apps" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="hs-apps" class="hs-h2">My applications</h2>
+<a href="Applications.html" style="font-size: 14px; font-weight: 500">View all</a>
+</div>
+
+<article class="hs-card" style="padding: 22px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h3 style="margin: 0; font-size: 17px; font-weight: 600">Food service licence</h3>
+<span class="hs-meta">BL-2026-001377 · Business Licensing</span>
+</div>
+<span class="hs-chip hs-info" style="align-self: flex-start">Under review · Inspection</span>
+</div>
+<ol aria-label="Progress" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px">
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; border-radius: 3px; background: #17603B"></span><span style="font-size: 13px; font-weight: 600">Submitted</span><span style="font-size: 12px; color: #4A5560">18 Sep</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; border-radius: 3px; background: #17603B"></span><span style="font-size: 13px; font-weight: 600">Documents checked</span><span style="font-size: 12px; color: #4A5560">22 Sep</span></li>
+<li aria-current="step" style="display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; border-radius: 3px; background: #153146"></span><span style="font-size: 13px; font-weight: 700; color: #153146">Inspection</span><span style="font-size: 12px; color: #4A5560">Now</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; border-radius: 3px; background: #E0D9CB"></span><span style="font-size: 13px; color: #4A5560">Decision</span><span style="font-size: 12px; color: #5C6670">By 30 Oct</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="height: 6px; border-radius: 3px; background: #E0D9CB"></span><span style="font-size: 13px; color: #4A5560">Licence issued</span></li>
+</ol>
+<p style="margin: 0; font-size: 14px; color: #3A444E; line-height: 1.5; background: #F7F3EA; border-radius: 8px; padding: 12px 14px">An inspector needs to visit your premises before a decision can be made. Your inspection is proposed for 14 October.</p>
+</article>
+
+<div class="hs-card">
+<a href="Applications.html" style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 16px; padding: 16px 22px; border-bottom: 1px solid #EFE9DD; text-decoration: none; color: #17191B; align-items: center">
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15px; font-weight: 600">Work permit</span><span class="hs-meta">WP-2026-004812 · Labour Department · Next step: you</span></span>
+<span class="hs-chip hs-warn">Waiting for you</span></a>
+<a href="Applications.html" style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 16px; padding: 16px 22px; border-bottom: 1px solid #EFE9DD; text-decoration: none; color: #17191B; align-items: center">
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15px; font-weight: 600">Vehicle registration transfer</span><span class="hs-meta">VR-2026-020931 · Transport Board · Decided 22 September</span></span>
+<span class="hs-chip hs-ok">Approved</span></a>
+<a href="ApplyForm.html" style="display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 16px; padding: 16px 22px; text-decoration: none; color: #17191B; align-items: center">
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15px; font-weight: 600">Sole trader registration</span><span class="hs-meta">Draft · last edited 26 September</span></span>
+<span class="hs-chip hs-neutral">Draft — continue</span></a>
+</div>
+</section>
+
+<!-- APPOINTMENT (GET /appointments; confirm / reschedule-request / cancel) -->
+<section aria-labelledby="hs-appt" style="display: flex; flex-direction: column; gap: 12px">
+<h2 id="hs-appt" class="hs-h2">Next appointment</h2>
+<article class="hs-card" style="padding: 20px 22px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap">
+<div style="width: 64px; flex-shrink: 0; border-radius: 10px; background: #F1ECE0; display: flex; flex-direction: column; align-items: center; padding: 8px 0">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; color: #801E18">OCT</span>
+<span style="font-size: 26px; font-weight: 700; color: #091B29">14</span>
+</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px; min-width: 220px">
+<div style="display: flex; gap: 8px; align-items: center"><span style="font-size: 16px; font-weight: 600">Premises inspection</span><span class="hs-chip hs-warn">Please confirm</span></div>
+<span class="hs-meta">Tuesday 10:30 · At your premises · Business Licensing</span>
+</div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<button type="button" class="hs-btn">Confirm</button>
+<button type="button" class="hs-btn2">Ask for another time</button>
+<button type="button" class="hs-btn2" style="border-color: transparent; color: #B3261E">Cancel</button>
+</div>
+</article>
+</section>
+
+<!-- MY GOVERNMENT: domain hubs (experience/citizen/<domain>) -->
+<section aria-labelledby="hs-hubs" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 id="hs-hubs" class="hs-h2">My government</h2>
+<p style="margin: 0; font-size: 14px; color: #4A5560">Everything government holds about you, in one place.</p>
+</div>
+<div class="hs-hubs">
+<a href="Work.html" class="hs-card" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Work &amp; employment</span><span class="hs-meta">Work permit in progress</span></a>
+<a href="Immigration.html" class="hs-card" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Immigration &amp; residency</span><span class="hs-meta">Residency active · 1 request</span></a>
+<a href="Tax.html" class="hs-card" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Tax &amp; revenue</span><span class="hs-meta">1 notice to read</span></a>
+<a href="Property.html" class="hs-card" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Property &amp; land</span><span class="hs-meta">1 registered interest</span></a>
+<a href="Vehicles.html" class="hs-card" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Vehicles &amp; driving</span><span class="hs-meta">1 vehicle · licence expiring</span></a>
+<a href="Health.html" class="hs-card" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Health</span><span class="hs-meta">Programmes, referrals, trials</span></a>
+<a href="Benefits.html" class="hs-card" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Benefits &amp; support</span><span class="hs-meta">See what you may qualify for</span></a>
+<a href="Education.html" class="hs-card" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Education</span><span class="hs-meta">1 transcript on record</span></a>
+<a href="CivilRecords.html" class="hs-card" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Civil records</span><span class="hs-meta">Birth certificate available</span></a>
+</div>
+<a href="PublicSafety.html" style="font-size: 14px; font-weight: 500; align-self: flex-start">Public safety: report an incident or get assistance</a>
+</section>
+
+<!-- RECOMMENDED (home → serviceRecommendations) -->
+<section aria-labelledby="hs-rec" style="display: flex; flex-direction: column; gap: 12px">
+<h2 id="hs-rec" class="hs-h2">Suggested for you</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<a href="Renewals.html" class="hs-card" style="padding: 18px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Renew your driving licence</span><span class="hs-meta">Because your licence expires on 2 December</span></a>
+<a href="ServiceDetail.html" class="hs-card" style="padding: 18px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B"><span style="font-size: 15px; font-weight: 600">Register as an employer</span><span class="hs-meta">Because you are applying for a food service licence</span></a>
+</div>
+</section>
+</div>
+
+<!-- ============ RIGHT RAIL ============ -->
+<aside aria-label="Your account" style="display: flex; flex-direction: column; gap: 18px">
+
+<!-- Account assurance (me → accountAssurance.assuranceLevel) -->
+<section aria-labelledby="hs-id" style="background: #091B29; color: #F7F3EA; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 50%; background: #DC9E48; display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#091B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 id="hs-id" style="margin: 0; font-size: 15px; font-weight: 700">Identity assurance: High</h2>
+<span style="font-size: 13px; color: #D4AA65">You can use all online services</span>
+</div>
+</div>
+<a href="Profile.html" style="font-size: 13px; color: #D4AA65; font-weight: 500">Profile and contact preferences</a>
+</section>
+
+<!-- Credentials (GET /credentials, /certificates; public verify) -->
+<section aria-labelledby="hs-cred" class="hs-card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="hs-cred" style="margin: 0; font-size: 16px; font-weight: 700; color: #091B29">Credentials &amp; certificates</h2>
+<a href="Credentials.html" style="font-size: 13px; font-weight: 500">All</a>
+</div>
+<a href="CredentialDetail.html" class="hs-official" style="border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B">
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #6B4710">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="#DC9E48" stroke="#6B4710" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="10" r="6"/><path d="M9 15 8 22l4-2 4 2-1-7" fill="none"/></svg>Government issued</span>
+<span style="font-size: 14px; font-weight: 600">Vehicle registration certificate</span>
+<span class="hs-meta">Transport Board · valid until 21 Sep 2027</span>
+</a>
+<a href="CivilRecords.html" class="hs-official" style="border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: #17191B">
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #6B4710">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="#DC9E48" stroke="#6B4710" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="10" r="6"/><path d="M9 15 8 22l4-2 4 2-1-7" fill="none"/></svg>Civil registry record</span>
+<span style="font-size: 14px; font-weight: 600">Birth certificate</span>
+<span class="hs-meta">Request a certified copy</span>
+</a>
+<a href="Verify.html" style="font-size: 13px; font-weight: 500">Check that a government document is genuine</a>
+</section>
+
+<!-- Payments (GET /payments; POST /payments/:invoiceId/intents) -->
+<section aria-labelledby="hs-pay" class="hs-card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 id="hs-pay" style="margin: 0; font-size: 16px; font-weight: 700; color: #091B29">Payments</h2>
+<div style="display: flex; justify-content: space-between; gap: 12px; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 14px; font-weight: 600">[AMOUNT] due</span><span class="hs-meta">Food service licence fee · 10 Oct</span></div>
+<a href="Invoice.html" class="hs-btn" style="height: 36px">Pay</a>
+</div>
+<a href="Payments.html" style="font-size: 13px; font-weight: 500">Receipts and payment history</a>
+</section>
+
+<!-- Messages (GET /messages; acknowledge) -->
+<section aria-labelledby="hs-msg" class="hs-card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="hs-msg" style="margin: 0; font-size: 16px; font-weight: 700; color: #091B29">Messages</h2>
+<a href="Messages.html" style="font-size: 13px; font-weight: 500">Inbox</a>
+</div>
+<a href="Messages.html" style="display: flex; flex-direction: column; gap: 2px; text-decoration: none; color: #17191B">
+<span style="display: flex; gap: 8px; align-items: center"><span style="width: 8px; height: 8px; border-radius: 50%; background: #153146"></span><span style="font-size: 14px; font-weight: 600">Labour Department</span></span>
+<span style="font-size: 14px; color: #3A444E">We need one more document for your work permit.</span>
+<span style="font-size: 12px; color: #5C6670">Yesterday</span>
+</a>
+<a href="Messages.html" style="display: flex; flex-direction: column; gap: 2px; text-decoration: none; color: #17191B">
+<span style="display: flex; gap: 8px; align-items: center"><span style="width: 8px; height: 8px; border-radius: 50%; background: #153146"></span><span style="font-size: 14px; font-weight: 600">Business Licensing</span></span>
+<span style="font-size: 14px; color: #3A444E">Your inspection time is ready to confirm.</span>
+<span style="font-size: 12px; color: #5C6670">29 September</span>
+</a>
+</section>
+
+<!-- Recent activity (home → recentItems) -->
+<section aria-labelledby="hs-recent" class="hs-card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 id="hs-recent" style="margin: 0; font-size: 16px; font-weight: 700; color: #091B29">Recent activity</h2>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+<li style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">Decision issued: vehicle transfer</span><span style="font-size: 12px; color: #5C6670">Transport Board · 22 September</span></li>
+<li style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">Documents accepted: food service licence</span><span style="font-size: 12px; color: #5C6670">Business Licensing · 22 September</span></li>
+<li style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">Application submitted: work permit</span><span style="font-size: 12px; color: #5C6670">Labour Department · 12 September</span></li>
+</ul>
+</section>
+
+<!-- Appeals & reviews (redress matters) -->
+<section aria-labelledby="hs-appeal" class="hs-card" style="padding: 20px; display: flex; flex-direction: column; gap: 8px">
+<h2 id="hs-appeal" style="margin: 0; font-size: 16px; font-weight: 700; color: #091B29">Appeals &amp; reviews</h2>
+<p style="margin: 0; font-size: 14px; color: #3A444E; line-height: 1.5">You have no open appeals. If you disagree with a decision, you can ask for it to be reviewed.</p>
+<a href="Appeals.html" style="font-size: 13px; font-weight: 500">How to request a review</a>
+</section>
+</aside>
+</div>
+
+<footer style="border-top: 1px solid #E6DFD0; padding-top: 18px; font-size: 13px; color: #4A5560; line-height: 1.5">This page summarises your records. The official record is held by the office that issued each decision or document.</footer>
+</main>
+</div>
+</div>
+<nav class="mtabs" aria-label="Main"><a href="Main.html" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</a><a href="Services.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Services</a><a href="Applications.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8l3 3v13H5V4z"/><path d="M9 11h6M9 15h6"/></svg>Applications</a><a href="Messages.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Messages</a><a href="Menu.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>More</a></nav>
+</x-dc>
+</body>
+</html>

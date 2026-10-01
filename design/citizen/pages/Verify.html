@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- HeartStone design reference (not production code). Source: HeartStone Citizen Dashboard design canvas. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeartStone — Check a document</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F7F3EA}
+a{color:#153146}a:hover{color:#091B29}
+.s{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh;font-family:'Public Sans',system-ui,sans-serif;color:#17191B;background:#F7F3EA}
+.nav{background:#091B29;color:#F7F3EA;display:flex;flex-direction:column;gap:22px;padding:26px 18px}
+.nav a{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:8px;color:#D7DEE4;text-decoration:none;font-size:14px}
+.nav a:hover{background:#142937;color:#FFFFFF}
+.nav a[aria-current]{background:#153146;color:#FFFFFF;font-weight:600}
+.nav-h{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#A9B6C2;padding:0 12px 6px}
+.top{background:#FFFFFF;border-bottom:1px solid #E6DFD0;display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:14px 32px}
+.note{background:#153146;color:#F7F3EA;font-size:13px;padding:8px 32px}
+.main{padding:28px 32px 56px;display:flex;flex-direction:column;gap:22px;max-width:1240px;width:100%;box-sizing:border-box}
+.card{background:#FFFFFF;border:1px solid #E6DFD0;border-radius:12px}
+.h1{margin:0;font-family:'EB Garamond',Georgia,serif;font-weight:600;font-size:40px;line-height:1.1;color:#091B29}
+.h2{margin:0;font-size:18px;font-weight:700;color:#091B29}
+.meta{font-size:13px;color:#4A5560}
+.p{margin:0;font-size:15px;line-height:1.6;color:#3A444E}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.warn{background:#FDEEE3;color:#8A3B0A}.info{background:#E7EEF5;color:#153146}.ok{background:#E4F2EA;color:#17603B}.neutral{background:#EFEBE2;color:#3A444E}.bad{background:#F6E3E1;color:#8E1F17}
+.official{background:#FCF6EC;color:#6B4710;border:1px solid #E8C995}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:9px;background:#091B29;color:#FFFFFF;font:inherit;font-size:15px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+.btn:hover{background:#153146;color:#FFFFFF}
+.btn2{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:9px;background:#FFFFFF;color:#091B29;font:inherit;font-size:15px;font-weight:600;text-decoration:none;border:1.5px solid #C9C0AE;cursor:pointer}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
+.sec{padding:20px 22px;display:flex;flex-direction:column;gap:12px}
+.col{display:flex;flex-direction:column;gap:20px;min-width:0}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:14px 0;border-top:1px solid #EFE9DD;align-items:center}
+.rt{font-size:15px;font-weight:600}
+.kv{display:grid;grid-template-columns:170px minmax(0,1fr);gap:10px 16px;margin:0;font-size:15px}
+.kv dt{color:#4A5560;margin:0}.kv dd{margin:0;font-weight:600}
+.callout{background:#F3F6F9;border:1px solid #C9D6E3;border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.55;color:#3A444E}
+.links{display:flex;flex-direction:column;gap:10px;font-size:14px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.lbl{font-size:15px;font-weight:600}
+.in{height:48px;border:1.5px solid #8F9AA5;border-radius:8px;padding:0 12px;font:inherit;font-size:16px;background:#FFFFFF;color:#17191B;box-sizing:border-box;width:100%}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:1100px){.split{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.s{grid-template-columns:minmax(0,1fr)}.nav{display:none}.main{padding:16px 16px 40px}.top{padding:12px 16px}.note{padding:8px 16px}.h1{font-size:32px}.g2{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr);gap:2px}.kv dd{margin-bottom:10px}}
+/* mobile-pass */
+main a:not([class]),header a:not([class]){padding-block:12px;margin-block:-12px;display:inline-block}
+</style>
+</helmet>
+<div style="min-height: 100vh; font-family: 'Public Sans', system-ui, sans-serif; color: #17191B; background: #F7F3EA">
+<header style="background: #091B29; color: #F7F3EA; display: flex; align-items: center; gap: 20px; padding: 16px 32px"><a href="SignIn.html" aria-label="HeartStone home" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none"><img src="../../brand/logo/heartstone-mark-gold.png" alt="" style="height: 32px; width: auto"><img src="../../brand/logo/heartstone-wordmark-gold.png" alt="HeartStone" style="height: 15px; width: auto"></a><a href="SignIn.html" style="margin-left: auto; color: #D4AA65; font-size: 14px; font-weight: 600">Sign in</a></header>
+<div role="note" class="note">Design prototype with sample data. Not a live government service.</div>
+<main style="max-width: 760px; margin: 0 auto; padding: 40px 24px 64px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 8px"><h1 class="h1">Check a government document</h1><p class="p" style="font-size: 16px">Enter the verification code printed on a licence, permit or certificate to see whether it is genuine and still valid.</p></div>
+<form class="card" style="padding: 22px; display: flex; flex-direction: column; gap: 8px"><label for="vf-c" class="lbl">Verification code</label><div style="display: flex; gap: 10px; flex-wrap: wrap"><input id="vf-c" class="in" style="flex-grow: 1; width: auto; min-width: 220px; font-size: 18px; letter-spacing: 0.08em" value="VR4P-8NQ2-T7KX"><button type="submit" class="btn" style="height: 48px">Check</button></div></form>
+<section role="status" aria-labelledby="vf-r" style="background: #FFFFFF; border: 2px solid #17603B; border-radius: 14px; overflow: hidden">
+<div style="background: #17603B; color: #FFFFFF; padding: 16px 22px; display: flex; gap: 12px; align-items: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><h2 id="vf-r" style="margin: 0; font-size: 20px; font-weight: 700">Genuine and valid</h2></div>
+<div style="padding: 20px 22px; display: flex; flex-direction: column; gap: 14px"><dl class="kv"><dt>Document</dt><dd>Vehicle registration certificate</dd><dt>Number</dt><dd>VRC-2026-004512</dd><dt>Issued by</dt><dd>Transport Board</dd><dt>Status</dt><dd>Valid until 21 September 2027</dd><dt>Checked</dt><dd>1 October 2026, 10:16</dd></dl><p class="p" style="font-size: 13px">Only the details needed to confirm the document are shown. Personal details are never shown here.</p></div>
+</section>
+<section class="card sec" aria-labelledby="vf-o"><h2 id="vf-o" class="h2" style="font-size: 16px">Other results you might see</h2><div class="row" style="border-top: 0"><span class="rt">Not valid</span><span class="chip bad">Revoked, suspended or expired</span></div><div class="row"><span class="rt">No match</span><span class="chip neutral">Code not recognised</span></div><p class="p" style="font-size: 13px">If a document doesn't check out, don't rely on it. Contact the office named on it.</p></section>
+</main>
+</div>
+</x-dc>
+</body>
+</html>
