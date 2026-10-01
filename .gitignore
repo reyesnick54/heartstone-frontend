@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+.turbo/
+.wrangler/
+*.log
+.DS_Store
+
+# Local environment and secrets — never commit (see docs/deployment.md)
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
