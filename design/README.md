@@ -8,6 +8,7 @@ design system (Build Plan stage F1) and the generated backend API client (F2).
 
 | Path                            | What it is                                                                               |
 | ------------------------------- | ---------------------------------------------------------------------------------------- |
+| `index.html`                    | Start page: the website → sign in → dashboard journey, and links to both catalogues      |
 | `brand/logo/`                   | HeartStone logo files (see below)                                                        |
 | `citizen/index.html`            | Catalogue of every citizen screen, with its readiness status                             |
 | `citizen/pages/`                | 41 static screens: the citizen dashboard pages 1–40 plus the mobile Home design          |
