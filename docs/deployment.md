@@ -10,9 +10,9 @@ record (Build Plan §16).
 | Government | `heartstone-government` | `apps/government` |
 | Executive  | `heartstone-executive`  | `apps/executive`  |
 | Admin      | `heartstone-admin`      | `apps/admin`      |
-| Prototype  | `heartstone-prototype`  | `apps/prototype`  |
+| Prototype  | `heartstone-frontend`   | `apps/prototype`  |
 
-`heartstone-prototype` is the clickable design prototype: the public website and citizen dashboard
+`heartstone-frontend` (in `apps/prototype`) is the clickable design prototype: the public website and citizen dashboard
 designs from `design/`, served as one site. It has no real authentication, so it must always sit
 behind Cloudflare Access. Setup is in [Prototype site](#prototype-site-step-by-step) below.
 
@@ -95,10 +95,10 @@ Try it locally first: `pnpm --filter @heartstone/prototype preview`, then open h
 2. Select **Create** → **Import a repository** (under "Workers").
 3. Connect GitHub if asked, and allow access to `reyesnick54/heartstone-frontend`. Select it.
 4. Fill in the settings exactly:
-   - **Project name:** `heartstone-prototype` (must match `apps/prototype/wrangler.jsonc`)
+   - **Project name:** `heartstone-frontend` (matches `apps/prototype/wrangler.jsonc`)
    - **Production branch:** `main`
    - **Root directory** (under Advanced settings): `apps/prototype`
-   - **Build command:** `pnpm run build`
+   - **Build command:** `node scripts/build.mjs` (needs only Node, no pnpm)
    - **Deploy command:** leave as `npx wrangler deploy`
    - **Build variables:** add `NODE_VERSION` = `22`
 5. Select **Create and deploy**. The first build takes a few minutes.
@@ -109,7 +109,7 @@ Try it locally first: `pnpm --filter @heartstone/prototype preview`, then open h
 
 Do this before anyone else gets a link.
 
-1. In **Workers & Pages**, open `heartstone-prototype` and select the **Access** tab.
+1. In **Workers & Pages**, open `heartstone-frontend` and select the **Access** tab.
 2. Select **Protect this Worker behind Access**, then **All traffic**. This covers the
    `workers.dev` address, preview links and any custom domain added later.
 3. Under **Authentication policy**, choose who may sign in:
@@ -126,7 +126,7 @@ Do this before anyone else gets a link.
 1. The domain must be managed in this Cloudflare account. If it isn't: **Add a domain** on the
    dashboard home, choose the Free plan, and change the domain's nameservers at your registrar to
    the two Cloudflare gives you. This can take from minutes to a day.
-2. Open `heartstone-prototype` → **Settings** → **Domains & Routes** → **Add** → **Custom
+2. Open `heartstone-frontend` → **Settings** → **Domains & Routes** → **Add** → **Custom
    Domain**.
 3. Enter a hostname that doesn't exist yet, for example `prototype.yourdomain.com`, and select
    **Add Custom Domain**. Cloudflare creates the DNS record and the security certificate itself.
@@ -153,4 +153,4 @@ On a phone and a computer:
 - Optional: in **Settings** → **Build** → **Build watch paths**, include `design/**` and
   `apps/prototype/**`, so changes to the other apps don't rebuild the prototype.
 - When the real React website and dashboard exist (Build Plan F3–F4), the custom domain moves from
-  `heartstone-prototype` to `heartstone-citizen`.
+  `heartstone-frontend` (the prototype) to `heartstone-citizen`.

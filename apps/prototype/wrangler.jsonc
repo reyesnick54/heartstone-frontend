@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "heartstone-prototype",
+  "name": "heartstone-frontend",
   "compatibility_date": "2026-09-24",
   // Static clickable prototype built from /design: no Worker script.
   // "/life-events" serves life-events.html; unknown paths get the site's 404 page.
