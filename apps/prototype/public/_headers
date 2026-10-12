@@ -1,8 +1,9 @@
 # Security headers for the clickable prototype.
 # The design pages are static HTML with inline styles and Google Fonts, and no JavaScript.
-# So, unlike the React apps: scripts are blocked entirely, inline styles and Google Fonts are allowed.
+# So, unlike the React apps: inline styles and Google Fonts are allowed. Scripts may only come from
+# this site (the /overview page's small navigation script); inline scripts stay blocked.
 /*
-  Content-Security-Policy: default-src 'none'; script-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src 'none'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'; upgrade-insecure-requests
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

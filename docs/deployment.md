@@ -81,6 +81,7 @@ rewrites every link, so the journey works end to end:
 | `/sign-in`              | Sign in. "Continue with digital ID" opens the dashboard |
 | `/dashboard/`           | Citizen dashboard home                                  |
 | `/dashboard/<page>`     | Dashboard pages. "Sign out" returns to `/signed-out`    |
+| `/overview`             | HeartStone overview presentation (single page)          |
 
 **The prototype's "Sign in" checks nobody**, and every visitor sees the same sample data. The real
 sign-in is Cloudflare Access, which decides who can open the site at all. The pages also say "An
