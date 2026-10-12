@@ -33,6 +33,10 @@ export default tseslint.config(
     },
   },
   {
+    files: ["apps/prototype/public/**/*.js"],
+    languageOptions: { globals: { ...globals.browser } },
+  },
+  {
     files: ["**/*.config.{js,ts}", "eslint.config.js", "apps/prototype/scripts/**/*.mjs"],
     languageOptions: { globals: { ...globals.node } },
   },
