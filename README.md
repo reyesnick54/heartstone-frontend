@@ -15,6 +15,7 @@ apps/
   government/   Government official workstation (desktop-first)
   executive/    Executive government command centre
   admin/        Governed platform administration
+  prototype/    Clickable prototype: website + dashboard designs as one site (behind Access)
 packages/
   config/       Shared strict TypeScript configuration
 docs/
@@ -49,7 +50,8 @@ pnpm --filter @heartstone/citizen dev      # one app → http://localhost:5173
 pnpm check                                 # format, lint, typecheck, test, build
 ```
 
-Dev ports: citizen 5173 · government 5174 · executive 5175 · admin 5176.
+Dev ports: citizen 5173 · government 5174 · executive 5175 · admin 5176 · prototype 8787
+(`pnpm --filter @heartstone/prototype preview`).
 
 ## Rules that hold from day one
 

@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "heartstone-prototype",
+  "compatibility_date": "2026-09-24",
+  // Static clickable prototype built from /design: no Worker script.
+  // "/life-events" serves life-events.html; unknown paths get the site's 404 page.
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+  },
+  // The prototype shows "official website" wording and a sign-in that checks nobody.
+  // workers.dev, Preview URLs and the custom domain MUST all sit behind Cloudflare Access
+  // (docs/deployment.md, "Prototype site"). Set workers_dev to false once the domain is attached.
+  "workers_dev": true,
+  "preview_urls": true,
+  "observability": {
+    "enabled": true,
+  },
+}
