@@ -1,0 +1,14 @@
+{
+  "name": "@heartstone/presentation",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "HeartStone overview presentation, served as a single static page at present.heartstone.site.",
+  "scripts": {
+    "test": "node scripts/check.mjs",
+    "preview": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^4.149.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "heartstone-presentation",
+  "compatibility_date": "2026-09-24",
+  // One static page, no Worker script and no build step: public/ is published as is.
+  "assets": {
+    "directory": "./public",
+  },
+  // Custom domain present.heartstone.site is attached in the Cloudflare dashboard
+  // (docs/deployment.md, "Presentation site"). Whether it needs a Cloudflare Access login is
+  // also set there.
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": {
+    "enabled": true,
+  },
+}

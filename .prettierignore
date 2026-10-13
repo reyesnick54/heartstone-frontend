@@ -6,4 +6,5 @@ pnpm-lock.yaml
 # Exported design reference pages (generated from the design canvas)
 design/citizen/
 design/website/
-apps/prototype/public/overview.*
+apps/presentation/public/index.html
+apps/presentation/public/overview.js

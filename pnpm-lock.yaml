@@ -208,6 +208,12 @@ importers:
         specifier: ^4.149.0
         version: 4.149.0
 
+  apps/presentation:
+    devDependencies:
+      wrangler:
+        specifier: ^4.149.0
+        version: 4.149.0
+
   apps/prototype:
     devDependencies:
       wrangler:

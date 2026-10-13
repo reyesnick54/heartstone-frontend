@@ -4,13 +4,14 @@ Each persona app deploys as its own Cloudflare Worker serving static assets. The
 script and no server-side logic in the frontend. HeartStone backend remains the sole system of
 record (Build Plan §16).
 
-| App        | Worker name             | Root directory    |
-| ---------- | ----------------------- | ----------------- |
-| Citizen    | `heartstone-citizen`    | `apps/citizen`    |
-| Government | `heartstone-government` | `apps/government` |
-| Executive  | `heartstone-executive`  | `apps/executive`  |
-| Admin      | `heartstone-admin`      | `apps/admin`      |
-| Prototype  | `heartstone-frontend`   | `apps/prototype`  |
+| App          | Worker name               | Root directory      |
+| ------------ | ------------------------- | ------------------- |
+| Citizen      | `heartstone-citizen`      | `apps/citizen`      |
+| Government   | `heartstone-government`   | `apps/government`   |
+| Executive    | `heartstone-executive`    | `apps/executive`    |
+| Admin        | `heartstone-admin`        | `apps/admin`        |
+| Prototype    | `heartstone-frontend`     | `apps/prototype`    |
+| Presentation | `heartstone-presentation` | `apps/presentation` |
 
 `heartstone-frontend` (in `apps/prototype`) is the clickable design prototype: the public website and citizen dashboard
 designs from `design/`, served as one site. It has no real authentication, so it must always sit
@@ -81,7 +82,7 @@ rewrites every link, so the journey works end to end:
 | `/sign-in`              | Sign in. "Continue with digital ID" opens the dashboard |
 | `/dashboard/`           | Citizen dashboard home                                  |
 | `/dashboard/<page>`     | Dashboard pages. "Sign out" returns to `/signed-out`    |
-| `/overview`             | HeartStone overview presentation (single page)          |
+| `/overview`             | Redirects to the presentation site (below)              |
 
 **The prototype's "Sign in" checks nobody**, and every visitor sees the same sample data. The real
 sign-in is Cloudflare Access, which decides who can open the site at all. The pages also say "An
@@ -155,3 +156,45 @@ On a phone and a computer:
   `apps/prototype/**`, so changes to the other apps don't rebuild the prototype.
 - When the real React website and dashboard exist (Build Plan F3–F4), the custom domain moves from
   `heartstone-frontend` (the prototype) to `heartstone-citizen`.
+
+## Presentation site: step by step
+
+`apps/presentation` is the HeartStone overview presentation: one static page in `public/`, with no
+build step. It deploys as its own Worker, `heartstone-presentation`, on `present.heartstone.site`,
+so its access rules can differ from the prototype's (for example, open to invited investors while
+the prototype stays restricted). The old `heartstone.site/overview` link redirects to it.
+
+To update the presentation, replace `apps/presentation/public/index.html` and merge to `main`.
+
+### Step 1: Create the Worker from GitHub
+
+1. **Workers & Pages** → **Create** → **Import a repository** → `reyesnick54/heartstone-frontend`.
+2. Settings:
+   - **Project name:** `heartstone-presentation`
+   - **Production branch:** `main`
+   - **Root directory:** `apps/presentation`
+   - **Build command:** leave empty (there is nothing to build)
+   - **Deploy command:** `npx wrangler deploy`
+   - **Build variables:** `NODE_VERSION` = `22`
+3. **Create and deploy**, and wait for **Success**.
+4. Optional: **Settings** → **Build** → **Build watch paths** → include `apps/presentation/**`, so
+   changes elsewhere in the repo don't redeploy it.
+
+### Step 2: Decide who can open it
+
+- **Restricted:** **Access** tab → **Protect this Worker behind Access** → **All traffic** → add the
+  allowed emails or email domain → **Apply Access**.
+- **Public:** leave Access off. The page contains design screenshots that read "An official website
+  of the Government of Antigua and Barbuda", so only make it public once that wording is approved
+  or the screenshots are replaced.
+
+### Step 3: Attach present.heartstone.site
+
+1. `heartstone-presentation` → **Domains** → **Add Domain** → enter `present.heartstone.site` →
+   **Add Domain**. Cloudflare creates the DNS record and certificate.
+2. If Cloudflare reports a conflict with `*.heartstone.site`: that wildcard comes from Preview URLs
+   on the `heartstone-frontend` Worker's custom domain. Move those previews to a dedicated
+   hostname such as `previews.heartstone.site`, or turn previews off for the custom domain, then
+   add `present.heartstone.site` again.
+3. Open `https://present.heartstone.site` in a private window to check it (and the Access login
+   first, if you chose Restricted).
