@@ -79,8 +79,16 @@ Marked in `citizen/index.html` and detailed in the coverage map:
 
 ## Logo files
 
+The website and citizen dashboard designs use the **ABSEZ Universal Registry** logo (crest and
+wordmark). The ABSEZ files are cut from the supplied 536 × 168 px image, so **vector originals are
+needed** before production. The HeartStone files remain for platform-level material.
+
 | File                                             | Use                                                          |
 | ------------------------------------------------ | ------------------------------------------------------------ |
+| `absez-logo-source.png`                          | ABSEZ Universal Registry logo as supplied (on white)         |
+| `absez-lockup.png`                               | ABSEZ crest + wordmark, transparent, for light backgrounds   |
+| `absez-lockup-light.png`                         | Same lockup with light wordmark, for dark backgrounds        |
+| `absez-crest.png`                                | Crest only                                                   |
 | `heartstone-logo-source.png`                     | Original supplied artwork (gold on navy)                     |
 | `heartstone-lockup-gold.png`                     | Stacked mark and wordmark, transparent, for dark backgrounds |
 | `heartstone-mark-gold.png` / `-midnight.png`     | Column mark only, for dark / light backgrounds               |
