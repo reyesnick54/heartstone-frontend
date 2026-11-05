@@ -1,0 +1,85 @@
+name: Deploy staging
+
+# Deploys the four gateway apps to their staging Workers on heartstone.site after CI passes on
+# main. Staging holds synthetic data only and is always behind Cloudflare Access: the Access
+# check runs first and the deploy stops if it fails. See docs/deployment.md, "Staging".
+#
+# Needs the repository secret CLOUDFLARE_API_TOKEN (scopes in docs/deployment.md). Optional
+# repository variables: CLOUDFLARE_ACCOUNT_ID, STAGING_ACCESS_EMAIL_DOMAIN, STAGING_ACCESS_EMAILS.
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: false
+
+env:
+  STAGING_HOSTNAMES: >-
+    staging.heartstone.site staging-gov.heartstone.site staging-exec.heartstone.site
+    staging-admin.heartstone.site
+
+jobs:
+  access:
+    name: Cloudflare Access covers staging
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: node scripts/ensure-staging-access.mjs
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          STAGING_ACCESS_EMAIL_DOMAIN: ${{ vars.STAGING_ACCESS_EMAIL_DOMAIN || 'abraxas-eu.com' }}
+          STAGING_ACCESS_EMAILS: ${{ vars.STAGING_ACCESS_EMAILS }}
+
+  deploy:
+    name: Deploy ${{ matrix.app }} (staging)
+    needs: access
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: staging
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [citizen, government, executive, admin]
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run build --filter=@heartstone/${{ matrix.app }}
+      - name: Deploy Worker
+        working-directory: apps/${{ matrix.app }}
+        run: pnpm exec wrangler deploy --env staging
+      # Each Worker gets its own random cookie key, created once inside Cloudflare. It is never
+      # printed, stored in git or passed between jobs. Rotation: docs/deployment.md.
+      - name: Session cookie key exists
+        working-directory: apps/${{ matrix.app }}
+        run: |
+          if pnpm exec wrangler secret list --env staging --format json | grep -q '"SESSION_COOKIE_KEY"'; then
+            echo "SESSION_COOKIE_KEY already set."
+          else
+            openssl rand -base64 32 | tr -d '\n' | pnpm exec wrangler secret put SESSION_COOKIE_KEY --env staging
+          fi

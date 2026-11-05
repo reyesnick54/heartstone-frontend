@@ -21,8 +21,12 @@ behind Cloudflare Access. Setup is in [Prototype site](#prototype-site-step-by-s
 
 ## How deployment works
 
-Deployment uses **Workers Builds** (Cloudflare's GitHub integration), not GitHub Actions.
-Cloudflare builds directly from the repository, so **no Cloudflare API token is stored in GitHub**.
+Preview and production deployment uses **Workers Builds** (Cloudflare's GitHub integration).
+Cloudflare builds directly from the repository, with no Cloudflare API token in GitHub.
+
+**Staging is the exception:** `.github/workflows/deploy-staging.yml` deploys all four gateway apps
+with one scoped Cloudflare API token, so staging needs no per-app dashboard setup. See
+[Staging](#staging).
 
 - Push to `main` → production deploy of each Worker.
 - Push to any other branch → a **Preview** with its own URL, posted on the pull request.
@@ -59,11 +63,52 @@ authentication. Access is a perimeter control, not a substitute for backend auth
 | ----------- | ---------------------------- | --------------------------------------------------------- |
 | Preview     | every non-`main` branch / PR | Configured by F0. Sign-in off unless gateway vars are set |
 | Production  | `main`                       | Configured by F0. Sign-in off until gateway vars are set  |
-| Staging     | dedicated branch or Worker   | Not yet. Needs the staging backend and identity provider  |
+| Staging     | `main`, after CI passes      | `*-staging` Workers on `staging*.heartstone.site` (below) |
 
 Without the [gateway variables](#gateway-sign-in-and-the-api-proxy), an app still serves its
 pages, but sign-in and `/api/*` fail closed: `/api/*` and `/auth/session` answer 503, and "Sign in"
 returns to the app with "Sign-in is not available right now".
+
+## Staging
+
+Staging runs against the Render staging backend and Keycloak (backend repo,
+`docs/operations/render-staging.md`). Synthetic data only.
+
+| App        | Worker                          | Address                                 |
+| ---------- | ------------------------------- | --------------------------------------- |
+| Citizen    | `heartstone-citizen-staging`    | `https://staging.heartstone.site`       |
+| Government | `heartstone-government-staging` | `https://staging-gov.heartstone.site`   |
+| Executive  | `heartstone-executive-staging`  | `https://staging-exec.heartstone.site`  |
+| Admin      | `heartstone-admin-staging`      | `https://staging-admin.heartstone.site` |
+
+**How it deploys.** When CI passes on `main`, the workflow:
+
+1. Checks that one Cloudflare Access application, "HeartStone staging (synthetic data)", covers all
+   four addresses and has an allow policy, and creates it on first run
+   (`scripts/ensure-staging-access.mjs`). If this fails, nothing is deployed.
+2. Builds each app and runs `wrangler deploy --env staging`. The `env.staging` block in each
+   `wrangler.jsonc` sets the custom domain (Cloudflare creates the DNS record and certificate) and
+   the gateway variables. `workers_dev` and Preview URLs are off for staging.
+3. Creates `SESSION_COOKIE_KEY` as a Worker secret if it does not exist yet, from
+   `openssl rand -base64 32` inside the job. It is never printed or stored anywhere else.
+
+It can also be run by hand: **Actions → Deploy staging → Run workflow**.
+
+**One-time setup:**
+
+1. Cloudflare: **My Profile → API Tokens → Create Token → "Edit Cloudflare Workers"** template.
+   Add the permission **Account → Access: Apps and Policies → Edit**. Under Zone Resources choose
+   **Specific zone → heartstone.site**, and under Account Resources the HeartStone account.
+2. GitHub: **heartstone-frontend → Settings → Secrets and variables → Actions → New repository
+   secret**, name `CLOUDFLARE_API_TOKEN`, paste the token.
+3. Optional repository variables: `STAGING_ACCESS_EMAIL_DOMAIN` (default `abraxas-eu.com`),
+   `STAGING_ACCESS_EMAILS` (comma-separated named testers), and `CLOUDFLARE_ACCOUNT_ID` if the
+   token can see more than one account.
+
+**Sign-in.** All four apps use the Keycloak public client `heartstone-web` (PKCE S256). Keycloak's
+allowed redirect URIs are fixed when the realm is first imported, from `HEARTSTONE_WEB_ORIGINS` on
+the Keycloak service. To add an address later, add `https://<host>/auth/callback` to the client in
+the Keycloak admin console as well as updating that variable.
 
 ## Secrets
 
