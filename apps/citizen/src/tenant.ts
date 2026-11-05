@@ -5,6 +5,19 @@ export const TENANT_PLACEHOLDER = {
   productName: "HeartStone",
   officialStatement: "[OFFICIAL WEBSITE STATEMENT — set by tenant configuration]",
   officialInfoHref: "#official-sites",
+  /** Name of the national digital ID used to sign in. */
+  digitalIdName: "your digital ID",
+  /** Service-adviser phone line and hours shown on Help. */
+  supportPhone: "[SUPPORT PHONE — set by tenant configuration]",
+  supportHours: "[SUPPORT HOURS — set by tenant configuration]",
+} as const;
+
+/** Language and formatting for this deployment. */
+export const LOCALE = {
+  /** Key used to pick localised text from backend `{ en: "…" }` maps. */
+  language: "en",
+  dateLocale: "en-GB",
+  numberLocale: "en-GB",
 } as const;
 
 /**
