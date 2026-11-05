@@ -218,3 +218,26 @@
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   }
 }
+
+.table-sub {
+  display: block;
+  color: var(--hs-color-text-muted);
+  font-size: var(--hs-font-size-sm);
+  font-weight: var(--hs-font-weight-regular);
+}
+
+.hash,
+.verification-code {
+  font-family: var(--hs-font-mono);
+  font-size: var(--hs-font-size-sm);
+  overflow-wrap: anywhere;
+}
+
+.verification-code {
+  font-size: var(--hs-font-size-lg);
+  letter-spacing: var(--hs-letter-spacing-wide);
+}
+
+.message-body {
+  white-space: pre-line;
+}
