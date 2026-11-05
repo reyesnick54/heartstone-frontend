@@ -4,11 +4,13 @@ Shared front-end platform for HeartStone, the sovereign Digital Government Opera
 One repository, one design system, persona-specific web applications, all running against the
 HeartStone backend as the sole system of record.
 
-> **Status: F3 citizen core (in progress).** The design system, the typed backend client and the
-> sign-in gateway exist. The citizen app is a routed dashboard on the real API: home, find a
-> service, service detail, eligibility, the dynamic application form, check your answers and
-> submit. The other apps are demo shells. No government service is live or operational from this
-> repository.
+> **Status: F3 citizen core + F4 citizen transactions.** The design system, the typed backend
+> client and the sign-in gateway exist. The citizen app is a routed dashboard on the real API:
+> home, find a service and apply, applications with case progress, appointments, documents,
+> credentials, payments, messages, renewals, the "My government" hubs, help and public document
+> verification. Capabilities the backend does not offer yet (appeals, profile and settings
+> changes, document upload) are shown as "not available yet". The other apps are demo shells. No
+> government service is live or operational from this repository.
 
 ## Structure
 
@@ -123,6 +125,6 @@ Dev ports: citizen 5173 · government 5174 · executive 5175 · admin 5176 · pr
 
 ## Build stages
 
-F0 repository + CI + Cloudflare ✓ · F1 design system ✓ · F2 API + identity foundation ✓ · F3 citizen core (in progress)
-· F4 citizen transactions · F5 business/investor · F6 government official · F7 manager + executive
+F0 repository + CI + Cloudflare ✓ · F1 design system ✓ · F2 API + identity foundation ✓ · F3 citizen core ✓
+· F4 citizen transactions ✓ · F5 business/investor · F6 government official · F7 manager + executive
 · F8 administration · F9 healthcare · F10 hardening + pilot verticals.

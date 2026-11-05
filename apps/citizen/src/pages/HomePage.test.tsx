@@ -1,4 +1,5 @@
 import { screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { json, never, on, renderAt } from "../test/harness";
 
 const counts = {
@@ -144,7 +145,7 @@ describe("Home", () => {
     ]);
     const retry = await screen.findByRole("button", { name: "Try again" });
     expect(screen.getByText("We could not load your summary")).toBeInTheDocument();
-    retry.click();
+    await userEvent.setup().click(retry);
     expect(await screen.findByRole("list", { name: "At a glance" })).toBeInTheDocument();
     expect(unhandled).toEqual([]);
   });
@@ -157,7 +158,6 @@ describe("Home", () => {
   });
 
   it("sends 'describe what you need' to the service search", async () => {
-    const { default: userEvent } = await import("@testing-library/user-event");
     const user = userEvent.setup();
     renderAt("/", [
       home(),
