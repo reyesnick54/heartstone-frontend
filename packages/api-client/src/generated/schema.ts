@@ -1,6 +1,6 @@
 /**
  * GENERATED FILE. Do not edit.
- * Source: heartstone-backend openapi/openapi.json @ 6f871492cac6ee001fe95139eae6fb16a3009ed8
+ * Source: heartstone-backend openapi/openapi.json @ fc353eccf98660197a869b2c5e06fa66485979db
  * Paths are relative to /api/v1.
  * Regenerate: pnpm --filter @heartstone/api-client generate
  */
@@ -597,7 +597,10 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        /** Authenticate a governing source */
+        /**
+         * Record that an authenticated copy of this governing source was verified
+         * @description The authenticating officer is the signed-in identity. The request cannot name someone else.
+         */
         patch: operations["GoverningSourcesController_authenticate"];
         trace?: never;
     };
@@ -3941,6 +3944,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** Get the citizen benefits home summary for the authenticated applicant */
         get: operations["CitizenBenefitsController_getHome"];
         put?: never;
         post?: never;
@@ -3957,6 +3961,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List self-service benefit actions available to the applicant */
         get: operations["CitizenBenefitsController_listActions"];
         put?: never;
         post?: never;
@@ -3973,6 +3978,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List benefit applications linked to the authenticated applicant */
         get: operations["CitizenBenefitsController_listApplications"];
         put?: never;
         post?: never;
@@ -3989,6 +3995,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List benefit awards recorded for the authenticated applicant */
         get: operations["CitizenBenefitsController_listAwards"];
         put?: never;
         post?: never;
@@ -4005,6 +4012,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List benefit disbursement references for the authenticated applicant */
         get: operations["CitizenBenefitsController_listPayments"];
         put?: never;
         post?: never;
@@ -4021,6 +4029,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List benefit programs available for preliminary (non-authoritative) matching */
         get: operations["CitizenBenefitsController_listPrograms"];
         put?: never;
         post?: never;
@@ -4244,6 +4253,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List driver licenses held by the authenticated citizen */
         get: operations["CitizenTransportationController_listDriverLicenses"];
         put?: never;
         post?: never;
@@ -4277,6 +4287,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List self-service education actions available to the citizen */
         get: operations["CitizenEducationController_listActions"];
         put?: never;
         post?: never;
@@ -4293,6 +4304,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List enrollment and scholarship applications in the citizen's scope */
         get: operations["CitizenEducationController_listApplications"];
         put?: never;
         post?: never;
@@ -4309,6 +4321,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List academic credentials for the student profiles the citizen may access */
         get: operations["CitizenEducationController_listCredentials"];
         put?: never;
         post?: never;
@@ -4325,6 +4338,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List enrollments for the student profiles the citizen may access */
         get: operations["CitizenEducationController_listEnrollments"];
         put?: never;
         post?: never;
@@ -4341,6 +4355,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List scholarship and grant support applications in the citizen's scope */
         get: operations["CitizenEducationController_listSupport"];
         put?: never;
         post?: never;
@@ -4357,6 +4372,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** Get the citizen employment home summary for the authenticated worker */
         get: operations["CitizenEmploymentController_getHome"];
         put?: never;
         post?: never;
@@ -4373,6 +4389,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List self-service employment actions available to the worker */
         get: operations["CitizenEmploymentController_listActions"];
         put?: never;
         post?: never;
@@ -4389,6 +4406,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List work permit applications for the authenticated worker */
         get: operations["CitizenEmploymentController_listApplications"];
         put?: never;
         post?: never;
@@ -4405,6 +4423,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List employment relationships recorded for the authenticated worker */
         get: operations["CitizenEmploymentController_listRelationships"];
         put?: never;
         post?: never;
@@ -4421,6 +4440,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List work permit records for the authenticated worker */
         get: operations["CitizenEmploymentController_listWorkPermits"];
         put?: never;
         post?: never;
@@ -4817,6 +4837,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List suggested property registry actions for the citizen */
         get: operations["CitizenPropertyController_listActions"];
         put?: never;
         post?: never;
@@ -4833,6 +4854,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List property registry applications in the citizen's scope */
         get: operations["CitizenPropertyController_listApplications"];
         put?: never;
         post?: never;
@@ -4849,6 +4871,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List property registry certificates for parcels in the citizen's scope */
         get: operations["CitizenPropertyController_listDocuments"];
         put?: never;
         post?: never;
@@ -4865,6 +4888,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List active property interests held by the authenticated citizen */
         get: operations["CitizenPropertyController_listInterests"];
         put?: never;
         post?: never;
@@ -4898,6 +4922,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List open public safety service requests the citizen can follow up on */
         get: operations["CitizenPublicSafetyController_listActions"];
         put?: never;
         post?: never;
@@ -4914,6 +4939,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List recovery assistance applications for the authenticated citizen */
         get: operations["CitizenPublicSafetyController_listAssistance"];
         put?: never;
         post?: never;
@@ -4930,6 +4956,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List open public emergency events (informational) */
         get: operations["CitizenPublicSafetyController_listEmergencyEvents"];
         put?: never;
         post?: never;
@@ -4946,6 +4973,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List incident reports submitted by the authenticated citizen */
         get: operations["CitizenPublicSafetyController_listReports"];
         put?: never;
         post?: never;
@@ -4996,6 +5024,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List taxpayer accounts held by the authenticated citizen */
         get: operations["CitizenRevenueController_listAccounts"];
         put?: never;
         post?: never;
@@ -5012,6 +5041,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List revenue actions derived from authoritative taxpayer state */
         get: operations["CitizenRevenueController_listActions"];
         put?: never;
         post?: never;
@@ -5028,6 +5058,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List tax assessments for the citizen */
         get: operations["CitizenRevenueController_listAssessments"];
         put?: never;
         post?: never;
@@ -5044,6 +5075,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List tax obligations and outstanding balance for the citizen */
         get: operations["CitizenRevenueController_listObligations"];
         put?: never;
         post?: never;
@@ -5060,6 +5092,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List tax payment allocations for the citizen */
         get: operations["CitizenRevenueController_listPayments"];
         put?: never;
         post?: never;
@@ -5076,6 +5109,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List tax returns for the citizen (paginated) */
         get: operations["CitizenRevenueController_listReturns"];
         put?: never;
         post?: never;
@@ -5211,6 +5245,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List self-service transportation actions available to the citizen */
         get: operations["CitizenTransportationController_listActions"];
         put?: never;
         post?: never;
@@ -5227,6 +5262,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List transportation service cases opened by the citizen */
         get: operations["CitizenTransportationController_listVehicleApplications"];
         put?: never;
         post?: never;
@@ -5243,6 +5279,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** List vehicles the citizen is authorized to view */
         get: operations["CitizenTransportationController_listVehicles"];
         put?: never;
         post?: never;
@@ -10235,6 +10272,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** Publicly verify an academic credential by reference (minimal facts) */
         get: operations["PublicEducationVerificationController_verifyCredential"];
         put?: never;
         post?: never;
@@ -11758,6 +11796,30 @@ export interface components {
             /** @enum {string} */
             severity: "INFO" | "LOW" | "MEDIUM" | "HIGH" | "BLOCKING";
         };
+        ApplicationRecordDto: {
+            /** @enum {string} */
+            applicantCategory: "INDIVIDUAL" | "CITIZEN" | "RESIDENT" | "NON_RESIDENT" | "BUSINESS" | "COMPANY" | "INVESTOR" | "EMPLOYER" | "EMPLOYEE" | "AUTHORIZED_REPRESENTATIVE" | "PROFESSIONAL" | "GOVERNMENT_ENTITY" | "PARTNER_ORGANIZATION" | "OTHER";
+            applicantIdentityId: string;
+            applicationNumber: string | null;
+            configurationFingerprint: string;
+            /** Format: date-time */
+            createdAt: string;
+            draftAnswers: {
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean;
+            formDefinitionId: string;
+            formVersionId: string;
+            governmentServiceId: string;
+            governmentServiceVersionId: string;
+            id: string;
+            idempotencyKey: string | null;
+            organizationId: string | null;
+            representativeAuthorityId: string | null;
+            /** @enum {string} */
+            status: "DRAFT" | "SUBMITTED" | "RECEIVED" | "WITHDRAWN" | "CLOSED";
+            /** Format: date-time */
+            updatedAt: string;
+        };
         AppointmentResponseDto: {
             /** Format: date-time */
             createdAt: string;
@@ -11838,8 +11900,8 @@ export interface components {
         AssessMasterFileCompletenessDto: Record<string, never>;
         AssociateDocumentDto: Record<string, never>;
         AuthenticateGoverningSourceDto: {
-            /** Format: uuid */
-            authenticatedByIdentityId: string;
+            /** @description Where the verified, executed copy is held (gazette reference, registry entry, file number) */
+            verificationReference?: string;
         };
         AuthenticationMethodResponseDto: {
             /** @enum {string} */
@@ -11879,6 +11941,48 @@ export interface components {
              */
             status: "ALLOW" | "NOT_AUTHORIZED" | "BLOCKED" | "REQUIRES_EXTERNAL_DETERMINATION" | "REQUIRES_PROFESSIONAL_REVIEW" | "REQUIRES_HUMAN_REVIEW" | "SAFE_HALT";
             summary: string;
+        };
+        BenefitAwardRecordDto: {
+            awardNumber: string;
+            benefitApplicationProfileId: string | null;
+            benefitProgramId: string;
+            benefitProgramVersionId: string;
+            /** Format: date-time */
+            createdAt: string;
+            currentBenefitAwardVersionId: string | null;
+            doesNotDetermineContinuingEligibility: boolean;
+            governmentDecisionId: string | null;
+            id: string;
+            /** @enum {string} */
+            lifecycleStatus: "NOT_AWARDED" | "PENDING_DECISION" | "AWARDED" | "EFFECTIVE" | "SUSPENDED" | "TERMINATED" | "SUPERSEDED" | "CLOSED";
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        BenefitDisbursementReferenceRecordDto: {
+            benefitAwardId: string;
+            /** Format: date-time */
+            createdAt: string;
+            disbursementReference: string;
+            doesNotDetermineEligibility: boolean;
+            id: string;
+            paymentTransactionId: string | null;
+            /** Format: date-time */
+            recordedAt: string;
+        };
+        BenefitProgramRecordDto: {
+            benefitCategoryId: string;
+            /** Format: date-time */
+            createdAt: string;
+            doesNotEncodeEligibilityLaw: boolean;
+            id: string;
+            institutionId: string | null;
+            jurisdictionId: string | null;
+            programCode: string;
+            programName: string;
+            /** @enum {string} */
+            status: "DRAFT" | "ACTIVE" | "SUSPENDED" | "RETIRED";
+            /** Format: date-time */
+            updatedAt: string;
         };
         BusinessActionDto: {
             /** @example PAY_INVOICE */
@@ -12137,7 +12241,7 @@ export interface components {
             attribution: components["schemas"]["InstitutionAttributionDto"];
             createdAt: string;
             deepLink: components["schemas"]["DeepLinkDto"];
-            dueAt: Record<string, never>;
+            dueAt: string | null;
             label: components["schemas"]["LocalizedLabelDto"];
             priority: number;
             relatedApplicationId?: string;
@@ -12199,12 +12303,12 @@ export interface components {
             /** Format: uuid */
             id: string;
             isVirtual: boolean;
-            locationName?: Record<string, never>;
-            reasonName?: Record<string, never>;
-            scheduledEndsAt?: Record<string, never>;
-            scheduledStartsAt?: Record<string, never>;
+            locationName: string | null;
+            reasonName: string | null;
+            scheduledEndsAt: string | null;
+            scheduledStartsAt: string | null;
             status: string;
-            virtualMeetingUrl?: Record<string, never>;
+            virtualMeetingUrl: string | null;
         };
         CitizenAppointmentsResponseDto: {
             items: components["schemas"]["CitizenAppointmentSummaryDto"][];
@@ -12217,10 +12321,70 @@ export interface components {
             /** Format: uuid */
             id: string;
             isVirtual: boolean;
-            reasonName?: Record<string, never>;
-            scheduledEndsAt?: Record<string, never>;
-            scheduledStartsAt?: Record<string, never>;
+            reasonName: string | null;
+            scheduledEndsAt: string | null;
+            scheduledStartsAt: string | null;
             status: string;
+        };
+        CitizenBenefitActionDto: {
+            actionKey: string;
+            label: string;
+        };
+        CitizenBenefitActiveAwardDto: {
+            awardNumber: string;
+            /** @enum {string} */
+            lifecycleStatus: "NOT_AWARDED" | "PENDING_DECISION" | "AWARDED" | "EFFECTIVE" | "SUSPENDED" | "TERMINATED" | "SUPERSEDED" | "CLOSED";
+        };
+        CitizenBenefitApplicationItemDto: {
+            applicationId: string;
+            benefitApplicantProfileId: string;
+            benefitProgram: components["schemas"]["BenefitProgramRecordDto"];
+            benefitProgramId: string;
+            benefitProgramVersionId: string;
+            caseId: string;
+            /** Format: date-time */
+            createdAt: string;
+            doesNotCreateBenefitAward: boolean;
+            doesNotInferEligibility: boolean;
+            householdRecordId: string | null;
+            id: string;
+            paymentDoesNotDetermineEligibility: boolean;
+            profileNumber: string;
+            /** @enum {string} */
+            status: "LINKED" | "ACTIVE" | "WITHDRAWN" | "CLOSED";
+            /** Format: date-time */
+            submissionAcknowledgedAt: string | null;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CitizenBenefitProgramItemDto: {
+            /** @enum {string} */
+            categoryKind: "INCOME_SUPPORT" | "UNEMPLOYMENT_SUPPORT" | "DISABILITY_RELATED" | "PENSION_SOCIAL_SECURITY" | "HOUSING_ASSISTANCE" | "FOOD_ASSISTANCE" | "FAMILY_SUPPORT" | "CHILD_SUPPORT" | "ELDERLY_SUPPORT" | "EMERGENCY_ASSISTANCE" | "EDUCATION_BENEFITS" | "HEALTHCARE_SUPPORT" | "VETERAN_SUPPORT" | "DISASTER_RELIEF" | "TARGETED_SUBSIDY" | "MEANS_TESTED" | "CATEGORY_BASED" | "OTHER_CONFIGURED";
+            isAuthoritativeEligibility: boolean;
+            preliminaryMatchingOnly: boolean;
+            programCode: string;
+            programName: string;
+        };
+        CitizenBenefitsActionsResponseDto: {
+            availableActions: components["schemas"]["CitizenBenefitActionDto"][];
+            profileReferenceNumber: string;
+        };
+        CitizenBenefitsHomeResponseDto: {
+            activeAward: components["schemas"]["CitizenBenefitActiveAwardDto"] | null;
+            disbursementReferences: number;
+            disclaimer: string;
+            paymentDisclaimer: string;
+            pendingApplications: number;
+            preliminaryEligibilityAssessments: number;
+            preliminaryMatchDisclaimer: string;
+            preliminaryMatchingIsNotAuthoritativeEligibility: boolean;
+            profileReferenceNumber: string;
+            renewalItemsTracked: number;
+            /** @enum {string} */
+            ruleEnvironment: "NON_PRODUCTION";
+        };
+        CitizenBoundaryDisclaimerResponseDto: {
+            disclaimer: string;
         };
         CitizenCaseCommunicationSummaryDto: {
             communicationId: string;
@@ -12246,6 +12410,30 @@ export interface components {
             publicStatusLabel: string;
             recentCommunications: components["schemas"]["CitizenCaseCommunicationSummaryDto"][];
         };
+        CitizenCivilCertificateSummaryDto: {
+            certificateType: string;
+            id: string;
+            issuedAt?: string;
+            registryVersionId: string;
+            requestViaServiceSlug?: string;
+            /** @enum {string} */
+            status: "PENDING_ISSUANCE" | "ISSUED" | "REVOKED" | "SUPERSEDED";
+            verificationReference?: string;
+            vitalRecordId: string;
+        };
+        CitizenCivilRegistryActionDto: {
+            actionCode: string;
+            description: string;
+            label: string;
+            serviceSlug: string;
+        };
+        CitizenCivilStatusResponseDto: {
+            entitledRecordCount: number;
+            identityId: string;
+            officialRecordCount: number;
+            pendingSubmissionCount: number;
+            templateDisclaimer: string;
+        };
         CitizenClassificationDto: {
             /** @description Citizen/resident classification is derived from application history only */
             classificationNote: string;
@@ -12256,8 +12444,30 @@ export interface components {
             isEnabled: boolean;
             locale?: string;
         };
+        CitizenCredentialDetailDto: {
+            /** @description Instrument conditions exactly as recorded on the current instrument version */
+            conditions: unknown[];
+            currentVersionNumber?: number;
+            downloadPath?: string;
+            effectiveFrom?: string;
+            effectiveUntil?: string;
+            holderDisplay?: string;
+            id: string;
+            instrumentKind?: string;
+            instrumentNumber?: string;
+            instrumentType?: string;
+            issuer: components["schemas"]["CitizenInstitutionDto"];
+            renewal?: components["schemas"]["CitizenRenewalProjectionDto"];
+            scopeSummary?: string;
+            /** @enum {string} */
+            status: "DRAFT" | "PENDING_ISSUANCE" | "ISSUED" | "EFFECTIVE" | "SUSPENDED" | "PARTIALLY_SUSPENDED" | "REVOCATION_DECIDED" | "REVOKED" | "REINSTATED" | "EXPIRED" | "SURRENDERED" | "SUPERSEDED" | "AMENDED" | "VARIED" | "RENEWED" | "REPLACED" | "CLOSED";
+            superseded: boolean;
+            verificationReference?: string;
+            verificationUri?: string;
+        };
         CitizenCredentialSummaryDto: {
-            conditions: Record<string, never>[];
+            /** @description Instrument conditions exactly as recorded on the current instrument version */
+            conditions: unknown[];
             downloadPath?: string;
             effectiveFrom?: string;
             effectiveUntil?: string;
@@ -12271,6 +12481,45 @@ export interface components {
             status: "DRAFT" | "PENDING_ISSUANCE" | "ISSUED" | "EFFECTIVE" | "SUSPENDED" | "PARTIALLY_SUSPENDED" | "REVOCATION_DECIDED" | "REVOKED" | "REINSTATED" | "EXPIRED" | "SURRENDERED" | "SUPERSEDED" | "AMENDED" | "VARIED" | "RENEWED" | "REPLACED" | "CLOSED";
             superseded: boolean;
             verificationReference?: string;
+        };
+        CitizenDevelopmentActionItemDto: {
+            correctiveActions: components["schemas"]["DevelopmentCorrectiveActionRecordDto"][];
+            evidenceOutstandingCount: number;
+            openInspections: number;
+            /** @description Number of outstanding fees on the project */
+            outstandingFees: number;
+            projectId: string;
+            projectReference: string;
+        };
+        CitizenDevelopmentActionsResponseDto: {
+            items: components["schemas"]["CitizenDevelopmentActionItemDto"][];
+        };
+        CitizenDevelopmentProjectListItemDto: {
+            id: string;
+            projectReference: string;
+            siteLabel: string | null;
+            /** @enum {string} */
+            status: "ACTIVE" | "ON_HOLD" | "COMPLETED" | "ARCHIVED";
+            title: string;
+        };
+        CitizenDevelopmentProjectsResponseDto: {
+            items: components["schemas"]["CitizenDevelopmentProjectListItemDto"][];
+        };
+        CitizenDocumentDetailDto: {
+            currentVersionNumber: number;
+            disclaimer: string;
+            documentNumber: string;
+            documentType: string;
+            download?: components["schemas"]["CitizenDocumentDownloadDto"];
+            expiryDate?: string;
+            id: string;
+            integrity: components["schemas"]["CitizenDocumentIntegrityDto"];
+            issueOrSubmissionDate?: string;
+            originatingInstitution?: components["schemas"]["CitizenInstitutionDto"];
+            relatedService?: components["schemas"]["CitizenRelatedServiceDto"];
+            sourceType: string;
+            status: string;
+            title: string;
         };
         CitizenDocumentDownloadDto: {
             downloadPath: string;
@@ -12294,6 +12543,187 @@ export interface components {
             relatedService?: components["schemas"]["CitizenRelatedServiceDto"];
             status: string;
             title: string;
+        };
+        CitizenDriverLicenseSummaryDto: {
+            classes: string[];
+            endorsements: string[];
+            expiresAt: string | null;
+            isSuspended: boolean;
+            licenseNumber: string;
+            /** @enum {string} */
+            lifecycleStatus: "NOT_ISSUED" | "PENDING_ISSUANCE" | "EFFECTIVE" | "EXPIRED" | "SUSPENDED" | "REVOKED" | "SUPERSEDED";
+        };
+        CitizenEducationActionDto: {
+            actionKey: string;
+            label: string;
+        };
+        CitizenEducationActionsResponseDto: {
+            actions: components["schemas"]["CitizenEducationActionDto"][];
+            disclaimer: string;
+            forbiddenSelfServiceActions: string[];
+            identityId: string;
+        };
+        CitizenEducationApplicationsResponseDto: {
+            enrollmentApplications: components["schemas"]["CitizenEducationEnrollmentApplicationDto"][];
+            scholarshipApplications: components["schemas"]["CitizenEducationScholarshipApplicationDto"][];
+        };
+        CitizenEducationCredentialItemDto: {
+            credentialReference: string;
+            /** @enum {string} */
+            lifecycleStatus: "DRAFT" | "PENDING_ISSUANCE" | "ISSUED" | "EFFECTIVE" | "REVOKED" | "SUPERSEDED";
+        };
+        CitizenEducationEnrollmentApplicationDto: {
+            doesNotCreateEnrollment: boolean;
+            profileNumber: string;
+            /** @enum {string} */
+            status: "LINKED" | "ACTIVE" | "WITHDRAWN" | "CLOSED";
+        };
+        CitizenEducationEnrollmentItemDto: {
+            enrollmentReference: string;
+            institutionCode: string;
+            institutionName: string;
+            /** @enum {string} */
+            status: "PROPOSED" | "ACTIVE" | "ON_LEAVE" | "WITHDRAWN" | "COMPLETED" | "CLOSED";
+        };
+        CitizenEducationHomeResponseDto: {
+            accessibleStudentProfiles: number;
+            activeEnrollments: number;
+            disclaimer: string;
+            ruleEnvironment: string;
+            servicePackId: string;
+        };
+        CitizenEducationScholarshipApplicationDto: {
+            aiRecommendationIsNotDecision: boolean;
+            doesNotCreateAward: boolean;
+            profileNumber: string;
+            /** @enum {string} */
+            status: "LINKED" | "ACTIVE" | "WITHDRAWN" | "CLOSED";
+        };
+        CitizenEducationSupportResponseDto: {
+            /** @description Grant applications are not yet projected; always an empty list */
+            grantApplications: unknown[];
+            scholarshipApplications: components["schemas"]["CitizenEducationSupportScholarshipDto"][];
+        };
+        CitizenEducationSupportScholarshipDto: {
+            aiRecommendationIsNotDecision: boolean;
+            doesNotCreateAward: boolean;
+            profileNumber: string;
+        };
+        CitizenEmergencyEventItemDto: {
+            eventReference: string;
+            informationalOnly: boolean;
+            isOfficialDeclaration: boolean;
+            publicSummary: string | null;
+            /** @enum {string} */
+            status: "INFORMATIONAL" | "ACTIVE_MONITORING" | "RESPONSE_COORDINATION" | "RECOVERY" | "CLOSED";
+            title: string;
+        };
+        CitizenEmergencyEventsResponseDto: {
+            disclaimer: string;
+            items: components["schemas"]["CitizenEmergencyEventItemDto"][];
+        };
+        CitizenEmploymentActionItemDto: {
+            actionKey: string;
+            available: boolean;
+            configuredObligation: boolean;
+            label: string;
+        };
+        CitizenEmploymentActionsResponseDto: {
+            disclaimer: string;
+            items: components["schemas"]["CitizenEmploymentActionItemDto"][];
+        };
+        CitizenEmploymentHomeResponseDto: {
+            activeEmployers: number;
+            disclaimer: string;
+            immigrationCoordinationDisclaimer: string;
+            pendingApplications: number;
+            profileReferenceNumber: string;
+            /** @enum {string} */
+            ruleEnvironment: "NON_PRODUCTION";
+            workPermit: components["schemas"]["CitizenEmploymentWorkPermitSummaryDto"] | null;
+        };
+        CitizenEmploymentRelationshipItemDto: {
+            /** Format: date-time */
+            createdAt: string;
+            currentWorkPermitRecordId: string | null;
+            /** @enum {string} */
+            dataClassification: "PUBLIC" | "OFFICIAL" | "EMPLOYER_SCOPED" | "WORKER_SELF" | "PROTECTED_LABOUR" | "PROTECTED_WORKER" | "RESTRICTED";
+            employerRegistryRecord: components["schemas"]["EmployerRegistryRecordDto"];
+            employerRegistryRecordId: string;
+            /** Format: date-time */
+            endDate: string | null;
+            id: string;
+            isGovernmentWorkAuthorization: boolean;
+            occupationClassificationId: string | null;
+            relationshipNumber: string;
+            roleTitle: string;
+            /** Format: date-time */
+            startDate: string | null;
+            /** @enum {string} */
+            status: "PROPOSED" | "ACTIVE" | "SUSPENDED" | "TERMINATED" | "CLOSED";
+            /** Format: date-time */
+            updatedAt: string;
+            workerProfileReferenceId: string;
+        };
+        CitizenEmploymentWorkPermitSummaryDto: {
+            doesNotCreateResidency: boolean;
+            immigrationProfileLinked: boolean;
+            /** @enum {string} */
+            lifecycleStatus: "NOT_ISSUED" | "PENDING_ISSUANCE" | "ISSUED" | "EFFECTIVE" | "EXPIRED" | "REVOKED" | "SUSPENDED" | "SUPERSEDED" | "SURRENDERED";
+            permitNumber: string;
+            residencyCoordinationLinked: boolean;
+            /** Format: date-time */
+            validUntil: string | null;
+        };
+        CitizenHealthcareActionsResponseDto: {
+            consentState: string;
+            /** @description Required patient action codes */
+            items: string[];
+        };
+        CitizenHealthcareAppointmentItemDto: {
+            appointmentReference: string;
+            enrollmentNumber: string;
+            patientSafeLabel: string | null;
+            /** @enum {string} */
+            privacyClassification: "STANDARD" | "SENSITIVE" | "HIGHLY_CONFIDENTIAL";
+            programCode: string;
+            /** Format: date-time */
+            scheduledStartsAt: string | null;
+            /** @enum {string} */
+            status: "REQUESTED" | "SCHEDULED" | "CONFIRMED" | "RESCHEDULED" | "CANCELLED" | "COMPLETED" | "NO_SHOW";
+        };
+        CitizenHealthcareAppointmentsResponseDto: {
+            disclaimer: string;
+            items: components["schemas"]["CitizenHealthcareAppointmentItemDto"][];
+        };
+        CitizenHealthcareHomeResponseDto: {
+            applications: components["schemas"]["CitizenTreatmentApplicationItemDto"][];
+            consentState: string;
+            disclaimer: string;
+            enrolledPrograms: components["schemas"]["CitizenTreatmentEnrollmentItemDto"][];
+            referrals: components["schemas"]["CitizenTreatmentReferralItemDto"][];
+            requiredActions: string[];
+            screenings: components["schemas"]["CitizenTreatmentScreeningItemDto"][];
+            trialOpportunities: components["schemas"]["CitizenTreatmentEnrollmentItemDto"][];
+        };
+        CitizenHealthcareProfileResponseDto: {
+            consentStateCode?: string | null;
+            disclaimer: string;
+            /** @description Omitted when the citizen has no healthcare profile */
+            profileNumber?: string;
+            publicMessage?: string | null;
+            publicStatusLabel?: string;
+        };
+        CitizenHealthcareProviderItemDto: {
+            programCode: string;
+            providerIdentityId: string | null;
+            providerOrganizationId: string | null;
+            /** @enum {string} */
+            providerRole: "PRIMARY" | "SPECIALIST" | "REFERRAL_PARTNER" | "SITE_OPERATOR";
+        };
+        CitizenHealthcareProvidersResponseDto: {
+            disclaimer: string;
+            items: components["schemas"]["CitizenHealthcareProviderItemDto"][];
         };
         CitizenHomeCountSummaryDto: {
             actionRequired: number;
@@ -12369,6 +12799,18 @@ export interface components {
             publicMessage?: string;
             verifiedStatusLabel: string;
         };
+        CitizenIncidentReportItemDto: {
+            isVerified: boolean;
+            locationDescription: string | null;
+            reporterIdentityRedacted: boolean;
+            summaryLabel: string;
+            /** @description 'verified' or 'unverified' */
+            verificationLabel: string;
+            verificationStatus: string;
+        };
+        CitizenIncidentReportsResponseDto: {
+            items: components["schemas"]["CitizenIncidentReportItemDto"][];
+        };
         CitizenInstitutionDto: {
             id: string;
             name: string;
@@ -12386,11 +12828,36 @@ export interface components {
             disclaimer: string;
             messageId: string;
             receiptId: string;
+            receivedAt: string;
+        };
+        CitizenMessageDeliveryDto: {
+            /** @enum {string} */
+            channelType: "EMAIL" | "SMS" | "PORTAL" | "POSTAL" | "IN_PERSON" | "GOVERNMENT_SECURE_MESSAGING" | "OTHER";
+            completedAt?: string;
+            id: string;
+            status: string;
+        };
+        CitizenMessageDetailDto: {
+            acknowledged: boolean;
+            body: string;
+            caseId?: string;
+            /** @enum {string} */
+            channelType: "EMAIL" | "SMS" | "PORTAL" | "POSTAL" | "IN_PERSON" | "GOVERNMENT_SECURE_MESSAGING" | "OTHER";
+            decisionNoticeReference?: string;
+            deliveredAt?: string;
+            deliveries: components["schemas"]["CitizenMessageDeliveryDto"][];
+            id: string;
+            messageReference: string;
+            /** @enum {string} */
+            status: "DRAFT" | "APPROVED" | "QUEUED" | "DELIVERING" | "DELIVERED" | "PARTIALLY_DELIVERED" | "FAILED" | "CANCELLED";
+            subject: string;
         };
         CitizenMessageSummaryDto: {
             acknowledged: boolean;
+            caseId?: string;
             /** @enum {string} */
             channelType: "EMAIL" | "SMS" | "PORTAL" | "POSTAL" | "IN_PERSON" | "GOVERNMENT_SECURE_MESSAGING" | "OTHER";
+            deliveredAt?: string;
             id: string;
             messageReference: string;
             /** @enum {string} */
@@ -12403,24 +12870,162 @@ export interface components {
             organizationId: string;
             organizationName: string;
         };
+        CitizenPaymentDetailDto: {
+            amountPaidCents: number;
+            balanceCents: number;
+            currency: string;
+            disclaimer: string;
+            disputes: components["schemas"]["CitizenPaymentDisputeDto"][];
+            dueAt?: string;
+            feeAssessment: components["schemas"]["CitizenPaymentFeeAssessmentDto"];
+            id: string;
+            invoiceNumber: string;
+            issuedAt?: string;
+            lines: components["schemas"]["CitizenPaymentLineDto"][];
+            paymentIntents: components["schemas"]["CitizenPaymentIntentSummaryDto"][];
+            receipts: components["schemas"]["CitizenPaymentReceiptDto"][];
+            refunds: components["schemas"]["CitizenPaymentRefundDto"][];
+            relatedCaseId?: string;
+            /** @enum {string} */
+            status: "DRAFT" | "ISSUED" | "PARTIALLY_PAID" | "PAID" | "OVERDUE" | "CANCELLED" | "WRITTEN_OFF";
+            totalAmountCents: number;
+        };
+        CitizenPaymentDisputeDto: {
+            amountCents: number;
+            disputeReference: string;
+            id: string;
+            reason: string;
+            status: string;
+        };
+        CitizenPaymentFeeAssessmentDto: {
+            assessmentReference: string;
+            currency: string;
+            totalAmountCents: number;
+        };
         CitizenPaymentIntentResponseDto: {
+            amountCents: number;
+            currency: string;
             disclaimer: string;
             id: string;
             intentReference: string;
+            invoiceId: string;
+            status: string;
+        };
+        CitizenPaymentIntentSummaryDto: {
+            amountCents: number;
+            id: string;
+            intentReference: string;
+            status: string;
+        };
+        CitizenPaymentLineDto: {
+            description: string;
+            lineAmountCents: number;
+            lineCode: string;
+        };
+        CitizenPaymentReceiptDto: {
+            id: string;
+            issuedAt: string;
+            receiptNumber: string;
+        };
+        CitizenPaymentRefundDto: {
+            id: string;
+            reason: string;
+            requestedAmountCents: number;
+            status: string;
         };
         CitizenPaymentSummaryDto: {
+            amountPaidCents: number;
             balanceCents: number;
+            currency: string;
             disclaimer: string;
+            disputes: components["schemas"]["CitizenPaymentDisputeDto"][];
+            dueAt?: string;
+            feeAssessment: components["schemas"]["CitizenPaymentFeeAssessmentDto"];
             id: string;
             invoiceNumber: string;
+            issuedAt?: string;
+            receipts: components["schemas"]["CitizenPaymentReceiptDto"][];
+            refunds: components["schemas"]["CitizenPaymentRefundDto"][];
+            relatedCaseId?: string;
             /** @enum {string} */
             status: "DRAFT" | "ISSUED" | "PARTIALLY_PAID" | "PAID" | "OVERDUE" | "CANCELLED" | "WRITTEN_OFF";
+            totalAmountCents: number;
+        };
+        CitizenPendingVehicleTransferDto: {
+            decisionRequired: boolean;
+            transferReference: string;
         };
         CitizenProfileSummaryDto: {
             displayName: string;
             familyName?: string;
             givenName?: string;
             identityId: string;
+        };
+        CitizenPropertyActionsResponseDto: {
+            activeEncumbrances: number;
+            pendingApplications: number;
+            suggestedActions: string[];
+        };
+        CitizenPropertyDocumentItemDto: {
+            certificateReference: string;
+            registryVersionNumber: number;
+            /** @enum {string} */
+            status: "DRAFT" | "PENDING_ISSUANCE" | "ISSUED" | "REVOKED";
+        };
+        CitizenPropertyHomeResponseDto: {
+            disclaimer: string;
+            generatedAt: string;
+            parcelCount: number;
+            parcels: components["schemas"]["CitizenPropertyParcelSummaryDto"][];
+            /** @enum {string} */
+            ruleEnvironment: "NON_PRODUCTION";
+        };
+        CitizenPropertyInterestItemDto: {
+            interestId: string;
+            /** @enum {string} */
+            interestKind: "OWNER" | "LEASEHOLDER" | "MORTGAGEE" | "EASEMENT_HOLDER" | "OTHER";
+            parcelReference: string;
+            /** @enum {string} */
+            registryStatus: "DRAFT" | "REGISTERED" | "PENDING_SUBDIVISION" | "PENDING_CONSOLIDATION" | "SUPERSEDED" | "SEALED";
+            titleSummary: string;
+        };
+        CitizenPropertyParcelSummaryDto: {
+            parcelId: string;
+            parcelReference: string;
+            /** @enum {string} */
+            registryStatus: "DRAFT" | "REGISTERED" | "PENDING_SUBDIVISION" | "PENDING_CONSOLIDATION" | "SUPERSEDED" | "SEALED";
+            relationshipSummary: string;
+        };
+        CitizenPublicSafetyActionItemDto: {
+            actionCode: string;
+            blockedEmergencyAlertIssuance: boolean;
+            requestReference: string;
+            serviceTemplateCode: string;
+        };
+        CitizenPublicSafetyActionsResponseDto: {
+            availableActions: components["schemas"]["CitizenPublicSafetyActionItemDto"][];
+            disclaimer: string;
+            forbiddenActions: string[];
+        };
+        CitizenPublicSafetyHomeResponseDto: {
+            assistanceRequestCount: number;
+            disclaimer: string;
+            incidentReportCount: number;
+            openActionCount: number;
+            publicEmergencyEventCount: number;
+            /** @enum {string} */
+            ruleEnvironment: "NON_PRODUCTION";
+        };
+        CitizenRecoveryAssistanceItemDto: {
+            applicationReference: string;
+            isIncidentReport: boolean;
+            isRecoveryProgram: boolean;
+            programCode: string;
+            /** @enum {string} */
+            status: "DRAFT" | "SUBMITTED" | "UNDER_REVIEW" | "CLOSED";
+        };
+        CitizenRecoveryAssistanceResponseDto: {
+            items: components["schemas"]["CitizenRecoveryAssistanceItemDto"][];
         };
         CitizenRelatedServiceDto: {
             caseId?: string;
@@ -12435,9 +13040,16 @@ export interface components {
         CitizenRenewalQueueItemDto: {
             daysUntilExpiry?: number;
             disclaimer: string;
+            effectiveUntil?: string;
             instrumentId: string;
             instrumentNumber?: string;
+            instrumentType?: string;
+            issuer: components["schemas"]["CitizenInstitutionDto"];
+            nextStep?: string;
             renewalEligible: boolean;
+            renewalReason?: string;
+            /** @enum {string} */
+            status: "DRAFT" | "PENDING_ISSUANCE" | "ISSUED" | "EFFECTIVE" | "SUSPENDED" | "PARTIALLY_SUSPENDED" | "REVOCATION_DECIDED" | "REVOKED" | "REINSTATED" | "EXPIRED" | "SURRENDERED" | "SUPERSEDED" | "AMENDED" | "VARIED" | "RENEWED" | "REPLACED" | "CLOSED";
         };
         CitizenRepresentationRelationshipDto: {
             effectiveFrom: string;
@@ -12448,11 +13060,289 @@ export interface components {
             scopeDescription: string;
             status: string;
         };
+        CitizenRevenueActionDto: {
+            actionCode: string;
+            label: string;
+            /** @description HIGH, MEDIUM or LOW */
+            priority: string;
+        };
+        CitizenRevenueActionsResponseDto: {
+            actions: components["schemas"]["CitizenRevenueActionDto"][];
+            generatedAt: string;
+        };
+        CitizenRevenueHomeResponseDto: {
+            accountNumber: string;
+            activeTaxAccounts: components["schemas"]["CitizenTaxAccountSummaryDto"][];
+            assessments: components["schemas"]["CitizenTaxAssessmentSummaryDto"][];
+            complianceClearance: components["schemas"]["CitizenTaxClearanceSummaryDto"][];
+            disclaimer: string;
+            disputes: components["schemas"]["TaxObjectionRecordDto"][];
+            generatedAt: string;
+            outstandingBalanceCents: number;
+            /** @description Number of draft returns awaiting filing */
+            outstandingReturns: number;
+            paymentDoesNotAlterAssessment: boolean;
+            paymentPlans: components["schemas"]["TaxPaymentPlanRecordDto"][];
+            refunds: components["schemas"]["CitizenTaxRefundSummaryDto"][];
+            /** @enum {string|null} */
+            registrationStatus: "DRAFT" | "SUBMITTED" | "UNDER_REVIEW" | "REGISTERED" | "REJECTED" | "SUSPENDED" | "CLOSED" | null;
+            /** @enum {string} */
+            ruleEnvironment: "NON_PRODUCTION";
+            taxpayerAccountId: string;
+            taxpayerIdentifier: string;
+            upcomingObligations: components["schemas"]["CitizenTaxObligationSummaryDto"][];
+        };
+        CitizenScheduledDriverTestDto: {
+            appointmentReference: string | null;
+            /** @enum {string} */
+            outcome: "PASSED" | "FAILED" | "INCOMPLETE" | "CANCELLED" | "WAIVED_CONFIGURED";
+            scheduledStartsAt: string | null;
+            testReference: string;
+        };
         CitizenServiceRecommendationDto: {
             publicName: string;
             recommendationReason: components["schemas"]["LocalizedLabelDto"];
             serviceId: string;
             serviceSlug: string;
+        };
+        CitizenStartExperienceResponseDto: {
+            applicationCapable: boolean;
+            conditionalChecklist: components["schemas"]["PublicServiceChecklistItemDto"][];
+            configurationFingerprint: string;
+            declarations: components["schemas"]["FormDeclarationOptionsDto"][];
+            dependencySummary: ({
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean) | null;
+            eligibilityGuidance: components["schemas"]["PublicServiceEligibilityGuidanceDto"][];
+            expectedNextStep: string;
+            expectedStagesSummary: components["schemas"]["PublicServiceStageDto"][];
+            feeDefinitions: components["schemas"]["PublicServiceFeeDto"][];
+            formDefinitionId: string | null;
+            formSchema: components["schemas"]["RenderedFormSchemaDto"] | null;
+            formVersionId: string | null;
+            outputDefinitions: components["schemas"]["PublicServiceOutputDto"][];
+            publicDisclaimers: string[];
+            redressRoutes: components["schemas"]["PublicServiceRedressRouteDto"][];
+            requiredFields: string[];
+            /** @enum {string} */
+            serviceAvailability: "HIDDEN" | "INFORMATION_ONLY" | "PRE_APPLICATION" | "PILOT_ONLY" | "ACTIVE" | "SUSPENDED" | "UNAVAILABLE" | "UNDER_DEVELOPMENT";
+            serviceId: string;
+            serviceSlug: string;
+            serviceVersionId: string;
+            versionLabel: string;
+        };
+        CitizenTaxAccountItemDto: {
+            /** @enum {string} */
+            accountKind: "INDIVIDUAL" | "BUSINESS" | "OTHER_REGISTERED";
+            accountNumber: string;
+            displayName: string;
+            taxpayerAccountId: string;
+        };
+        CitizenTaxAccountsResponseDto: {
+            items: components["schemas"]["CitizenTaxAccountItemDto"][];
+        };
+        CitizenTaxAccountSummaryDto: {
+            accountId: string;
+            /** @enum {string} */
+            accountKind: "INDIVIDUAL" | "BUSINESS" | "OTHER_REGISTERED";
+            accountNumber: string;
+            displayName: string;
+        };
+        CitizenTaxAssessmentSummaryDto: {
+            assessmentId: string;
+            assessmentReference: string;
+            /** @enum {string} */
+            status: "PROPOSED" | "ISSUED" | "AMENDED" | "SUPERSEDED" | "CANCELLED";
+        };
+        CitizenTaxClearanceSummaryDto: {
+            requestId: string;
+            /** @enum {string} */
+            status: "REQUESTED" | "UNDER_REVIEW" | "ISSUED" | "DENIED" | "EXPIRED";
+        };
+        CitizenTaxObligationsResponseDto: {
+            authoritativeOnly: boolean;
+            note: string;
+            obligations: components["schemas"]["TaxObligationRecordDto"][];
+            outstandingBalanceCents: number;
+        };
+        CitizenTaxObligationSummaryDto: {
+            description: string;
+            dueDate: string | null;
+            obligationCode: string;
+            obligationId: string;
+            /** @enum {string} */
+            status: "ACTIVE" | "SUSPENDED" | "FULFILLED" | "CLOSED";
+        };
+        CitizenTaxPaymentItemDto: {
+            allocatedAmountCents: number;
+            /** Format: date-time */
+            allocatedAt: string;
+            /** Format: date-time */
+            createdAt: string;
+            id: string;
+            paymentAllocationId: string | null;
+            paymentTransaction: components["schemas"]["PaymentTransactionRecordDto"];
+            paymentTransactionId: string;
+            taxLiability: components["schemas"]["TaxLiabilityRecordDto"];
+            taxLiabilityId: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        CitizenTaxRefundSummaryDto: {
+            refundClaimId: string;
+            requestedAmountCents: number;
+            /** @enum {string} */
+            status: "REQUESTED" | "UNDER_REVIEW" | "APPROVED_FOR_PROCESSING" | "DENIED" | "WITHDRAWN";
+        };
+        CitizenTaxReturnsPaginationDto: {
+            page: number;
+            pageSize: number;
+            totalItems: number;
+        };
+        CitizenTaxReturnsResponseDto: {
+            items: components["schemas"]["TaxReturnWithVersionDto"][];
+            pagination: components["schemas"]["CitizenTaxReturnsPaginationDto"];
+        };
+        CitizenTransportationActionDto: {
+            actionCode: string;
+            label: string;
+            /** @description HIGH, MEDIUM or LOW */
+            priority: string;
+        };
+        CitizenTransportationActionsResponseDto: {
+            actions: components["schemas"]["CitizenTransportationActionDto"][];
+            generatedAt: string;
+        };
+        CitizenTransportationHomeResponseDto: {
+            disclaimer: string;
+            driverLicense: components["schemas"]["CitizenDriverLicenseSummaryDto"] | null;
+            generatedAt: string;
+            /** @description Transportation messages are not yet projected; always an empty list */
+            governmentMessages: unknown[];
+            /** @description Transportation payments are not yet projected; always an empty list */
+            payments: unknown[];
+            pendingTransfers: components["schemas"]["CitizenPendingVehicleTransferDto"][];
+            renewalActionsAvailable: boolean;
+            ruleEnvironment: string;
+            scheduledTests: components["schemas"]["CitizenScheduledDriverTestDto"][];
+            vehicles: components["schemas"]["CitizenVehicleHomeItemDto"][];
+        };
+        CitizenTreatmentApplicationItemDto: {
+            /** @enum {string} */
+            administrativeEligibilityOutcome: "NOT_EVALUATED" | "ADMINISTRATIVELY_ELIGIBLE" | "ADMINISTRATIVELY_INELIGIBLE" | "DEFERRED";
+            applicationNumber: string;
+            consentReference: string | null;
+            notTreatmentAuthorization: boolean;
+            programCode: string;
+            programName: string;
+            /** @enum {string} */
+            status: "DRAFT" | "SUBMITTED" | "UNDER_ADMIN_REVIEW" | "PENDING_CLINICAL_REVIEW" | "CLOSED" | "WITHDRAWN";
+        };
+        CitizenTreatmentEnrollmentItemDto: {
+            enrollmentNumber: string;
+            notClinicalOutcome: boolean;
+            programCode: string;
+            programName: string;
+            /** @description Omitted when no status projection exists */
+            publicStatusLabel?: string;
+            /** @enum {string} */
+            status: "PROPOSED" | "ACTIVE" | "SUSPENDED" | "COMPLETED" | "WITHDRAWN" | "TERMINATED";
+            trialOpportunitySeparate: boolean;
+        };
+        CitizenTreatmentProgramItemDto: {
+            description: string | null;
+            discoveryOnly: boolean;
+            doesNotRecommendTreatment: boolean;
+            isDiscoveryOnly: boolean;
+            /** @enum {string} */
+            lifecycleStatus: "DRAFT" | "PUBLISHED" | "SUSPENDED" | "RETIRED";
+            name: string;
+            notMedicalRecommendation: boolean;
+            programCode: string;
+            /** @enum {string} */
+            programKind: "GOVERNMENT" | "SPECIALIST" | "REFERRAL" | "ELECTIVE" | "SUBSIDIZED" | "PUBLIC_HEALTH" | "MEDICAL_ASSISTANCE";
+        };
+        CitizenTreatmentProgramsResponseDto: {
+            disclaimer: string;
+            items: components["schemas"]["CitizenTreatmentProgramItemDto"][];
+        };
+        CitizenTreatmentReferralItemDto: {
+            notEnrollment: boolean;
+            notGuaranteedEnrollment: boolean;
+            programCode: string;
+            referralNumber: string;
+            /** @enum {string} */
+            status: "REQUESTED" | "SENT" | "RECEIVED" | "DECLINED" | "WITHDRAWN";
+        };
+        CitizenTreatmentReferralsResponseDto: {
+            items: components["schemas"]["CitizenTreatmentReferralItemDto"][];
+        };
+        CitizenTreatmentScreeningItemDto: {
+            /** Format: date-time */
+            scheduledAt: string | null;
+            screeningNumber: string;
+            /** @enum {string} */
+            status: "SCHEDULED" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
+            summary: string | null;
+        };
+        CitizenTreatmentsResponseDto: {
+            enrollments: components["schemas"]["CitizenTreatmentEnrollmentItemDto"][];
+            screenings: components["schemas"]["CitizenTreatmentScreeningItemDto"][];
+            trialOpportunities: components["schemas"]["CitizenTreatmentEnrollmentItemDto"][];
+        };
+        CitizenVehicleApplicationItemDto: {
+            applicationId: string;
+            caseId: string;
+            /** @enum {string} */
+            caseStatus: "RECEIVED" | "INTAKE" | "OPEN" | "IN_PROGRESS" | "COMPLETENESS_REVIEW" | "WAITING_APPLICANT" | "SUBSTANTIVE_REVIEW" | "PENDING_EXTERNAL" | "PENDING_INTERNAL" | "REFERRAL_PENDING" | "PROFESSIONAL_REVIEW" | "INSPECTION" | "DECISION_PENDING" | "DECIDED" | "ISSUED" | "SAFE_HALTED" | "SAFE_HALT" | "SUSPENDED" | "WITHDRAWN" | "CLOSED" | "ARCHIVED";
+            serviceCode: string;
+        };
+        CitizenVehicleHomeItemDto: {
+            expiresAt: string | null;
+            /** @description Latest inspection result code, or 'UNKNOWN' */
+            inspectionStatus: string;
+            lastInspectionAt: string | null;
+            /** @description Registration lifecycle status, or 'UNKNOWN' */
+            registrationStatus: string;
+            vehicleRecordId: string;
+            vehicleReferenceNumber: string;
+        };
+        CitizenVehicleItemDto: {
+            /** @description Registration lifecycle status, or 'UNKNOWN' */
+            registrationStatus: string;
+            vehicleRecordId: string;
+            vehicleReferenceNumber: string;
+        };
+        CitizenVitalRecordSummaryDto: {
+            eventType: string;
+            id: string;
+            institutionName: string;
+            isRestricted: boolean;
+            isSealed: boolean;
+            recordNumber: string;
+            registryVersionNumber?: number;
+            /** @enum {string} */
+            status: "SUBMISSION_PENDING" | "OFFICIAL" | "CORRECTED" | "SEALED" | "RESTRICTED";
+            summaryLabel?: string | null;
+        };
+        ClinicalTrialCodeLabelDto: {
+            code: string;
+            label: string;
+        };
+        ClinicalTrialConditionDto: {
+            categoryCode: string | null;
+            code: string;
+            label: string;
+        };
+        ClinicalTrialEligibilityCriterionDto: {
+            criterionCode: string;
+            isInclusion: boolean;
+            sortOrder: number;
+            summary: string;
+        };
+        ClinicalTrialSponsorDto: {
+            displayName: string;
+            sponsorReference: string;
         };
         CloneServicePackTemplateDto: {
             /** Format: uuid */
@@ -12548,7 +13438,31 @@ export interface components {
             status?: "UPCOMING" | "IN_PROGRESS" | "AT_RISK" | "DELAYED" | "COMPLETED" | "CANCELLED";
             targetDate?: string;
         };
-        CreateCitizenApplicationDto: Record<string, never>;
+        CreateCitizenApplicationDto: {
+            /** @enum {string} */
+            applicantCategory: "INDIVIDUAL" | "CITIZEN" | "RESIDENT" | "NON_RESIDENT" | "BUSINESS" | "COMPANY" | "INVESTOR" | "EMPLOYER" | "EMPLOYEE" | "AUTHORIZED_REPRESENTATIVE" | "PROFESSIONAL" | "GOVERNMENT_ENTITY" | "PARTNER_ORGANIZATION" | "OTHER";
+            /** @description Configuration fingerprint returned by the service start package */
+            configurationFingerprint: string;
+            /** @description Draft form answers keyed by form field key */
+            draftAnswers?: {
+                [key: string]: unknown;
+            };
+            /**
+             * Format: uuid
+             * @description Organization applied for; requires a representative authority
+             */
+            organizationId?: string;
+            /**
+             * Format: uuid
+             * @description Representative authority under which the citizen acts for the organization
+             */
+            representativeAuthorityId?: string;
+            /**
+             * Format: uuid
+             * @description Pin to the service version returned by the start package
+             */
+            serviceVersionId?: string;
+        };
         CreateComplianceMatterDto: {
             caseId?: string;
             holderIdentityId?: string;
@@ -12906,6 +13820,16 @@ export interface components {
              * @enum {string}
              */
             type: "NATIONAL" | "SUBNATIONAL" | "MUNICIPAL" | "SPECIAL_ECONOMIC_ZONE" | "REGULATORY" | "SUBJECT_MATTER" | "OTHER";
+        };
+        CreateLegalHoldDto: {
+            /** @description Court order, statute or instruction requiring the hold */
+            authorityReference: string;
+            /** Format: date-time */
+            effectiveFrom: string;
+            holdNumber: string;
+            reason: string;
+            targets: components["schemas"]["LegalHoldTargetDto"][];
+            title: string;
         };
         CreateMaturityAssessmentDto: {
             acceptsInstitutionalRisk?: boolean;
@@ -13293,7 +14217,9 @@ export interface components {
              *       "applicationId": "00000000-0000-4000-8000-000000000001"
              *     }
              */
-            params: Record<string, never>;
+            params: {
+                [key: string]: string;
+            };
             /**
              * @description Stable route identifier for frontend navigation
              * @example citizen.application.detail
@@ -13692,6 +14618,245 @@ export interface components {
             audience: "OFFICIAL" | "EXECUTIVE" | "PUBLIC" | "SPONSOR";
             evidenceCutoffAt?: string;
         };
+        DevelopmentApplicationRecordDto: {
+            applicationReference: string;
+            caseId: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            developmentProjectId: string;
+            id: string;
+            serviceCode: string;
+            serviceName: string;
+            /** @enum {string} */
+            status: "DRAFT" | "SUBMITTED" | "UNDER_REVIEW" | "DECIDED" | "WITHDRAWN";
+            /** Format: date-time */
+            submittedAt: string | null;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        DevelopmentCorrectiveActionRecordDto: {
+            actionReference: string;
+            /** Format: date-time */
+            createdAt: string;
+            description: string;
+            developmentInspectionId: string | null;
+            developmentProjectId: string;
+            id: string;
+            /** @enum {string} */
+            status: "OPEN" | "SUBMITTED" | "ACCEPTED" | "REJECTED" | "CLOSED";
+            /** Format: date-time */
+            submittedAt: string | null;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        DevelopmentExternalDependencyRecordDto: {
+            blocksPermitDecision: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            dependencyCode: string;
+            dependencyLabel: string;
+            developmentProjectId: string;
+            externalAuthorityReference: string | null;
+            id: string;
+            /** Format: date-time */
+            resolvedAt: string | null;
+            /** @enum {string} */
+            status: "PENDING" | "REFERRED" | "RESOLVED" | "BLOCKED";
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        DevelopmentInspectionRecordDto: {
+            /** Format: date-time */
+            completedAt: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            developmentProjectId: string;
+            failureNotes: string | null;
+            id: string;
+            inspectionReference: string;
+            inspectionType: string;
+            /** @enum {string|null} */
+            outcome: "PASS" | "FAIL" | "CONDITIONAL" | "CANCELLED" | null;
+            /** Format: date-time */
+            outcomeLockedAt: string | null;
+            /** Format: date-time */
+            scheduledAt: string | null;
+            /** @enum {string} */
+            status: "SCHEDULED" | "COMPLETED" | "CANCELLED";
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        DevelopmentOccupancyCertificateRecordDto: {
+            certificateReference: string;
+            /** Format: date-time */
+            createdAt: string;
+            developmentProjectId: string;
+            governmentDecisionId: string | null;
+            id: string;
+            /** Format: date-time */
+            issuedAt: string | null;
+            issuedByOfficeholderId: string | null;
+            /** @enum {string} */
+            status: "REQUESTED" | "UNDER_REVIEW" | "ISSUED" | "DENIED";
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        DevelopmentPermitVersionRecordDto: {
+            amendmentSummary: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            developmentPermitId: string;
+            id: string;
+            isAmendment: boolean;
+            payload: {
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean;
+            /** Format: date-time */
+            updatedAt: string;
+            versionNumber: number;
+        };
+        DevelopmentPermitWithVersionDto: {
+            /** Format: date-time */
+            createdAt: string;
+            currentVersion: components["schemas"]["DevelopmentPermitVersionRecordDto"] | null;
+            currentVersionId: string | null;
+            developmentProjectId: string;
+            /** Format: date-time */
+            expiresAt: string | null;
+            id: string;
+            /** Format: date-time */
+            issuedAt: string | null;
+            issuedByOfficeholderId: string | null;
+            permitNumber: string;
+            permitType: string;
+            /** @enum {string} */
+            status: "DRAFT" | "SUBMITTED" | "UNDER_REVIEW" | "ISSUED" | "DENIED" | "SUSPENDED" | "EXPIRED" | "AMENDED";
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        DevelopmentPlanningAppealRecordDto: {
+            appealReference: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            decidedAt: string | null;
+            developmentProjectId: string;
+            /** Format: date-time */
+            filedAt: string;
+            groundsSummary: string;
+            id: string;
+            /** @enum {string} */
+            status: "FILED" | "UNDER_REVIEW" | "DECIDED" | "WITHDRAWN";
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        DevelopmentPortalAppointmentDto: {
+            appointmentId: string;
+            scheduledStartAt: string | null;
+            /** @enum {string} */
+            status: "REQUESTED" | "SCHEDULED" | "CONFIRMED" | "RESCHEDULED" | "CANCELLED" | "COMPLETED" | "NO_SHOW";
+        };
+        DevelopmentPortalDeadlineDto: {
+            applicationReference: string;
+            indicativeReviewDeadline: string | null;
+            submittedAt: string | null;
+        };
+        DevelopmentPortalOccupancyStatusDto: {
+            certificates: components["schemas"]["DevelopmentOccupancyCertificateRecordDto"][];
+            /** @enum {string} */
+            latestCertificateStatus: "REQUESTED" | "UNDER_REVIEW" | "ISSUED" | "DENIED";
+        };
+        DevelopmentPortalPermitStatusDto: {
+            currentVersionNumber: number | null;
+            permitId: string;
+            permitNumber: string;
+            /** @enum {string} */
+            status: "DRAFT" | "SUBMITTED" | "UNDER_REVIEW" | "ISSUED" | "DENIED" | "SUSPENDED" | "EXPIRED" | "AMENDED";
+        };
+        DevelopmentPortalProfessionalDto: {
+            identityId: string;
+            professionalId: string;
+            registrationReference: string | null;
+            /** @enum {string} */
+            role: "ARCHITECT" | "ENGINEER" | "SURVEYOR" | "CONTRACTOR" | "OTHER";
+        };
+        DevelopmentPortalProjectSummaryDto: {
+            id: string;
+            projectReference: string;
+            /** @enum {string} */
+            status: "ACTIVE" | "ON_HOLD" | "COMPLETED" | "ARCHIVED";
+            title: string;
+        };
+        DevelopmentProjectFeeRecordDto: {
+            amountCents: number;
+            /** Format: date-time */
+            createdAt: string;
+            currency: string;
+            developmentProjectId: string;
+            feeCode: string;
+            id: string;
+            label: string;
+            /** Format: date-time */
+            paidAt: string | null;
+            paymentTransactionId: string | null;
+            /** @enum {string} */
+            status: "OUTSTANDING" | "PAID" | "WAIVED" | "CANCELLED";
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        DevelopmentProjectPortalViewDto: {
+            appeals: components["schemas"]["DevelopmentPlanningAppealRecordDto"][];
+            completionOccupancyStatus: components["schemas"]["DevelopmentPortalOccupancyStatusDto"];
+            correctiveActions: components["schemas"]["DevelopmentCorrectiveActionRecordDto"][];
+            deadlines: components["schemas"]["DevelopmentPortalDeadlineDto"][];
+            disclaimer: string;
+            evidenceOutstandingCount: number;
+            externalDependencies: components["schemas"]["DevelopmentExternalDependencyRecordDto"][];
+            inspections: components["schemas"]["DevelopmentInspectionRecordDto"][];
+            openInspections: number;
+            outstandingFees: components["schemas"]["DevelopmentProjectFeeRecordDto"][];
+            permits: components["schemas"]["DevelopmentPermitWithVersionDto"][];
+            permitStatusSummary: components["schemas"]["DevelopmentPortalPermitStatusDto"][];
+            professionals: components["schemas"]["DevelopmentPortalProfessionalDto"][];
+            project: components["schemas"]["DevelopmentPortalProjectSummaryDto"];
+            propertySite: components["schemas"]["DevelopmentProjectSiteRecordDto"] | null;
+            /** @enum {string} */
+            ruleEnvironment: "NON_PRODUCTION";
+            submittedApplications: components["schemas"]["DevelopmentApplicationRecordDto"][];
+            upcomingAppointments: components["schemas"]["DevelopmentPortalAppointmentDto"][];
+        };
+        DevelopmentProjectSiteRecordDto: {
+            addressLine: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            developmentProjectId: string;
+            id: string;
+            latitude: number | null;
+            longitude: number | null;
+            parcelReference: string | null;
+            siteLabel: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        EmployerRegistryRecordDto: {
+            /** Format: date-time */
+            createdAt: string;
+            /** @enum {string} */
+            dataClassification: "PUBLIC" | "OFFICIAL" | "EMPLOYER_SCOPED" | "WORKER_SELF" | "PROTECTED_LABOUR" | "PROTECTED_WORKER" | "RESTRICTED";
+            doesNotSelfAuthorizeWorkers: boolean;
+            id: string;
+            institutionId: string | null;
+            jurisdictionId: string | null;
+            masterAdministrativeFileId: string | null;
+            organizationId: string;
+            /** Format: date-time */
+            registeredAt: string | null;
+            /** @enum {string} */
+            registrationStatus: "DRAFT" | "REGISTERED" | "SUSPENDED" | "WITHDRAWN" | "CLOSED";
+            registryNumber: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
         EvaluateAuthorityDto: {
             /** @enum {string} */
             action: "RETRIEVE" | "SUMMARIZE" | "PREPARE" | "REVIEW" | "VERIFY" | "CHECK" | "RECOMMEND" | "CONCUR" | "APPROVE" | "DECIDE" | "SIGN" | "ISSUE" | "INSPECT" | "ENFORCE" | "SUSPEND" | "REVOKE" | "HEAR_REVIEW" | "ADMINISTER" | "AUDIT" | "CONSULT" | "SUPERVISE" | "LIAISE";
@@ -13870,7 +15035,7 @@ export interface components {
             departmentId?: string;
             departmentName?: string;
             description?: components["schemas"]["LocalizedLabelDto"];
-            dueDate?: Record<string, never>;
+            dueDate?: string | null;
             institution?: components["schemas"]["InstitutionAttributionDto"];
             presentationOnly: boolean;
             priority: number;
@@ -13886,13 +15051,22 @@ export interface components {
             pagination: components["schemas"]["PaginationMetaDto"];
         };
         ExperienceDeepLinkResolveRequestDto: {
-            params: Record<string, never>;
+            /** @description Route parameters keyed by parameter name */
+            params: {
+                [key: string]: string;
+            };
+            /**
+             * @description Stable route identifier
+             * @example citizen.application.detail
+             */
             route: string;
         };
         ExperienceDeepLinkResolveResponseDto: {
             authorized: boolean;
             denialReason?: string;
-            params: Record<string, never>;
+            params: {
+                [key: string]: string;
+            };
             resolutionDisclaimer: string;
             route: string;
         };
@@ -13984,6 +15158,49 @@ export interface components {
             /** @enum {string} */
             status: "PENDING" | "IN_REVIEW" | "SATISFACTORY_FOR_STATED_PURPOSE" | "DEFICIENCY_IDENTIFIED" | "MORE_INFORMATION_REQUIRED" | "DISPUTED" | "SAFE_HALTED";
             unresolvedIssues?: string[];
+        };
+        FormConditionalRuleSchemaDto: {
+            /** @enum {string} */
+            action: "SHOW" | "HIDE" | "REQUIRE" | "OPTIONAL";
+            conditions: components["schemas"]["FormConditionClauseSchemaDto"][];
+            /** @enum {string} */
+            logic: "AND" | "OR";
+        };
+        FormConditionClauseSchemaDto: {
+            fieldKey: string;
+            /** @enum {string} */
+            operator: "EQUALS" | "NOT_EQUALS" | "IN" | "NOT_IN" | "IS_EMPTY" | "IS_NOT_EMPTY" | "GREATER_THAN" | "LESS_THAN" | "GREATER_THAN_OR_EQUAL" | "LESS_THAN_OR_EQUAL";
+            /** @description Comparison value (any JSON value) */
+            value?: Record<string, never>;
+        };
+        FormDeclarationOptionsDto: {
+            /** @description Localized text keyed by locale code */
+            declarationText: {
+                [key: string]: string;
+            };
+            declarationVersion: string;
+        };
+        FormFieldOptionSchemaDto: {
+            /** @description Localized text keyed by locale code */
+            label: {
+                [key: string]: string;
+            };
+            value: string;
+        };
+        FormValidationSchemaDto: {
+            allowedValues?: string[];
+            countryCode?: boolean;
+            equalsField?: string;
+            max?: number;
+            maxDate?: string;
+            maxLength?: number;
+            min?: number;
+            minDate?: string;
+            minLength?: number;
+            notEqualsField?: string;
+            pattern?: string;
+            /** @enum {string} */
+            patternPreset?: "ALPHANUMERIC" | "NUMERIC" | "POSTAL_CODE";
         };
         FreezePacketDto: {
             /** @description Marks packet as ready for decision engine review. Does not create a decision outcome. */
@@ -14240,6 +15457,14 @@ export interface components {
             institutions: components["schemas"]["InstitutionStructureDto"][];
             jurisdiction: components["schemas"]["StructureJurisdictionSummaryDto"];
         };
+        LegalHoldTargetDto: {
+            notes?: string;
+            /** Format: uuid */
+            recordsClassificationId?: string;
+            targetReference: string;
+            /** @enum {string} */
+            targetType: "MASTER_ADMINISTRATIVE_FILE" | "CASE" | "DOCUMENT" | "EVIDENCE" | "EVIDENCE_PACKET" | "RECORD_CLASS" | "PRESERVATION_COLLECTION";
+        };
         LinkEvidenceRequirementDto: {
             /** Format: uuid */
             checklistItemId: string;
@@ -14265,7 +15490,9 @@ export interface components {
              *       "en": "Pay invoice"
              *     }
              */
-            labels?: Record<string, never>;
+            labels?: {
+                [key: string]: string;
+            };
         };
         LoginDto: {
             /** @example jane.citizen@example.gov */
@@ -14284,9 +15511,20 @@ export interface components {
             expiresAt: string;
             identityId: string;
             mfaSatisfied: boolean;
-            oidcProviderCode?: Record<string, never>;
+            oidcProviderCode?: string | null;
             sessionId: string;
             sessionToken: string;
+        };
+        LogoutAllResponseDto: {
+            /** @description Number of sessions revoked for the current user account */
+            revokedCount: number;
+        };
+        LogoutResponseDto: {
+            /**
+             * @description Always true once the current session is revoked
+             * @enum {boolean}
+             */
+            revoked: true;
         };
         MatchPublicServicesDto: {
             /** @description Optional activity hints supplied by the citizen */
@@ -14669,6 +15907,28 @@ export interface components {
             totalItems: number;
             totalPages: number;
         };
+        PaymentTransactionRecordDto: {
+            amountCents: number;
+            /** Format: date-time */
+            authorizedAt: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            currency: string;
+            failureReason: string | null;
+            id: string;
+            paymentIntentId: string;
+            paymentProviderConfigurationId: string;
+            providerTransactionReference: string;
+            rawResponse: ({
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean) | null;
+            /** Format: date-time */
+            settledAt: string | null;
+            /** @enum {string} */
+            status: "PENDING" | "AUTHORIZED" | "SETTLED" | "FAILED" | "REVERSED" | "CHARGEBACK";
+            /** Format: date-time */
+            updatedAt: string;
+        };
         PersonResponseDto: {
             /** Format: date-time */
             createdAt: string;
@@ -14731,6 +15991,24 @@ export interface components {
             items: components["schemas"]["PlatformAdminListItemDto"][];
             totalCount: number;
         };
+        PropertyRegistryApplicationRecordDto: {
+            applicantIdentityId: string;
+            applicationReference: string;
+            /** @enum {string} */
+            applicationType: "SEARCH" | "EXTRACT_REQUEST" | "TRANSFER" | "NEW_PARCEL" | "SUBDIVISION" | "CONSOLIDATION" | "ENCUMBRANCE" | "ENCUMBRANCE_RELEASE" | "EASEMENT" | "SURVEY" | "CORRECTION" | "ADDRESS_CHANGE" | "VALUATION" | "APPEAL";
+            /** Format: date-time */
+            createdAt: string;
+            id: string;
+            mayMutateTitle: boolean;
+            organizationId: string | null;
+            parcelId: string | null;
+            /** @enum {string} */
+            status: "DRAFT" | "SUBMITTED" | "UNDER_REVIEW" | "PENDING_DECISION" | "APPROVED" | "REJECTED" | "WITHDRAWN";
+            /** Format: date-time */
+            submittedAt: string | null;
+            /** Format: date-time */
+            updatedAt: string;
+        };
         ProposeEvidenceQualityAssessmentDto: {
             assessedAt: string;
             /** @enum {string} */
@@ -14750,6 +16028,177 @@ export interface components {
             identityId: string;
             sessionId: string;
         };
+        PublicCivilCertificateVerificationResponseDto: {
+            certificateType: string;
+            documentHash: string;
+            /** @description Issuing institution name */
+            issuer: string;
+            minimalDisclosureDisclaimer: string;
+            publicStatusLabel: string;
+            qrTokenReference?: string | null;
+            registryVersionNumber?: number;
+            /** @enum {string} */
+            validityStatus: "VALID" | "REVOKED" | "SUPERSEDED" | "UNKNOWN";
+            verificationReference: string;
+            verifiedAt: string;
+        };
+        PublicClinicalTrialDiscoveryResponseDto: {
+            disclaimer: string;
+            discoveryIsNotRecommendation: boolean;
+            /** @description Participant fields that public discovery never exposes */
+            forbiddenParticipantFields: ("participantProfileId" | "subjectIdentityId" | "enrollmentReference" | "screeningDataReference" | "participantReference" | "enrollments" | "screenings" | "interests")[];
+            participantDataIncluded: boolean;
+            trials: components["schemas"]["PublicClinicalTrialListingDto"][];
+        };
+        PublicClinicalTrialListingDto: {
+            broadEligibilitySummary: string | null;
+            condition: components["schemas"]["ClinicalTrialConditionDto"] | null;
+            discoveryIsNotRecommendation: boolean;
+            eligibilityCriteria: components["schemas"]["ClinicalTrialEligibilityCriterionDto"][];
+            intervention: components["schemas"]["ClinicalTrialCodeLabelDto"] | null;
+            listingIsNotRegulatoryApproval: boolean;
+            /** @enum {string} */
+            listingLifecycleStatus: "DRAFT" | "SUBMITTED" | "UNDER_REVIEW" | "APPROVED_FOR_LISTING" | "RECRUITING" | "ACTIVE_NOT_RECRUITING" | "SUSPENDED" | "TERMINATED" | "COMPLETED" | "ARCHIVED";
+            locationSummary: string | null;
+            maximumAgeYears: number | null;
+            minimumAgeYears: number | null;
+            phase: components["schemas"]["ClinicalTrialCodeLabelDto"] | null;
+            publicSummary: string | null;
+            /** @enum {string} */
+            recruitmentStatus: "NOT_YET_RECRUITING" | "RECRUITING" | "ENROLLING_BY_INVITATION" | "ACTIVE_NOT_RECRUITING" | "COMPLETED" | "SUSPENDED" | "WITHDRAWN" | "UNKNOWN";
+            sponsor: components["schemas"]["ClinicalTrialSponsorDto"];
+            title: string | null;
+            trialNumber: string;
+        };
+        PublicCorporateRegistryVerificationResponseDto: {
+            disclaimer: string;
+            jurisdictionCode: string | null;
+            registeredName: string | null;
+            registrationReference: string | null;
+            status: string;
+            verificationTimestamp: string;
+        };
+        PublicCustomsTradeVerificationResponseDto: {
+            /** @description Policy-permitted public facts keyed by fact name (e.g. importerRegistered, exporterRegistered); empty when not found */
+            publicFacts: {
+                [key: string]: (string | boolean) | null;
+            };
+            reference: string;
+            ruleEnvironment: string;
+            /** @enum {string} */
+            verificationState: "UNKNOWN" | "VALID_FORMAT" | "NOT_FOUND";
+        };
+        PublicEducationCredentialVerificationResponseDto: {
+            credentialReference: string;
+            /** Format: date-time */
+            issuedAt: string | null;
+            /** @enum {string} */
+            lifecycleStatus: "DRAFT" | "PENDING_ISSUANCE" | "ISSUED" | "EFFECTIVE" | "REVOKED" | "SUPERSEDED";
+            /** @enum {string} */
+            verificationOutcome: "REFERENCE_LOCATED";
+        };
+        PublicEligibilityResultResponseDto: {
+            /** @description Preliminary guidance only; null when guidance cannot be derived */
+            eligible: boolean | null;
+            guidanceNotes: string[];
+            matchedRules: string[];
+            nonbindingDisclaimer: string;
+            serviceId: string;
+            serviceVersionId: string;
+            unmatchedRequiredRules: string[];
+        };
+        PublicInstrumentVerificationResponseDto: {
+            cryptographicVerificationDetails?: string[];
+            cryptographicVerificationPassed?: boolean;
+            /** @enum {string} */
+            currentLifecycleStatus?: "DRAFT" | "PENDING_ISSUANCE" | "ISSUED" | "EFFECTIVE" | "SUSPENDED" | "PARTIALLY_SUSPENDED" | "REVOCATION_DECIDED" | "REVOKED" | "REINSTATED" | "EXPIRED" | "SURRENDERED" | "SUPERSEDED" | "AMENDED" | "VARIED" | "RENEWED" | "REPLACED" | "CLOSED";
+            currentVersionIndicator?: number;
+            effectiveDate?: string;
+            expiryDate?: string;
+            holderDisplay?: string;
+            instrumentNumber?: string;
+            instrumentType?: string;
+            issuer?: string;
+            qrReferenceDisclaimer: string;
+            scopeSummary?: string;
+            /** @enum {string} */
+            verificationStatus: "CURRENT" | "NOT_YET_EFFECTIVE" | "EXPIRED" | "SUSPENDED" | "REVOKED" | "SUPERSEDED" | "REPLACED" | "SURRENDERED" | "UNKNOWN_OR_UNVERIFIABLE" | "VALID_REFERENCE" | "NOT_PUBLICLY_DISCLOSABLE";
+            verificationTimestamp: string;
+            verificationUri: string;
+        };
+        PublicLicenseVerificationResponseDto: {
+            disclaimer: string;
+            expiresAt: string | null;
+            lifecycleStatus: string;
+            /** @enum {string} */
+            verificationKind: "DRIVER_LICENSE";
+            verificationTimestamp: string;
+        };
+        PublicOperatorVerificationResponseDto: {
+            disclaimer: string;
+            lifecycleStatus: string;
+            /** @enum {string} */
+            verificationKind: "TRANSPORT_OPERATOR";
+            verificationTimestamp: string;
+        };
+        PublicPropertyRegistryVerificationResponseDto: {
+            disclaimer: string;
+            locationSummary: string | null;
+            parcelReference: string;
+            status: string;
+            verificationTimestamp: string;
+        };
+        PublicSafetyNoticeResponseDto: {
+            /** @description Published (or approved) notice content */
+            content: string;
+            disclaimer: string;
+            noticeReference: string;
+            publishedAt: string | null;
+            /** @enum {string} */
+            status: "DRAFT" | "APPROVED" | "PUBLISHED" | "WITHDRAWN";
+        };
+        PublicServiceChecklistItemDto: {
+            conditionExpression: ({
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean) | null;
+            description: string | null;
+            isRequired: boolean;
+            itemCode: string;
+            label: string;
+        };
+        PublicServiceDetailResponseDto: {
+            activitiesCovered: string[];
+            activitiesExcluded: string[];
+            applicationCapable: boolean;
+            authorityClassificationSummary: string | null;
+            /** @enum {string} */
+            availabilityStatus: "HIDDEN" | "INFORMATION_ONLY" | "PRE_APPLICATION" | "PILOT_ONLY" | "ACTIVE" | "SUSPENDED" | "UNAVAILABLE" | "UNDER_DEVELOPMENT";
+            eligibleApplicantCategories: ("INDIVIDUAL" | "CITIZEN" | "RESIDENT" | "NON_RESIDENT" | "BUSINESS" | "COMPANY" | "INVESTOR" | "EMPLOYER" | "EMPLOYEE" | "AUTHORIZED_REPRESENTATIVE" | "PROFESSIONAL" | "GOVERNMENT_ENTITY" | "PARTNER_ORGANIZATION" | "OTHER")[];
+            expectedHighLevelStages: components["schemas"]["PublicServiceStageDto"][];
+            expectedOutputs: components["schemas"]["PublicServiceOutputDto"][];
+            fees: components["schemas"]["PublicServiceFeeDto"][];
+            geographicScope: string | null;
+            informationLastVerifiedAt: string | null;
+            isInformationOnly: boolean;
+            isPilotOnly: boolean;
+            majorGovernmentDependencies: ({
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean) | null;
+            nonbindingGuidanceDisclaimer: string;
+            plainLanguagePurpose: string;
+            publicDisclaimer: string | null;
+            publicName: string;
+            responsibleDepartmentDisplayName: string;
+            reviewComplaintRoutes: components["schemas"]["PublicServiceRedressRouteDto"][];
+            serviceFamilyName: string;
+            serviceId: string;
+            /** @enum {string|null} */
+            serviceType: "APPLICATION" | "REGISTRATION" | "LICENCE" | "PERMIT" | "CERTIFICATION" | "INFORMATION" | "OTHER" | null;
+            serviceVersionId: string;
+            slug: string;
+            typicalValidity: string | null;
+            versionLabel: string;
+        };
         PublicServiceEligibilityDto: {
             /** @enum {string} */
             applicantCategory?: "INDIVIDUAL" | "CITIZEN" | "RESIDENT" | "NON_RESIDENT" | "BUSINESS" | "COMPANY" | "INVESTOR" | "EMPLOYER" | "EMPLOYEE" | "AUTHORIZED_REPRESENTATIVE" | "PROFESSIONAL" | "GOVERNMENT_ENTITY" | "PARTNER_ORGANIZATION" | "OTHER";
@@ -14758,11 +16207,43 @@ export interface components {
             /** @description Optional service version id when checking against a pinned package */
             serviceVersionId?: string;
         };
+        PublicServiceEligibilityGuidanceDto: {
+            description: string;
+            isRequired: boolean;
+            label: string;
+            ruleCode: string;
+        };
         PublicServiceFamilyResponseDto: {
             code: string;
-            description?: Record<string, never> | null;
+            description: string | null;
             id: string;
             name: string;
+        };
+        PublicServiceFeeDto: {
+            amountCents: number | null;
+            code: string;
+            currency: string;
+            description: string | null;
+            isVariable: boolean;
+            label: string;
+        };
+        PublicServiceOutputDto: {
+            description: string | null;
+            label: string;
+            outputCode: string;
+            validityLabel: string | null;
+        };
+        PublicServiceRedressRouteDto: {
+            contactReference: string | null;
+            description: string | null;
+            label: string;
+            routeCode: string;
+        };
+        PublicServiceStageDto: {
+            description: string | null;
+            estimatedDurationLabel: string | null;
+            label: string;
+            stageCode: string;
         };
         PublicServiceSummaryResponseDto: {
             activitiesCovered: string[];
@@ -14770,7 +16251,7 @@ export interface components {
             /** @enum {string} */
             availabilityStatus: "HIDDEN" | "INFORMATION_ONLY" | "PRE_APPLICATION" | "PILOT_ONLY" | "ACTIVE" | "SUSPENDED" | "UNAVAILABLE" | "UNDER_DEVELOPMENT";
             eligibleApplicantCategories: ("INDIVIDUAL" | "CITIZEN" | "RESIDENT" | "NON_RESIDENT" | "BUSINESS" | "COMPANY" | "INVESTOR" | "EMPLOYER" | "EMPLOYEE" | "AUTHORIZED_REPRESENTATIVE" | "PROFESSIONAL" | "GOVERNMENT_ENTITY" | "PARTNER_ORGANIZATION" | "OTHER")[];
-            informationLastVerifiedAt: Record<string, never> | null;
+            informationLastVerifiedAt: string | null;
             isInformationOnly: boolean;
             isPilotOnly: boolean;
             nonbindingGuidanceDisclaimer: string;
@@ -14784,6 +16265,14 @@ export interface components {
             serviceVersionId: string;
             slug: string;
             versionLabel: string;
+        };
+        PublicVehicleVerificationResponseDto: {
+            disclaimer?: string;
+            jurisdictionCode?: string;
+            registrationStatusLabel?: string;
+            vehicleCategoryCode?: string | null;
+            /** @description Current registration lifecycle status, or 'UNKNOWN' */
+            verificationState?: string;
         };
         QualityAssessmentInput: Record<string, never>;
         QueryDashboardDto: {
@@ -14975,6 +16464,73 @@ export interface components {
             reason: string;
             servicePackVersionId: string;
         };
+        ReleaseLegalHoldDto: {
+            /** @description Court order or instruction authorising release */
+            releaseAuthorityReference: string;
+            releaseReason: string;
+        };
+        RenderedFormFieldSchemaDto: {
+            conditionalRules: components["schemas"]["FormConditionalRuleSchemaDto"][];
+            /** @enum {string} */
+            dataClassification: "PUBLIC" | "INTERNAL" | "RESTRICTED" | "SENSITIVE";
+            declaration?: components["schemas"]["FormDeclarationOptionsDto"];
+            /** @description Default value (any JSON value) */
+            defaultValue?: Record<string, never>;
+            /** @description Localized text keyed by locale code */
+            description?: {
+                [key: string]: string;
+            };
+            displayOrder: number;
+            fieldKey: string;
+            /** @enum {string} */
+            fieldType: "TEXT" | "TEXTAREA" | "NUMBER" | "INTEGER" | "DECIMAL" | "DATE" | "DATETIME" | "BOOLEAN" | "SELECT" | "MULTISELECT" | "RADIO" | "CHECKBOX" | "EMAIL" | "PHONE" | "COUNTRY" | "CURRENCY" | "ADDRESS" | "IDENTIFIER" | "FILE_REFERENCE" | "DECLARATION" | "INFORMATION_DISPLAY";
+            /** @description Localized text keyed by locale code */
+            label: {
+                [key: string]: string;
+            };
+            options?: components["schemas"]["FormFieldOptionSchemaDto"][];
+            /** @description Localized text keyed by locale code */
+            placeholder?: {
+                [key: string]: string;
+            };
+            required: boolean;
+            sourceMetadata?: {
+                [key: string]: unknown;
+            };
+            validation: components["schemas"]["FormValidationSchemaDto"];
+        };
+        RenderedFormSchemaDto: {
+            effectiveFrom?: string;
+            effectiveUntil?: string;
+            formDefinitionCode: string;
+            formDefinitionId: string;
+            formVersionId: string;
+            /** @description Localized text keyed by locale code */
+            instructions?: {
+                [key: string]: string;
+            };
+            sections: components["schemas"]["RenderedFormSectionSchemaDto"][];
+            /** @enum {string} */
+            status: "DRAFT" | "PUBLISHED" | "SUPERSEDED" | "ARCHIVED";
+            /** @description Localized text keyed by locale code */
+            title: {
+                [key: string]: string;
+            };
+            version: number;
+        };
+        RenderedFormSectionSchemaDto: {
+            /** @description Localized text keyed by locale code */
+            description?: {
+                [key: string]: string;
+            };
+            displayOrder: number;
+            fields: components["schemas"]["RenderedFormFieldSchemaDto"][];
+            sectionKey: string;
+            /** @description Localized text keyed by locale code */
+            title: {
+                [key: string]: string;
+            };
+        };
         RepresentativeAuthorityResponseDto: {
             /** Format: date-time */
             createdAt: string;
@@ -15012,6 +16568,42 @@ export interface components {
             resolutionNotes?: string;
             /** @enum {string} */
             status: "OPEN" | "IN_REMEDIATION" | "RESOLVED" | "ACCEPTED_RISK" | "DISMISSED";
+        };
+        ServiceAppointmentRecordDto: {
+            applicationId: string | null;
+            appointmentLocationId: string | null;
+            appointmentReasonId: string | null;
+            appointmentReference: string;
+            appointmentSlotId: string | null;
+            assignedOfficialIdentityId: string | null;
+            assignedOfficialOfficeholderId: string | null;
+            assignedResourceId: string | null;
+            /** Format: date-time */
+            cancelledAt: string | null;
+            caseId: string | null;
+            /** Format: date-time */
+            completedAt: string | null;
+            /** Format: date-time */
+            confirmedAt: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            createdByIdentityId: string | null;
+            departmentId: string | null;
+            governmentServiceId: string | null;
+            id: string;
+            institutionId: string;
+            isVirtual: boolean;
+            operationalNotes: string | null;
+            organizationId: string | null;
+            /** Format: date-time */
+            scheduledEndsAt: string | null;
+            /** Format: date-time */
+            scheduledStartsAt: string | null;
+            /** @enum {string} */
+            status: "REQUESTED" | "SCHEDULED" | "CONFIRMED" | "RESCHEDULED" | "CANCELLED" | "COMPLETED" | "NO_SHOW";
+            /** Format: date-time */
+            updatedAt: string;
+            virtualMeetingUrl: string | null;
         };
         ServiceFunctionMappingResponseDto: {
             /** Format: date-time */
@@ -15056,6 +16648,37 @@ export interface components {
             name: string;
             /** Format: date-time */
             updatedAt: string;
+        };
+        ServiceStartPackageResponseDto: {
+            applicationCapable: boolean;
+            conditionalChecklist: components["schemas"]["PublicServiceChecklistItemDto"][];
+            configurationFingerprint: string;
+            dependencySummary: ({
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean) | null;
+            eligibilityGuidance: components["schemas"]["PublicServiceEligibilityGuidanceDto"][];
+            expectedStagesSummary: components["schemas"]["PublicServiceStageDto"][];
+            feeDefinitions: components["schemas"]["PublicServiceFeeDto"][];
+            formDefinitionId: string | null;
+            /** @description Not rendered by the public start package; currently always null */
+            formSchema: ({
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean) | null;
+            formVersionId: string | null;
+            outputDefinitions: components["schemas"]["PublicServiceOutputDto"][];
+            publicDisclaimers: string[];
+            redressRoutes: components["schemas"]["PublicServiceRedressRouteDto"][];
+            /** @enum {string} */
+            serviceAvailability: "HIDDEN" | "INFORMATION_ONLY" | "PRE_APPLICATION" | "PILOT_ONLY" | "ACTIVE" | "SUSPENDED" | "UNAVAILABLE" | "UNDER_DEVELOPMENT";
+            serviceId: string;
+            serviceSlug: string;
+            serviceVersionId: string;
+            versionLabel: string;
+        };
+        StepUpProtectedResponseDto: {
+            /** @enum {boolean} */
+            ok: true;
+            sessionId: string;
         };
         StructureAppointmentDto: {
             /** Format: date-time */
@@ -15141,6 +16764,127 @@ export interface components {
             requestedChanges: {
                 [key: string]: unknown;
             };
+        };
+        TaxAssessmentRecordDto: {
+            assessmentReference: string;
+            calculationRecordId: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            id: string;
+            /** Format: date-time */
+            issuedAt: string | null;
+            issuedByOfficeholderId: string | null;
+            /** @enum {string} */
+            status: "PROPOSED" | "ISSUED" | "AMENDED" | "SUPERSEDED" | "CANCELLED";
+            supersedesAssessmentId: string | null;
+            taxpayerAccountId: string;
+            taxPeriodId: string;
+            taxReturnId: string | null;
+            taxTypeDefinitionId: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        TaxLiabilityRecordDto: {
+            /** Format: date-time */
+            createdAt: string;
+            currency: string;
+            id: string;
+            invoiceId: string | null;
+            liabilityReference: string;
+            principalCents: number;
+            /** @enum {string} */
+            status: "OPEN" | "PARTIALLY_SATISFIED" | "SATISFIED" | "WRITTEN_OFF" | "DISPUTED";
+            taxAssessmentId: string | null;
+            taxpayerAccountId: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        TaxObjectionRecordDto: {
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            decidedAt: string | null;
+            /** Format: date-time */
+            filedAt: string;
+            grounds: string | null;
+            id: string;
+            objectionReference: string;
+            relatedAssessmentId: string | null;
+            /** @enum {string} */
+            status: "FILED" | "UNDER_REVIEW" | "DECIDED" | "WITHDRAWN";
+            taxpayerAccountId: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        TaxObligationRecordDto: {
+            configuration: {
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean;
+            /** Format: date-time */
+            createdAt: string;
+            description: string;
+            /** Format: date-time */
+            dueDate: string | null;
+            id: string;
+            obligationCode: string;
+            /** @enum {string} */
+            status: "ACTIVE" | "SUSPENDED" | "FULFILLED" | "CLOSED";
+            taxpayerAccountId: string;
+            taxPeriodId: string | null;
+            taxTypeDefinitionId: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        TaxPaymentPlanRecordDto: {
+            authorizedByOfficeholderId: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            id: string;
+            planReference: string;
+            schedule: {
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean;
+            /** @enum {string} */
+            status: "PROPOSED" | "ACTIVE" | "DEFAULTED" | "COMPLETED" | "CANCELLED";
+            taxpayerAccountId: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        TaxReturnVersionRecordDto: {
+            /** Format: date-time */
+            createdAt: string;
+            declarationData: {
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean;
+            id: string;
+            isAmendment: boolean;
+            /** Format: date-time */
+            lockedAt: string | null;
+            payloadHash: string;
+            /** Format: date-time */
+            submittedAt: string | null;
+            submittedByIdentityId: string | null;
+            taxReturnId: string;
+            /** Format: date-time */
+            updatedAt: string;
+            versionNumber: number;
+        };
+        TaxReturnWithVersionDto: {
+            /** Format: date-time */
+            createdAt: string;
+            currentVersion: components["schemas"]["TaxReturnVersionRecordDto"] | null;
+            currentVersionId: string | null;
+            id: string;
+            returnReference: string;
+            /** @enum {string} */
+            status: "DRAFT" | "SUBMITTED" | "ACCEPTED" | "REJECTED" | "AMENDED" | "SUPERSEDED";
+            /** Format: date-time */
+            submittedAt: string | null;
+            taxpayerAccountId: string;
+            taxPeriodId: string;
+            taxTypeDefinitionId: string;
+            /** Format: date-time */
+            updatedAt: string;
         };
         TechnicalRoleAssignmentResponseDto: {
             /** Format: date-time */
@@ -15343,6 +17087,50 @@ export interface components {
             environment: string;
             /** @example heartstone-backend */
             name: string;
+        };
+        WorkPermitApplicationProfileRecordDto: {
+            applicationId: string;
+            caseId: string;
+            /** Format: date-time */
+            createdAt: string;
+            doesNotIssueWorkPermit: boolean;
+            id: string;
+            immigrationProfileId: string | null;
+            paymentDoesNotApprove: boolean;
+            profileNumber: string;
+            serviceCategoryCode: string | null;
+            /** @enum {string} */
+            status: "LINKED" | "ACTIVE" | "WITHDRAWN" | "CLOSED";
+            /** Format: date-time */
+            submissionAcknowledgedAt: string | null;
+            /** Format: date-time */
+            updatedAt: string;
+            workerProfileReferenceId: string;
+        };
+        WorkPermitRecordDto: {
+            /** Format: date-time */
+            createdAt: string;
+            /** @enum {string} */
+            dataClassification: "PUBLIC" | "OFFICIAL" | "EMPLOYER_SCOPED" | "WORKER_SELF" | "PROTECTED_LABOUR" | "PROTECTED_WORKER" | "RESTRICTED";
+            doesNotCreateResidency: boolean;
+            employerRegistryRecordId: string | null;
+            governmentDecisionId: string | null;
+            id: string;
+            immigrationProfileId: string | null;
+            /** @enum {string} */
+            lifecycleStatus: "NOT_ISSUED" | "PENDING_ISSUANCE" | "ISSUED" | "EFFECTIVE" | "EXPIRED" | "REVOKED" | "SUSPENDED" | "SUPERSEDED" | "SURRENDERED";
+            linkedResidencyPermitRecordId: string | null;
+            officialInstrumentId: string | null;
+            permitNumber: string;
+            renewalOfPermitId: string | null;
+            /** Format: date-time */
+            updatedAt: string;
+            /** Format: date-time */
+            validFrom: string | null;
+            /** Format: date-time */
+            validUntil: string | null;
+            workerProfileReferenceId: string;
+            workPermitApplicationProfileId: string | null;
         };
         WorkspaceAlertSummaryDto: {
             /** Format: uuid */
@@ -18594,7 +20382,11 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateLegalHoldDto"];
+            };
+        };
         responses: {
             201: {
                 headers: {
@@ -18613,7 +20405,11 @@ export interface operations {
             };
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReleaseLegalHoldDto"];
+            };
+        };
         responses: {
             201: {
                 headers: {
@@ -19104,9 +20900,9 @@ export interface operations {
     };
     ExperienceCommonController_getActions: {
         parameters: {
-            query: {
-                caseId: string;
-                locale: string;
+            query?: {
+                caseId?: string;
+                locale?: string;
                 page?: number;
                 pageSize?: number;
             };
@@ -20365,7 +22161,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ServiceAppointmentRecordDto"];
+                };
             };
         };
     };
@@ -20384,7 +22182,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ServiceAppointmentRecordDto"];
+                };
             };
         };
     };
@@ -20407,7 +22207,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ServiceAppointmentRecordDto"];
+                };
             };
         };
     };
@@ -20424,7 +22226,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenBenefitsHomeResponseDto"];
+                };
             };
         };
     };
@@ -20441,7 +22245,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenBenefitsActionsResponseDto"];
+                };
             };
         };
     };
@@ -20458,7 +22264,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenBenefitApplicationItemDto"][];
+                };
             };
         };
     };
@@ -20475,7 +22283,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BenefitAwardRecordDto"][];
+                };
             };
         };
     };
@@ -20492,7 +22302,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BenefitDisbursementReferenceRecordDto"][];
+                };
             };
         };
     };
@@ -20509,7 +22321,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenBenefitProgramItemDto"][];
+                };
             };
         };
     };
@@ -20526,7 +22340,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenBoundaryDisclaimerResponseDto"];
+                };
             };
         };
     };
@@ -20564,7 +22380,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenCivilCertificateSummaryDto"][];
+                };
             };
         };
     };
@@ -20581,7 +22399,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenCivilRegistryActionDto"][];
+                };
             };
         };
     };
@@ -20598,7 +22418,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenCivilStatusResponseDto"];
+                };
             };
         };
     };
@@ -20637,7 +22459,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CitizenCredentialSummaryDto"];
+                    "application/json": components["schemas"]["CitizenCredentialDetailDto"];
                 };
             };
         };
@@ -20655,7 +22477,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenDevelopmentActionsResponseDto"];
+                };
             };
         };
     };
@@ -20672,7 +22496,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenDevelopmentProjectsResponseDto"];
+                };
             };
         };
     };
@@ -20691,7 +22517,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["DevelopmentProjectPortalViewDto"];
+                };
             };
         };
     };
@@ -20730,7 +22558,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CitizenDocumentSummaryDto"];
+                    "application/json": components["schemas"]["CitizenDocumentDetailDto"];
                 };
             };
         };
@@ -20748,7 +22576,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenDriverLicenseSummaryDto"][];
+                };
             };
         };
     };
@@ -20765,7 +22595,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenEducationHomeResponseDto"];
+                };
             };
         };
     };
@@ -20782,7 +22614,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenEducationActionsResponseDto"];
+                };
             };
         };
     };
@@ -20799,7 +22633,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenEducationApplicationsResponseDto"];
+                };
             };
         };
     };
@@ -20816,7 +22652,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenEducationCredentialItemDto"][];
+                };
             };
         };
     };
@@ -20833,7 +22671,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenEducationEnrollmentItemDto"][];
+                };
             };
         };
     };
@@ -20850,7 +22690,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenEducationSupportResponseDto"];
+                };
             };
         };
     };
@@ -20867,7 +22709,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenEmploymentHomeResponseDto"];
+                };
             };
         };
     };
@@ -20884,7 +22728,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenEmploymentActionsResponseDto"];
+                };
             };
         };
     };
@@ -20901,7 +22747,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["WorkPermitApplicationProfileRecordDto"][];
+                };
             };
         };
     };
@@ -20918,7 +22766,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenEmploymentRelationshipItemDto"][];
+                };
             };
         };
     };
@@ -20935,7 +22785,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["WorkPermitRecordDto"][];
+                };
             };
         };
     };
@@ -20953,7 +22805,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenHealthcareHomeResponseDto"];
+                };
             };
         };
     };
@@ -20970,7 +22824,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenHealthcareActionsResponseDto"];
+                };
             };
         };
     };
@@ -20987,7 +22843,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenHealthcareAppointmentsResponseDto"];
+                };
             };
         };
     };
@@ -21004,7 +22862,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenHealthcareProfileResponseDto"];
+                };
             };
         };
     };
@@ -21021,7 +22881,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenTreatmentProgramsResponseDto"];
+                };
             };
         };
     };
@@ -21038,7 +22900,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenHealthcareProvidersResponseDto"];
+                };
             };
         };
     };
@@ -21055,7 +22919,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenTreatmentReferralsResponseDto"];
+                };
             };
         };
     };
@@ -21072,7 +22938,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenTreatmentsResponseDto"];
+                };
             };
         };
     };
@@ -21243,7 +23111,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenMessageDetailDto"];
+                };
             };
         };
     };
@@ -21302,7 +23172,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenPaymentDetailDto"];
+                };
             };
         };
     };
@@ -21340,7 +23212,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenPropertyHomeResponseDto"];
+                };
             };
         };
     };
@@ -21357,7 +23231,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenPropertyActionsResponseDto"];
+                };
             };
         };
     };
@@ -21374,7 +23250,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PropertyRegistryApplicationRecordDto"][];
+                };
             };
         };
     };
@@ -21391,7 +23269,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenPropertyDocumentItemDto"][];
+                };
             };
         };
     };
@@ -21408,7 +23288,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenPropertyInterestItemDto"][];
+                };
             };
         };
     };
@@ -21425,7 +23307,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenPublicSafetyHomeResponseDto"];
+                };
             };
         };
     };
@@ -21442,7 +23326,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenPublicSafetyActionsResponseDto"];
+                };
             };
         };
     };
@@ -21459,7 +23345,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenRecoveryAssistanceResponseDto"];
+                };
             };
         };
     };
@@ -21476,7 +23364,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenEmergencyEventsResponseDto"];
+                };
             };
         };
     };
@@ -21493,7 +23383,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenIncidentReportsResponseDto"];
+                };
             };
         };
     };
@@ -21529,7 +23421,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenRevenueHomeResponseDto"];
+                };
             };
         };
     };
@@ -21546,7 +23440,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenTaxAccountsResponseDto"];
+                };
             };
         };
     };
@@ -21564,7 +23460,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenRevenueActionsResponseDto"];
+                };
             };
         };
     };
@@ -21581,7 +23479,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["TaxAssessmentRecordDto"][];
+                };
             };
         };
     };
@@ -21598,7 +23498,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenTaxObligationsResponseDto"];
+                };
             };
         };
     };
@@ -21615,7 +23517,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenTaxPaymentItemDto"][];
+                };
             };
         };
     };
@@ -21635,7 +23539,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenTaxReturnsResponseDto"];
+                };
             };
         };
     };
@@ -21687,7 +23593,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PublicServiceSummaryResponseDto"];
+                    "application/json": components["schemas"]["PublicServiceDetailResponseDto"];
                 };
             };
         };
@@ -21711,7 +23617,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ApplicationRecordDto"];
+                };
             };
         };
     };
@@ -21734,7 +23642,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicEligibilityResultResponseDto"];
+                };
             };
         };
     };
@@ -21758,7 +23668,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenStartExperienceResponseDto"];
+                };
             };
         };
     };
@@ -21775,7 +23687,7 @@ export interface operations {
             };
         };
         responses: {
-            200: {
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -21798,7 +23710,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenTransportationHomeResponseDto"];
+                };
             };
         };
     };
@@ -21815,7 +23729,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenTransportationActionsResponseDto"];
+                };
             };
         };
     };
@@ -21832,7 +23748,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenVehicleApplicationItemDto"][];
+                };
             };
         };
     };
@@ -21849,7 +23767,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenVehicleItemDto"][];
+                };
             };
         };
     };
@@ -21866,7 +23786,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenVitalRecordSummaryDto"][];
+                };
             };
         };
     };
@@ -21885,14 +23807,16 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CitizenVitalRecordSummaryDto"];
+                };
             };
         };
     };
     ExperienceCommonController_resolveDeepLink: {
         parameters: {
-            query: {
-                locale: string;
+            query?: {
+                locale?: string;
             };
             header?: never;
             path?: never;
@@ -21904,7 +23828,7 @@ export interface operations {
             };
         };
         responses: {
-            200: {
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -22456,8 +24380,8 @@ export interface operations {
     };
     ExperienceCommonController_getInbox: {
         parameters: {
-            query: {
-                locale: string;
+            query?: {
+                locale?: string;
                 page?: number;
                 pageSize?: number;
             };
@@ -22479,8 +24403,8 @@ export interface operations {
     };
     ExperienceCommonController_getMetadata: {
         parameters: {
-            query: {
-                locale: string;
+            query?: {
+                locale?: string;
             };
             header?: never;
             path?: never;
@@ -22500,8 +24424,8 @@ export interface operations {
     };
     ExperienceCommonController_getNavigation: {
         parameters: {
-            query: {
-                locale: string;
+            query?: {
+                locale?: string;
             };
             header?: never;
             path?: never;
@@ -23295,7 +25219,7 @@ export interface operations {
     ExperienceCommonController_search: {
         parameters: {
             query: {
-                locale: string;
+                locale?: string;
                 page?: number;
                 pageSize?: number;
                 /** @description Search query text */
@@ -24151,11 +26075,13 @@ export interface operations {
         requestBody?: never;
         responses: {
             /** @description Session revoked */
-            200: {
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["LogoutResponseDto"];
+                };
             };
         };
     };
@@ -24169,11 +26095,13 @@ export interface operations {
         requestBody?: never;
         responses: {
             /** @description Sessions revoked */
-            200: {
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["LogoutAllResponseDto"];
+                };
             };
         };
     };
@@ -24592,7 +26520,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["StepUpProtectedResponseDto"];
+                };
             };
         };
     };
@@ -28287,11 +30217,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
+            /** @description Minimal non-sensitive verification fields only */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicCivilCertificateVerificationResponseDto"];
+                };
             };
         };
     };
@@ -28311,20 +30244,24 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicCivilCertificateVerificationResponseDto"];
+                };
             };
         };
     };
     PublicClinicalTrialDiscoveryController_discover: {
         parameters: {
-            query: {
-                conditionCategoryCode: string;
-                jurisdictionId: string;
-                locationContains: string;
-                maximumAgeYears: string;
-                minimumAgeYears: string;
-                phaseCode: string;
-                sponsorDisplayNameContains: string;
+            query?: {
+                conditionCategoryCode?: string;
+                jurisdictionId?: string;
+                locationContains?: string;
+                maximumAgeYears?: number;
+                minimumAgeYears?: number;
+                phaseCode?: string;
+                /** @description Defaults to RECRUITING */
+                recruitmentStatus?: "NOT_YET_RECRUITING" | "RECRUITING" | "ENROLLING_BY_INVITATION" | "ACTIVE_NOT_RECRUITING" | "COMPLETED" | "SUSPENDED" | "WITHDRAWN" | "UNKNOWN";
+                sponsorDisplayNameContains?: string;
             };
             header?: never;
             path?: never;
@@ -28337,7 +30274,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicClinicalTrialDiscoveryResponseDto"];
+                };
             };
         };
     };
@@ -28357,7 +30296,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicCorporateRegistryVerificationResponseDto"];
+                };
             };
         };
     };
@@ -28377,7 +30318,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicCustomsTradeVerificationResponseDto"];
+                };
             };
         };
     };
@@ -28397,7 +30340,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicEducationCredentialVerificationResponseDto"];
+                };
             };
         };
     };
@@ -28417,7 +30362,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicInstrumentVerificationResponseDto"];
+                };
             };
         };
     };
@@ -28437,7 +30384,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicPropertyRegistryVerificationResponseDto"];
+                };
             };
         };
     };
@@ -28456,7 +30405,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicSafetyNoticeResponseDto"];
+                };
             };
         };
     };
@@ -28527,7 +30478,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PublicServiceSummaryResponseDto"];
+                    "application/json": components["schemas"]["PublicServiceDetailResponseDto"];
                 };
             };
         };
@@ -28551,7 +30502,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicEligibilityResultResponseDto"];
+                };
             };
         };
     };
@@ -28575,7 +30528,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ServiceStartPackageResponseDto"];
+                };
             };
         };
     };
@@ -28592,7 +30547,7 @@ export interface operations {
             };
         };
         responses: {
-            200: {
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -28618,7 +30573,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicLicenseVerificationResponseDto"];
+                };
             };
         };
     };
@@ -28637,7 +30594,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicOperatorVerificationResponseDto"];
+                };
             };
         };
     };
@@ -28656,7 +30615,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PublicVehicleVerificationResponseDto"];
+                };
             };
         };
     };

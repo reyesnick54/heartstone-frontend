@@ -24,8 +24,12 @@ if (!/^[\w./-]+$/.test(ref) || ref.startsWith("-")) {
 
 const pkgRoot = new URL("..", import.meta.url);
 const work = mkdtempSync(join(tmpdir(), "hs-contract-"));
+// The contract is several megabytes; execFileSync's default 1 MB output buffer is too small.
 const git = (...args) =>
-  execFileSync("git", ["-C", work, ...args], { stdio: ["ignore", "pipe", "inherit"] });
+  execFileSync("git", ["-C", work, ...args], {
+    stdio: ["ignore", "pipe", "inherit"],
+    maxBuffer: 256 * 1024 * 1024,
+  });
 
 try {
   git("init", "--quiet");
