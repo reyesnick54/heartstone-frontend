@@ -61,8 +61,8 @@ export function applyStepItems(slug: string, applicationId: string, start: Start
 export function representationFor(
   reps: Representation[],
   draft: Pick<DraftRecord, "organizationId" | "representativeAuthorityId">,
-): { name: string; representation?: Representation } | undefined {
-  if (!draft.organizationId) return undefined;
+): { name: string; representation?: Representation } | null {
+  if (!draft.organizationId) return null;
   const rep = reps.find(
     (r) =>
       r.representativeAuthorityId === draft.representativeAuthorityId ||

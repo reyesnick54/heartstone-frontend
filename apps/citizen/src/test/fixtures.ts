@@ -262,3 +262,156 @@ export const applicationDetail = (overrides: Record<string, unknown> = {}) => ({
   disclaimer: { label: "This page shows the status of your application." },
   ...overrides,
 });
+
+export const caseStatus = {
+  caseId: "case-1",
+  caseNumber: "CS-2026-008841",
+  publicStatusLabel: "Under review",
+  publicStageLabel: "Inspection",
+  publicMessage: "An inspector needs to visit your premises.",
+  applicantDisclaimer: { label: "This status is informational only." },
+  attribution,
+  milestones: [
+    {
+      milestoneId: "m1",
+      name: "Submitted",
+      status: "COMPLETED",
+      reachedAt: "2026-09-18T00:00:00.000Z",
+    },
+    { milestoneId: "m2", name: "Inspection", status: "IN_PROGRESS" },
+    { milestoneId: "m3", name: "Decision", status: "UPCOMING" },
+  ],
+  recentCommunications: [
+    {
+      communicationId: "c1",
+      communicationType: "STATUS_UPDATE",
+      subject: "Inspection proposed",
+      sentAt: "2026-09-29T00:00:00.000Z",
+    },
+  ],
+  deepLink: { route: "citizen.case.status", params: { caseId: "case-1" } },
+};
+
+export const appointmentDetail = (overrides: Record<string, unknown> = {}) => ({
+  id: "77777777-7777-4777-8777-777777777777",
+  appointmentReference: "APT-2026-03318",
+  status: "SCHEDULED",
+  scheduledStartsAt: "2099-10-14T10:30:00.000Z",
+  scheduledEndsAt: "2099-10-14T11:30:00.000Z",
+  reasonName: "Premises inspection",
+  isVirtual: false,
+  attribution,
+  disclaimer: { label: "Appointments do not decide applications." },
+  virtualMeetingUrl: null,
+  locationName: "At your premises",
+  availableActions: ["VIEW", "CONFIRM", "RESCHEDULE_REQUEST", "CANCEL"],
+  ...overrides,
+});
+
+export const appointmentRecord = (status: string) => ({
+  id: "77777777-7777-4777-8777-777777777777",
+  appointmentReference: "APT-2026-03318",
+  status,
+  institutionId: "inst-1",
+  departmentId: null,
+  governmentServiceId: null,
+  applicationId: null,
+  caseId: null,
+  organizationId: null,
+  appointmentReasonId: null,
+  appointmentSlotId: null,
+  appointmentLocationId: null,
+  assignedResourceId: null,
+  assignedOfficialIdentityId: null,
+  assignedOfficialOfficeholderId: null,
+  scheduledStartsAt: null,
+  scheduledEndsAt: null,
+  confirmedAt: null,
+  completedAt: null,
+  cancelledAt: null,
+  isVirtual: false,
+  virtualMeetingUrl: null,
+  operationalNotes: null,
+  createdByIdentityId: null,
+  createdAt: "2026-09-29T00:00:00.000Z",
+  updatedAt: "2026-09-29T00:00:00.000Z",
+});
+
+export const invoice = (overrides: Record<string, unknown> = {}) => ({
+  id: "88888888-8888-4888-8888-888888888888",
+  invoiceNumber: "INV-2026-018204",
+  status: "ISSUED",
+  feeAssessment: {
+    assessmentReference: "FA-2026-009914",
+    totalAmountCents: 15000,
+    currency: "XCD",
+  },
+  balanceCents: 15000,
+  totalAmountCents: 15000,
+  amountPaidCents: 0,
+  currency: "XCD",
+  issuedAt: "2026-10-01T00:00:00.000Z",
+  dueAt: "2026-10-15T00:00:00.000Z",
+  relatedCaseId: "case-1",
+  receipts: [] as unknown[],
+  refunds: [] as unknown[],
+  disputes: [] as unknown[],
+  disclaimer: "Payment settlement does not alter case or decision status.",
+  lines: [{ lineCode: "REG", description: "Employer registration fee", lineAmountCents: 15000 }],
+  paymentIntents: [] as unknown[],
+  ...overrides,
+});
+
+export const credential = (overrides: Record<string, unknown> = {}) => ({
+  id: "99999999-9999-4999-8999-999999999999",
+  instrumentNumber: "VRC-2026-004512",
+  instrumentType: "Vehicle registration certificate",
+  instrumentKind: "CERTIFICATE",
+  issuer: { id: "inst-2", name: "Transport Board" },
+  status: "EFFECTIVE",
+  effectiveFrom: "2026-09-22T00:00:00.000Z",
+  effectiveUntil: "2027-09-21T00:00:00.000Z",
+  verificationReference: "VR4P-8NQ2-T7KX",
+  conditions: ["The vehicle must pass an inspection every year."],
+  superseded: false,
+  downloadPath: "/api/v1/instruments/99999999-9999-4999-8999-999999999999/download",
+  ...overrides,
+});
+
+export const documentSummary = (overrides: Record<string, unknown> = {}) => ({
+  id: "doc-1",
+  title: "Certificate of incorporation",
+  documentType: "SUPPORTING_DOCUMENT",
+  relatedService: { caseId: "case-1", serviceName: "Register as an employer" },
+  issueOrSubmissionDate: "2026-10-01T00:00:00.000Z",
+  status: "CURRENT",
+  integrity: {
+    sha256: "ab12",
+    signatureStatus: "UNSIGNED",
+    sealStatus: "UNSEALED",
+    authenticityStatus: "NOT_YET_CHECKED",
+  },
+  download: { versionId: "v1", downloadPath: "/api/v1/documents/versions/v1/download" },
+  disclaimer: "Uploading a document does not verify it.",
+  ...overrides,
+});
+
+export const message = (overrides: Record<string, unknown> = {}) => ({
+  id: "msg-1",
+  messageReference: "MSG-2026-039117",
+  subject: "Notice of assessment for 2025",
+  channelType: "PORTAL",
+  status: "DELIVERED",
+  deliveredAt: "2026-09-28T00:00:00.000Z",
+  acknowledged: false,
+  body: "Dear Alex,\nWe have assessed your return.",
+  deliveries: [
+    {
+      id: "d1",
+      channelType: "PORTAL",
+      status: "DELIVERED",
+      completedAt: "2026-09-28T00:00:00.000Z",
+    },
+  ],
+  ...overrides,
+});

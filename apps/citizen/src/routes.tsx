@@ -9,6 +9,21 @@ import { EligibilityPage } from "./pages/EligibilityPage";
 import { ApplyFormPage } from "./pages/apply/ApplyFormPage";
 import { ReviewPage } from "./pages/apply/ReviewPage";
 import { SubmittedPage } from "./pages/apply/SubmittedPage";
+import { ApplicationDetailPage, CaseStatusPage } from "./pages/ApplicationDetailPage";
+import { ApplicationsPage } from "./pages/ApplicationsPage";
+import { AppealsPage, RequestReviewPage } from "./pages/AppealsPage";
+import { AppointmentDetailPage } from "./pages/AppointmentDetailPage";
+import { AppointmentsPage } from "./pages/AppointmentsPage";
+import { CredentialDetailPage } from "./pages/CredentialDetailPage";
+import { CredentialsPage } from "./pages/CredentialsPage";
+import { DocumentViewPage } from "./pages/DocumentViewPage";
+import { DocumentsPage } from "./pages/DocumentsPage";
+import { InvoicePage } from "./pages/InvoicePage";
+import { MessageDetailPage } from "./pages/MessageDetailPage";
+import { MessagesPage } from "./pages/MessagesPage";
+import { PaymentReceiptPage } from "./pages/PaymentReceiptPage";
+import { PaymentsPage } from "./pages/PaymentsPage";
+import { RenewalsPage } from "./pages/RenewalsPage";
 
 export interface RouteContext {
   signedIn: boolean;
@@ -35,6 +50,37 @@ export const ROUTES: readonly CitizenRoute[] = [
     path: "/applications/:id/submitted",
     render: (params) => <SubmittedPage applicationId={p(params, "id")} />,
   },
+  { path: "/applications", render: () => <ApplicationsPage /> },
+  {
+    path: "/applications/:id",
+    render: (params) => <ApplicationDetailPage applicationId={p(params, "id")} />,
+  },
+  { path: "/cases/:id", render: (params) => <CaseStatusPage caseId={p(params, "id")} /> },
+  { path: "/appointments", render: () => <AppointmentsPage /> },
+  {
+    path: "/appointments/:id",
+    render: (params) => <AppointmentDetailPage appointmentId={p(params, "id")} />,
+  },
+  { path: "/documents", render: () => <DocumentsPage /> },
+  { path: "/documents/:id", render: (params) => <DocumentViewPage documentId={p(params, "id")} /> },
+  { path: "/credentials", render: () => <CredentialsPage /> },
+  {
+    path: "/credentials/:id",
+    render: (params) => <CredentialDetailPage credentialId={p(params, "id")} />,
+  },
+  { path: "/payments", render: () => <PaymentsPage /> },
+  { path: "/payments/:id", render: (params) => <InvoicePage invoiceId={p(params, "id")} /> },
+  {
+    path: "/payments/:id/receipts/:receiptId",
+    render: (params) => (
+      <PaymentReceiptPage invoiceId={p(params, "id")} receiptId={p(params, "receiptId")} />
+    ),
+  },
+  { path: "/messages", render: () => <MessagesPage /> },
+  { path: "/messages/:id", render: (params) => <MessageDetailPage messageId={p(params, "id")} /> },
+  { path: "/renewals", render: () => <RenewalsPage /> },
+  { path: "/appeals", render: () => <AppealsPage /> },
+  { path: "/appeals/request", render: () => <RequestReviewPage /> },
 ];
 
 /** True when `href` (a path) has a page, so links to pages that do not exist are not shown. */

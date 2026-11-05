@@ -95,12 +95,21 @@ describe("Home", () => {
     expect(screen.getByText("This page summarises your records.")).toBeInTheDocument();
   });
 
-  it("does not link to pages this build does not have yet", async () => {
-    renderAt("/", [home(), actions([payAction])]);
+  it("turns the backend's deep links into in-app links, and leaves unknown ones unlinked", async () => {
+    const unknown = {
+      ...payAction,
+      actionCode: "SUBMIT_APPEAL",
+      label: { label: "Submit appeal" },
+      deepLink: { route: "citizen.unknown", params: {} },
+    };
+    renderAt("/", [home(), actions([payAction, unknown])]);
     const todo = await screen.findByRole("list", { name: "Things to do" });
-    // /payments/:id arrives with the payments pages; until then the action is shown unlinked.
-    const links = within(todo).queryAllByRole("link");
-    for (const link of links) expect(link.getAttribute("href")).not.toMatch(/^\/payments\//);
+    expect(within(todo).getByRole("link", { name: "Pay invoice" })).toHaveAttribute(
+      "href",
+      "/payments/inv-1",
+    );
+    expect(within(todo).queryByRole("link", { name: "Submit appeal" })).not.toBeInTheDocument();
+    expect(todo).toHaveTextContent("Submit appeal");
   });
 
   it("shows empty states", async () => {
