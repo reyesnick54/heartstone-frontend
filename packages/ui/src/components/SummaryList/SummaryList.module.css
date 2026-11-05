@@ -1,0 +1,38 @@
+.root {
+  margin: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--hs-space-1);
+  padding: var(--hs-space-3) 0;
+  border-bottom: 1px solid var(--hs-color-border-subtle);
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+@media (min-width: 760px) {
+  .row {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) auto;
+    gap: var(--hs-space-4);
+  }
+}
+
+.label {
+  color: var(--hs-color-text-muted);
+  font-size: var(--hs-font-size-md);
+  font-weight: var(--hs-font-weight-semibold);
+}
+
+.value {
+  margin: 0;
+  color: var(--hs-color-text);
+  overflow-wrap: anywhere;
+}
+
+.action {
+  margin: 0;
+}

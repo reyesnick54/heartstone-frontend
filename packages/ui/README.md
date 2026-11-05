@@ -78,6 +78,13 @@ some of them.
 | `FormField`                       | Render-prop wrapper for custom controls                                                             |
 | `StatusBadge`                     | Tones `neutral` / `info` / `success` / `warning` / `error`, plus explicit `official`                |
 | `Card`                            | With a `title`, becomes a labelled `section`; `official` gives it a gold border                     |
+| `CheckboxGroup`                   | Several checkboxes for one question, in a `fieldset`; values keep option order                      |
+| `ErrorSummary`                    | "There is a problem" box after a failed submit: `role="alert"`, takes focus, links to each field    |
+| `ItemList`                        | Labelled list of records or destinations; the title is the item's one link (`rows` or `grid`)       |
+| `StatTile`, `StatGrid`            | A backend count with its label, read as one phrase; optional link                                   |
+| `StepIndicator`                   | Numbered form steps; `aria-current="step"`, completed steps announced and linkable                  |
+| `SummaryList`                     | Label/value pairs as a `dl` (check your answers, record details), optional per-row action           |
+| `Timeline`                        | Ordered steps or events; state shown by marker shape and announced as text, never colour alone      |
 | `Notice` (`Alert`)                | Error: `role="alert"`; success: `role="status"`; info and warning: static unless `announce` is set  |
 | `PageHeader`                      | The page's single `h1`; `dense` uses the UI face for operational screens                            |
 | `Stack`, `Cluster`                | Flex layout primitives with token gaps; `as` for semantic elements                                  |
