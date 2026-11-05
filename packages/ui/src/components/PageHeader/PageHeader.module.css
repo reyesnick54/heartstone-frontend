@@ -1,0 +1,57 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--hs-space-4);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hs-space-1-5);
+  min-width: 0;
+}
+
+.eyebrow {
+  color: var(--hs-color-text-muted);
+  font-size: var(--hs-font-size-xs);
+  font-weight: var(--hs-font-weight-semibold);
+  letter-spacing: var(--hs-letter-spacing-overline);
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--hs-color-heading);
+  font-family: var(--hs-font-display);
+  font-size: var(--hs-font-size-display-lg);
+  font-weight: var(--hs-font-weight-semibold);
+  line-height: var(--hs-line-height-tight);
+}
+
+/* Dense operational pages (government, admin) use the UI face, per the brand rules. */
+.dense .title {
+  font-family: var(--hs-font-ui);
+  font-size: var(--hs-font-size-5xl);
+  font-weight: var(--hs-font-weight-bold);
+}
+
+.description {
+  margin: 0;
+  max-width: 64ch;
+  color: var(--hs-color-text-muted);
+  font-size: var(--hs-font-size-lg);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hs-space-3);
+}
+
+@media (max-width: 899.98px) {
+  .title {
+    font-size: var(--hs-font-size-display-sm);
+  }
+}

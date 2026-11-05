@@ -1,0 +1,110 @@
+.wrapper {
+  min-width: 0;
+  overflow-x: auto;
+  border: 1px solid var(--hs-color-border);
+  border-radius: var(--hs-radius-lg);
+  background: var(--hs-color-surface);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--hs-color-text);
+  font-size: var(--hs-font-size-md);
+}
+
+.caption {
+  padding: var(--hs-space-4) var(--hs-space-5) 0;
+  color: var(--hs-color-heading);
+  font-size: var(--hs-font-size-lg);
+  font-weight: var(--hs-font-weight-bold);
+  text-align: left;
+}
+
+.th {
+  padding: var(--hs-space-3-5) var(--hs-space-5);
+  border-bottom: 1px solid var(--hs-color-border);
+  color: var(--hs-color-text-muted);
+  font-size: var(--hs-font-size-xs);
+  font-weight: var(--hs-font-weight-bold);
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.td {
+  padding: var(--hs-space-4) var(--hs-space-5);
+  border-bottom: 1px solid var(--hs-color-border-subtle);
+  color: var(--hs-color-text-secondary);
+  vertical-align: top;
+}
+
+.table tbody tr:last-child .td {
+  border-bottom: 0;
+}
+
+.rowHeader {
+  color: var(--hs-color-text);
+  font-weight: var(--hs-font-weight-semibold);
+  text-align: left;
+}
+
+.end {
+  text-align: right;
+}
+
+/*
+ * Stacked layout below the shell breakpoint, as in the designs: header row hidden, each row
+ * becomes a block and each cell shows its column label. The table semantics are kept (no
+ * display:block on table/tr), so screen readers still navigate it as a table.
+ */
+@media (max-width: 899.98px) {
+  .stack .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .stack .table tr {
+    display: flex;
+    flex-direction: column;
+    gap: var(--hs-space-1-5);
+    padding: var(--hs-space-4);
+    border-bottom: 1px solid var(--hs-color-border-subtle);
+  }
+
+  .stack .table tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .stack .td {
+    padding: 0;
+    border: 0;
+    text-align: left;
+  }
+
+  .stack .td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    color: var(--hs-color-text-muted);
+    font-size: var(--hs-font-size-xs);
+    font-weight: var(--hs-font-weight-semibold);
+  }
+
+  .stack .rowHeader::before {
+    content: none !important;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

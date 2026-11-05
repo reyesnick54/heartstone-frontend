@@ -1,0 +1,22 @@
+.root {
+  color: var(--hs-color-link);
+  font-weight: var(--hs-font-weight-medium);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.root:hover {
+  color: var(--hs-color-link-hover);
+  text-decoration-thickness: 2px;
+}
+
+.standalone {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--hs-layout-touch-target);
+}
+
+.external::after {
+  content: " ↗";
+}

@@ -1,0 +1,254 @@
+/*
+ * Citizen application shell, from design/citizen/pages (Main.html, Menu.html …).
+ * ≥ 900px: 272px Midnight sidebar + content column.
+ * < 900px: sidebar hidden; top bar shows the brand; fixed bottom tab bar.
+ */
+.root {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--hs-color-bg);
+  color: var(--hs-color-text);
+  font-family: var(--hs-font-ui);
+}
+
+@media (min-width: 900px) {
+  .root {
+    grid-template-columns: var(--hs-layout-sidebar-width) minmax(0, 1fr);
+  }
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  display: none;
+  flex-direction: column;
+  gap: 22px;
+  padding: 26px 18px;
+  background: var(--hs-color-nav-bg);
+  color: var(--hs-color-nav-text);
+}
+
+@media (min-width: 900px) {
+  .sidebar {
+    display: flex;
+  }
+}
+
+.sidebarBrand {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--hs-space-2);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hs-space-0-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sectionHeading {
+  margin: 0;
+  padding: 0 var(--hs-space-3) var(--hs-space-1-5);
+  color: var(--hs-color-nav-text-muted);
+  font-size: var(--hs-font-size-2xs);
+  font-weight: var(--hs-font-weight-semibold);
+  letter-spacing: var(--hs-letter-spacing-overline);
+  text-transform: uppercase;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: var(--hs-space-3);
+  min-height: 40px;
+  padding: 9px var(--hs-space-3);
+  border-radius: var(--hs-radius-sm);
+  color: var(--hs-color-nav-text);
+  font-size: var(--hs-font-size-md);
+  text-decoration: none;
+}
+
+.navLink:hover {
+  background: var(--hs-color-nav-hover-bg);
+  color: var(--hs-color-nav-current-text);
+}
+
+.navLink:focus-visible {
+  outline-color: var(--hs-color-nav-focus);
+}
+
+/* Current page: background, weight and a left bar — not colour alone. */
+.navLink[aria-current="page"] {
+  background: var(--hs-color-nav-current-bg);
+  box-shadow: inset 3px 0 0 var(--hs-color-nav-focus);
+  color: var(--hs-color-nav-current-text);
+  font-weight: var(--hs-font-weight-semibold);
+}
+
+.navLabel {
+  flex-grow: 1;
+}
+
+.navCount {
+  padding: 1px 7px;
+  border-radius: var(--hs-radius-md);
+  background: var(--hs-color-nav-divider);
+  color: var(--hs-color-nav-current-text);
+  font-size: var(--hs-font-size-2xs);
+  font-weight: var(--hs-font-weight-bold);
+}
+
+.sidebarFooter {
+  margin-top: auto;
+  padding-top: var(--hs-space-3-5);
+  border-top: 1px solid var(--hs-color-nav-divider);
+}
+
+/* ---------- Content column ---------- */
+.column {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--hs-space-2-5);
+  padding: var(--hs-space-3) var(--hs-space-4);
+  border-bottom: 1px solid var(--hs-color-border);
+  background: var(--hs-color-surface);
+}
+
+@media (min-width: 900px) {
+  .topBar {
+    flex-wrap: nowrap;
+    gap: var(--hs-space-5);
+    padding: var(--hs-space-4) var(--hs-space-8);
+  }
+}
+
+.topBrand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--hs-layout-touch-target);
+  margin-right: auto;
+}
+
+@media (min-width: 900px) {
+  .topBrand {
+    display: none;
+  }
+}
+
+.topBarContent {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--hs-space-3);
+  min-width: 0;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hs-space-7);
+  width: 100%;
+  max-width: var(--hs-layout-content-max);
+  padding: var(--hs-space-5) var(--hs-space-4) 104px;
+}
+
+@media (min-width: 900px) {
+  .main {
+    padding: var(--hs-space-8) var(--hs-space-8) var(--hs-space-14);
+  }
+}
+
+.main:focus {
+  outline: none;
+}
+
+/* ---------- Bottom tab bar (< 900px) ---------- */
+.tabBar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: var(--hs-z-tab-bar);
+  border-top: 1px solid var(--hs-color-tab-bar-border);
+  background: var(--hs-color-tab-bar-bg);
+  padding: var(--hs-space-1) var(--hs-space-1) calc(var(--hs-space-2) + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 900px) {
+  .tabBar {
+    display: none;
+  }
+}
+
+.tabList {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tabLink {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: var(--hs-layout-tab-bar-item);
+  border-radius: var(--hs-radius-sm);
+  color: var(--hs-color-tab-bar-text);
+  font-size: var(--hs-font-size-2xs);
+  font-weight: var(--hs-font-weight-medium);
+  text-decoration: none;
+}
+
+.tabLink:hover {
+  color: var(--hs-color-tab-bar-current-text);
+}
+
+.tabLink[aria-current="page"] {
+  color: var(--hs-color-tab-bar-current-text);
+  font-weight: var(--hs-font-weight-bold);
+}
+
+.tabLink[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 24px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: currentColor;
+}
+
+.tabIcon {
+  display: inline-flex;
+}
+
+.tabCount {
+  position: absolute;
+  top: 4px;
+  left: calc(50% + 6px);
+  min-width: 18px;
+  padding: 0 5px;
+  border-radius: var(--hs-radius-pill);
+  background: var(--hs-color-action-primary-bg);
+  color: var(--hs-color-action-primary-text);
+  font-size: 10px;
+  font-weight: var(--hs-font-weight-bold);
+  line-height: 16px;
+  text-align: center;
+}

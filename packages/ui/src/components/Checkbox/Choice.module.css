@@ -1,0 +1,52 @@
+/* Shared by Checkbox and RadioGroup. */
+.choice {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  column-gap: var(--hs-space-3);
+  align-items: start;
+  min-height: var(--hs-layout-touch-target);
+  padding-block: var(--hs-space-2-5);
+  color: var(--hs-color-text);
+  font-size: var(--hs-font-size-lg);
+  cursor: pointer;
+}
+
+.input {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  margin-top: 1px;
+  accent-color: var(--hs-color-control-accent);
+  cursor: pointer;
+}
+
+.input:disabled,
+.input:disabled + .text {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hs-space-0-5);
+}
+
+.choiceHint {
+  color: var(--hs-color-text-muted);
+  font-size: var(--hs-font-size-md);
+}
+
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--hs-space-1-5);
+  color: var(--hs-color-error-text);
+  font-size: var(--hs-font-size-base);
+  font-weight: var(--hs-font-weight-semibold);
+}
+
+.invalid {
+  padding-left: var(--hs-space-3-5);
+  border-left: 4px solid var(--hs-color-error-border);
+}

@@ -12,6 +12,8 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@heartstone/tokens": "workspace:*",
+    "@heartstone/ui": "workspace:*",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },

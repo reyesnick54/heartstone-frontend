@@ -1,0 +1,83 @@
+.skeleton {
+  display: block;
+  border-radius: var(--hs-radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--hs-color-surface-muted) 0%,
+    var(--hs-color-border-subtle) 50%,
+    var(--hs-color-surface-muted) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.text {
+  height: 1em;
+}
+
+.block {
+  height: 96px;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: var(--hs-space-3);
+  color: var(--hs-color-text-muted);
+  font-size: var(--hs-font-size-base);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border: 2.5px solid var(--hs-color-border-strong);
+  border-top-color: var(--hs-color-progress-current);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.w25 {
+  width: 25%;
+}
+.w40 {
+  width: 40%;
+}
+.w60 {
+  width: 60%;
+}
+.w80 {
+  width: 80%;
+}
+.w100 {
+  width: 100%;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -1,0 +1,20 @@
+.root {
+  appearance: none;
+  padding-right: var(--hs-space-10);
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) 50%,
+    calc(100% - 14px) 50%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+@media (forced-colors: active) {
+  .root {
+    appearance: auto;
+    background-image: none;
+  }
+}
