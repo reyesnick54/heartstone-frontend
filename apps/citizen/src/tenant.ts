@@ -10,6 +10,8 @@ export const TENANT_PLACEHOLDER = {
   /** Service-adviser phone line and hours shown on Help. */
   supportPhone: "[SUPPORT PHONE — set by tenant configuration]",
   supportHours: "[SUPPORT HOURS — set by tenant configuration]",
+  /** Emergency phone number shown on Public safety. */
+  emergencyNumber: "[EMERGENCY NUMBER — set by tenant configuration]",
 } as const;
 
 /** Language and formatting for this deployment. */
@@ -19,6 +21,12 @@ export const LOCALE = {
   dateLocale: "en-GB",
   numberLocale: "en-GB",
 } as const;
+
+/**
+ * Currency for amounts the backend sends without one (e.g. tax balances). Set by tenant
+ * configuration; ISO 4217.
+ */
+export const LOCALE_CURRENCY = "XCD";
 
 /**
  * Launch state of this deployment. Until a launch is authorised and recorded in tenant

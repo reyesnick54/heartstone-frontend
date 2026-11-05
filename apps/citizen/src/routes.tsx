@@ -24,6 +24,20 @@ import { MessagesPage } from "./pages/MessagesPage";
 import { PaymentReceiptPage } from "./pages/PaymentReceiptPage";
 import { PaymentsPage } from "./pages/PaymentsPage";
 import { RenewalsPage } from "./pages/RenewalsPage";
+import { ProfilePage, RepresentationPage, SettingsPage } from "./pages/AccountPages";
+import { HelpPage } from "./pages/HelpPage";
+import { MenuPage } from "./pages/MenuPage";
+import { VerifyPage } from "./pages/VerifyPage";
+import { BenefitsPage } from "./pages/hubs/BenefitsPage";
+import { CivilRecordsPage } from "./pages/hubs/CivilRecordsPage";
+import { EducationPage } from "./pages/hubs/EducationPage";
+import { HealthPage } from "./pages/hubs/HealthPage";
+import { ImmigrationPage } from "./pages/hubs/ImmigrationPage";
+import { PropertyPage } from "./pages/hubs/PropertyPage";
+import { PublicSafetyPage } from "./pages/hubs/PublicSafetyPage";
+import { TaxPage } from "./pages/hubs/TaxPage";
+import { VehiclesPage } from "./pages/hubs/VehiclesPage";
+import { WorkPage } from "./pages/hubs/WorkPage";
 
 export interface RouteContext {
   signedIn: boolean;
@@ -81,6 +95,22 @@ export const ROUTES: readonly CitizenRoute[] = [
   { path: "/renewals", render: () => <RenewalsPage /> },
   { path: "/appeals", render: () => <AppealsPage /> },
   { path: "/appeals/request", render: () => <RequestReviewPage /> },
+  { path: "/work", render: () => <WorkPage /> },
+  { path: "/immigration", render: () => <ImmigrationPage /> },
+  { path: "/tax", render: () => <TaxPage /> },
+  { path: "/property", render: () => <PropertyPage /> },
+  { path: "/vehicles", render: () => <VehiclesPage /> },
+  { path: "/health", render: () => <HealthPage /> },
+  { path: "/benefits", render: () => <BenefitsPage /> },
+  { path: "/education", render: () => <EducationPage /> },
+  { path: "/civil-records", render: () => <CivilRecordsPage /> },
+  { path: "/public-safety", render: () => <PublicSafetyPage /> },
+  { path: "/profile", render: () => <ProfilePage /> },
+  { path: "/settings", render: () => <SettingsPage /> },
+  { path: "/representation", render: () => <RepresentationPage /> },
+  { path: "/help", render: () => <HelpPage />, public: true },
+  { path: "/menu", render: () => <MenuPage /> },
+  { path: "/verify", render: () => <VerifyPage />, public: true },
 ];
 
 /** True when `href` (a path) has a page, so links to pages that do not exist are not shown. */
