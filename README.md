@@ -4,9 +4,11 @@ Shared front-end platform for HeartStone, the sovereign Digital Government Opera
 One repository, one design system, persona-specific web applications, all running against the
 HeartStone backend as the sole system of record.
 
-> **Status: F2 API + identity foundation.** The design system, the typed backend client and the
-> sign-in gateway exist. The citizen app signs people in and shows their name; the other apps are
-> demo shells. No government service is live or operational from this repository.
+> **Status: F3 citizen core (in progress).** The design system, the typed backend client and the
+> sign-in gateway exist. The citizen app is a routed dashboard on the real API: home, find a
+> service, service detail, eligibility, the dynamic application form, check your answers and
+> submit. The other apps are demo shells. No government service is live or operational from this
+> repository.
 
 ## Structure
 
@@ -76,6 +78,18 @@ That pulls the contract over git (no token needed), regenerates `src/generated/s
 both files are committed. Never edit either by hand: CI fails if the generated file does not match
 the contract.
 
+## Citizen app
+
+`apps/citizen` is a single-page app. `src/routes.tsx` lists every page; `src/router/router.tsx`
+is a ~150-line History API router (path patterns, link interception, back/forward, focus moved to
+the new page's `h1`). It is used instead of react-router because the app needs none of its data
+or layout APIs, and it keeps ~20 kB gzipped out of the bundle. The Worker serves `index.html` for
+unknown paths, so deep links work.
+
+Data goes through `src/lib/query.ts`: `useQuery` (abort on unmount, `reload` for "Try again") and
+`useMutation` (runs once, never retried). Every `HeartStoneApiError.kind` has its own message in
+`src/components/ApiErrorNotice.tsx`. Links are only rendered to pages that exist in the build.
+
 ## Stack
 
 TypeScript (strict) · React · Vite · pnpm workspaces · Turborepo · Vitest + Testing Library ·
@@ -109,6 +123,6 @@ Dev ports: citizen 5173 · government 5174 · executive 5175 · admin 5176 · pr
 
 ## Build stages
 
-F0 repository + CI + Cloudflare ✓ · F1 design system ✓ · F2 API + identity foundation ✓ · F3 citizen core
+F0 repository + CI + Cloudflare ✓ · F1 design system ✓ · F2 API + identity foundation ✓ · F3 citizen core (in progress)
 · F4 citizen transactions · F5 business/investor · F6 government official · F7 manager + executive
 · F8 administration · F9 healthcare · F10 hardening + pilot verticals.

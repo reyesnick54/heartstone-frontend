@@ -14,12 +14,21 @@ export { Card } from "./components/Card/Card";
 export type { CardPadding, CardProps, HeadingLevel } from "./components/Card/Card";
 export { Checkbox } from "./components/Checkbox/Checkbox";
 export type { CheckboxProps } from "./components/Checkbox/Checkbox";
+export { CheckboxGroup } from "./components/CheckboxGroup/CheckboxGroup";
+export type {
+  CheckboxGroupOption,
+  CheckboxGroupProps,
+} from "./components/CheckboxGroup/CheckboxGroup";
 export { Dialog } from "./components/Dialog/Dialog";
 export type { DialogProps } from "./components/Dialog/Dialog";
 export { EmptyState } from "./components/EmptyState/EmptyState";
 export type { EmptyStateProps } from "./components/EmptyState/EmptyState";
+export { ErrorSummary } from "./components/ErrorSummary/ErrorSummary";
+export type { ErrorSummaryItem, ErrorSummaryProps } from "./components/ErrorSummary/ErrorSummary";
 export { FormField } from "./components/FormField/FormField";
 export type { FormControlProps, FormFieldProps } from "./components/FormField/FormField";
+export { ItemList } from "./components/ItemList/ItemList";
+export type { ItemListItem, ItemListProps } from "./components/ItemList/ItemList";
 export { Cluster, Stack } from "./components/Layout/Layout";
 export type {
   LayoutAlign,
@@ -43,6 +52,13 @@ export { Select } from "./components/Select/Select";
 export type { SelectOption, SelectProps } from "./components/Select/Select";
 export { SkipLink } from "./components/SkipLink/SkipLink";
 export type { SkipLinkProps } from "./components/SkipLink/SkipLink";
+export { StepIndicator } from "./components/StepIndicator/StepIndicator";
+export type {
+  StepIndicatorProps,
+  StepIndicatorStep,
+} from "./components/StepIndicator/StepIndicator";
+export { StatGrid, StatTile } from "./components/StatTile/StatTile";
+export type { StatGridProps, StatTileProps } from "./components/StatTile/StatTile";
 export { StatusBadge } from "./components/StatusBadge/StatusBadge";
 export type {
   StatusBadgeOfficialProps,
@@ -50,10 +66,14 @@ export type {
   StatusBadgeToneProps,
   StatusTone,
 } from "./components/StatusBadge/StatusBadge";
+export { SummaryList } from "./components/SummaryList/SummaryList";
+export type { SummaryListProps, SummaryListRow } from "./components/SummaryList/SummaryList";
 export { Table } from "./components/Table/Table";
 export type { TableColumn, TableProps } from "./components/Table/Table";
 export { Tabs } from "./components/Tabs/Tabs";
 export type { TabItem, TabsProps } from "./components/Tabs/Tabs";
+export { Timeline } from "./components/Timeline/Timeline";
+export type { TimelineItem, TimelineProps, TimelineState } from "./components/Timeline/Timeline";
 export { TextArea } from "./components/TextArea/TextArea";
 export type { TextAreaProps } from "./components/TextArea/TextArea";
 export { TextField } from "./components/TextField/TextField";

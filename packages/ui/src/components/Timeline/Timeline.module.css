@@ -1,0 +1,83 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: var(--hs-space-3);
+  padding-bottom: var(--hs-space-4);
+}
+
+.item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  bottom: 0;
+  left: 9px;
+  width: 2px;
+  background: var(--hs-color-progress-track);
+}
+
+.marker {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  border: 2px solid var(--hs-color-progress-track);
+  border-radius: var(--hs-radius-round);
+  background: var(--hs-color-surface);
+}
+
+.done .marker {
+  border-color: var(--hs-color-progress-done);
+  background: var(--hs-color-progress-done);
+}
+
+.current .marker {
+  border-width: 5px;
+  border-color: var(--hs-color-progress-current);
+}
+
+.neutral .marker {
+  width: 12px;
+  height: 12px;
+  margin: 6px 4px 0;
+  border-radius: var(--hs-radius-xs);
+  background: var(--hs-color-progress-track);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hs-space-0-5);
+  min-width: 0;
+}
+
+.title {
+  color: var(--hs-color-text);
+  font-weight: var(--hs-font-weight-semibold);
+}
+
+.current .title {
+  font-weight: var(--hs-font-weight-bold);
+}
+
+.status {
+  color: var(--hs-color-text-muted);
+  font-weight: var(--hs-font-weight-regular);
+}
+
+.meta {
+  color: var(--hs-color-text-muted);
+  font-size: var(--hs-font-size-md);
+}
+
+.description {
+  color: var(--hs-color-text-secondary);
+  font-size: var(--hs-font-size-md);
+}

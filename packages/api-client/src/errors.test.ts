@@ -65,6 +65,39 @@ describe("normaliseApiError", () => {
     });
   });
 
+  it("treats the form engine's 409 with per-field errors as validation", () => {
+    // heartstone-backend ApplicationsService.submit: ConflictException with form field errors.
+    const error = normaliseApiError(409, {
+      message: "Form response validation failed",
+      errors: [
+        { fieldKey: "registrationNumber", code: "REQUIRED", message: "Field is required" },
+        {
+          fieldKey: "email",
+          code: "INVALID_EMAIL",
+          message: "Value must be a valid email address",
+        },
+      ],
+      missingRequiredFields: ["registrationNumber"],
+    });
+    expect(error.kind).toBe("validation");
+    expect(error.fieldErrors).toEqual({
+      registrationNumber: ["Field is required"],
+      email: ["Value must be a valid email address"],
+    });
+  });
+
+  it("keeps a 409 without field errors as a conflict", () => {
+    const error = normaliseApiError(
+      409,
+      nestBody(
+        409,
+        "Service version or configuration fingerprint is no longer valid for submission",
+      ),
+    );
+    expect(error.kind).toBe("conflict");
+    expect(error.fieldErrors).toEqual({});
+  });
+
   it("does not attach field errors to non-validation kinds", () => {
     expect(normaliseApiError(403, nestBody(403, "foo must be x")).fieldErrors).toEqual({});
   });
