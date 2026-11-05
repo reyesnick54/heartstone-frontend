@@ -180,8 +180,9 @@ function codeOf(body: unknown, messages: string[]): string | undefined {
 /**
  * Groups class-validator messages by field. Nest's ValidationPipe returns messages such as
  * "email must be an email" or "property foo should not exist"; the first word is the property
- * path. Structured `errors: [{ field | property, message | messages | constraints }]` bodies are
- * also read, should the backend adopt them.
+ * path. Structured `errors: [{ field | fieldKey | property, message | messages | constraints }]`
+ * bodies are also read: the backend form engine answers a failed form submission with
+ * `409 { message, errors: [{ fieldKey, code, message }], missingRequiredFields }`.
  */
 export function fieldErrorsOf(body: unknown, messages: string[]): Record<string, string[]> {
   const out: Record<string, string[]> = {};
@@ -193,7 +194,7 @@ export function fieldErrorsOf(body: unknown, messages: string[]): Record<string,
   if (Array.isArray(errors)) {
     for (const entry of errors) {
       const e = asObject(entry);
-      const field = e && (str(e["field"]) ?? str(e["property"]));
+      const field = e && (str(e["field"]) ?? str(e["fieldKey"]) ?? str(e["property"]));
       if (!e || !field) continue;
       const msg = str(e["message"]);
       if (msg) add(field, msg);
@@ -218,8 +219,23 @@ export function fieldErrorsOf(body: unknown, messages: string[]): Record<string,
   return out;
 }
 
+/** True when the body carries per-field errors (`errors: [{ field | fieldKey | property }]`). */
+function hasStructuredFieldErrors(body: unknown): boolean {
+  const errors = asObject(body)?.["errors"];
+  return (
+    Array.isArray(errors) &&
+    errors.some((entry) => {
+      const e = asObject(entry);
+      return Boolean(e && (str(e["field"]) ?? str(e["fieldKey"]) ?? str(e["property"])));
+    })
+  );
+}
+
 function kindFor(status: number, body: unknown): HeartStoneApiErrorKind {
   if (isSafeHaltBody(status, body)) return "safe-halt";
+  // The form engine reports a failed form submission as 409 with per-field errors. That is a
+  // validation failure the person can correct, not a concurrent-change conflict.
+  if (status === 409 && hasStructuredFieldErrors(body)) return "validation";
   switch (status) {
     case 401:
       return isStepUpBody(status, body) ? "step-up-required" : "unauthenticated";
