@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { ApiProvider } from "@heartstone/api-client/react";
 import "@heartstone/tokens/tokens.css";
 import "@heartstone/ui/styles.css";
 import "./app.css";
@@ -12,6 +13,8 @@ if (!container) {
 
 createRoot(container).render(
   <StrictMode>
-    <App />
+    <ApiProvider>
+      <App />
+    </ApiProvider>
   </StrictMode>,
 );

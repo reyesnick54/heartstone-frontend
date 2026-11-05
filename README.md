@@ -4,8 +4,9 @@ Shared front-end platform for HeartStone, the sovereign Digital Government Opera
 One repository, one design system, persona-specific web applications, all running against the
 HeartStone backend as the sole system of record.
 
-> **Status: F1 design system.** The shared tokens and components exist; the apps are demo shells
-> with example content. No government service is live or operational from this repository.
+> **Status: F2 API + identity foundation.** The design system, the typed backend client and the
+> sign-in gateway exist. The citizen app signs people in and shows their name; the other apps are
+> demo shells. No government service is live or operational from this repository.
 
 ## Structure
 
@@ -20,6 +21,8 @@ packages/
   config/       Shared strict TypeScript configuration
   tokens/       Design tokens: brand palette, themes, type, spacing, tokens.css (+ contrast test)
   ui/           Accessible React components built on the tokens (see packages/ui/README.md)
+  api-client/   Backend OpenAPI contract, generated types, typed client, error kinds, React hooks
+  gateway/      App Worker gateway: OIDC sign-in (PKCE), encrypted session cookie, /api proxy
 docs/
   deployment.md Cloudflare Workers deployment and access control
 design/
@@ -32,9 +35,46 @@ design/
 browser to click through the citizen designs, and `design/website/index.html` for the public
 website; see `design/README.md`.
 
-Further packages (`api-client`, `auth`, `permissions`, `forms`, …) are
-added in the stage that introduces them, per the Front-End Build Plan (29 Sep 2026). They are not
-created empty in advance.
+Further packages (`permissions`, `forms`, …) are added in the stage that introduces them, per the
+Front-End Build Plan (29 Sep 2026). They are not created empty in advance.
+
+## Backend API
+
+Every app talks only to its own origin. The app's Worker (`@heartstone/gateway`) signs people in
+with the identity provider, keeps the backend session token in an encrypted httpOnly cookie, and
+forwards `/api/*` to the backend. Browser code never holds a token. See
+[docs/deployment.md](docs/deployment.md#gateway-sign-in-and-the-api-proxy).
+
+```tsx
+// main.tsx
+import { ApiProvider } from "@heartstone/api-client/react";
+<ApiProvider>
+  <App />
+</ApiProvider>;
+
+// a component
+import { unwrap, loginUrl } from "@heartstone/api-client";
+import { useApi, useSession } from "@heartstone/api-client/react";
+const client = useApi();
+const { state, signOut } = useSession(); // loading | authenticated | unauthenticated | error
+const me = await unwrap(client.GET("/experience/citizen/me")); // typed from the contract
+```
+
+`unwrap` throws `HeartStoneApiError` with a `kind`: `unauthenticated`, `forbidden`, `not-found`,
+`conflict`, `validation` (with `fieldErrors`), `safe-halt`, `step-up-required`, `rate-limited`,
+`server` or `network`. GET is retried once on a network failure; mutations never are.
+
+**Types come from the backend contract.** `packages/api-client/openapi/openapi.json` is a copy of
+`heartstone-backend/openapi/openapi.json`; `openapi/SOURCE` records the commit and hash. To pick up
+backend changes:
+
+```sh
+pnpm --filter @heartstone/api-client sync-contract        # backend main (or pass a ref/SHA)
+```
+
+That pulls the contract over git (no token needed), regenerates `src/generated/schema.ts`, and
+both files are committed. Never edit either by hand: CI fails if the generated file does not match
+the contract.
 
 ## Stack
 
@@ -59,8 +99,8 @@ Dev ports: citizen 5173 · government 5174 · executive 5175 · admin 5176 · pr
 
 - **The frontend never decides authority.** It may guide, hide, disable and explain actions; the
   backend enforces every permission, authority and record-access rule.
-- **No invented domain model.** Types come from the backend OpenAPI contract (F2). If an API is
-  missing, record the dependency rather than building a frontend-only source of truth.
+- **No invented domain model.** Types come from the backend OpenAPI contract (`sync-contract`). If
+  an API is missing, record the dependency rather than building a frontend-only source of truth.
 - **No status without evidence.** Never label anything signed, issued, approved, live or
   operational unless the backend returned that state.
 - **One bounded capability per branch and pull request**, merged only from a green `main`.
@@ -69,6 +109,6 @@ Dev ports: citizen 5173 · government 5174 · executive 5175 · admin 5176 · pr
 
 ## Build stages
 
-F0 repository + CI + Cloudflare · F1 design system · F2 API + identity foundation · F3 citizen core
+F0 repository + CI + Cloudflare ✓ · F1 design system ✓ · F2 API + identity foundation ✓ · F3 citizen core
 · F4 citizen transactions · F5 business/investor · F6 government official · F7 manager + executive
 · F8 administration · F9 healthcare · F10 hardening + pilot verticals.

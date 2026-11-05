@@ -1,0 +1,11 @@
+# Local values for `wrangler dev` (copy to .dev.vars, which is git-ignored).
+# Production and preview values are Worker variables and secrets: see docs/deployment.md.
+BACKEND_ORIGIN=http://localhost:3000
+OIDC_ISSUER=http://localhost:8080/realms/heartstone
+OIDC_CLIENT_ID=heartstone-executive
+# OIDC_CLIENT_SECRET=
+OIDC_PROVIDER_CODE=keycloak
+OIDC_REDIRECT_URI=http://localhost:8787/auth/callback
+# Generate with: openssl rand -base64 32
+SESSION_COOKIE_KEY=
+# SESSION_COOKIE_KEY_PREVIOUS=

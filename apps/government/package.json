@@ -9,9 +9,12 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "preview:worker": "vite build && wrangler dev",
+    "deploy:check": "wrangler deploy --dry-run --outdir .wrangler/dry-run"
   },
   "dependencies": {
+    "@heartstone/gateway": "workspace:*",
     "@heartstone/tokens": "workspace:*",
     "@heartstone/ui": "workspace:*",
     "react": "^19.3.1",

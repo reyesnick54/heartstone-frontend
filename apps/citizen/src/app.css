@@ -12,3 +12,7 @@
 .brand:hover {
   color: inherit;
 }
+
+.account-name {
+  color: var(--hs-color-text-muted);
+}

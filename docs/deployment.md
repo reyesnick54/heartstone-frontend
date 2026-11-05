@@ -1,8 +1,10 @@
 # Deployment — Cloudflare Workers
 
-Each persona app deploys as its own Cloudflare Worker serving static assets. There is no Worker
-script and no server-side logic in the frontend. HeartStone backend remains the sole system of
-record (Build Plan §16).
+Each persona app deploys as its own Cloudflare Worker: static assets plus the HeartStone gateway
+(`packages/gateway`, F2), which handles sign-in and forwards `/api/*` to the backend. The gateway
+holds no government data and makes no decisions: the HeartStone backend remains the sole system
+of record and enforces every permission and authority rule (Build Plan §16). The prototype and
+presentation sites remain static, with no Worker script.
 
 | App          | Worker name               | Root directory      |
 | ------------ | ------------------------- | ------------------- |
@@ -53,11 +55,15 @@ authentication. Access is a perimeter control, not a substitute for backend auth
 
 ## Environments
 
-| Environment | Source                       | Status                                   |
-| ----------- | ---------------------------- | ---------------------------------------- |
-| Preview     | every non-`main` branch / PR | Configured by F0                         |
-| Production  | `main`                       | Configured by F0, placeholder content    |
-| Staging     | dedicated branch or Worker   | Not yet. Added with staging backend (F2) |
+| Environment | Source                       | Status                                                    |
+| ----------- | ---------------------------- | --------------------------------------------------------- |
+| Preview     | every non-`main` branch / PR | Configured by F0. Sign-in off unless gateway vars are set |
+| Production  | `main`                       | Configured by F0. Sign-in off until gateway vars are set  |
+| Staging     | dedicated branch or Worker   | Not yet. Needs the staging backend and identity provider  |
+
+Without the [gateway variables](#gateway-sign-in-and-the-api-proxy), an app still serves its
+pages, but sign-in and `/api/*` fail closed: `/api/*` and `/auth/session` answer 503, and "Sign in"
+returns to the app with "Sign-in is not available right now".
 
 ## Secrets
 
@@ -68,7 +74,126 @@ preview-specific values in Preview settings. `.env*` and `.dev.vars*` are git-ig
 ## Security headers
 
 Each app ships `public/_headers` with a strict CSP (`'self'` only), `frame-ancestors 'none'`,
-HSTS and `noindex`. When F2 introduces the backend API, add its origin to `connect-src` only.
+HSTS and `noindex`. `connect-src` stays `'self'`: browsers call `/api/*` and `/auth/*` on the
+app's own origin, and the gateway forwards to the backend, so the backend origin never appears in
+the CSP. `_headers` applies to static assets; gateway responses set `Cache-Control: no-store`,
+`X-Content-Type-Options: nosniff` and `Referrer-Policy: no-referrer` themselves.
+
+## Gateway: sign-in and the API proxy
+
+The citizen, government, executive and admin Workers run `worker/index.ts`, which calls
+`handleGatewayRequest` from `@heartstone/gateway`. `wrangler.jsonc` sets
+`"run_worker_first": ["/api/*", "/auth/*"]`, so only those paths run the Worker; every other path
+is a static asset served without running code.
+
+| Route                        | What it does                                                                                                                                                                                                                                                                                                                |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /auth/login?returnTo=/` | OIDC discovery, then a redirect to the provider (Authorization Code + PKCE S256, `state`, `nonce`). `returnTo` must be a same-origin path; anything else becomes `/`. `&reauth=1` forces a fresh sign-in (step-up).                                                                                                         |
+| `GET /auth/callback`         | Checks `state`, exchanges the code, checks the ID token's `iss`/`aud`/`exp`/`nonce`, calls backend `POST /api/v1/identity/auth/login/oidc` with `{ accessToken, providerCode }`, sets the session cookie, redirects to `returnTo`. Failures return to `/?signin_error=cancelled\|expired\|failed\|not-linked\|unavailable`. |
+| `GET /auth/session`          | `{ authenticated, expiresAt?, identityId? }`. Never the token.                                                                                                                                                                                                                                                              |
+| `POST /auth/logout`          | Needs `X-HeartStone-CSRF: 1` and a same-origin `Origin`/`Sec-Fetch-Site`. Calls backend `POST /api/v1/identity/auth/logout` with the bearer token, clears the cookie, returns 204.                                                                                                                                          |
+| `GET /auth/logout/redirect`  | Redirects to the provider's `end_session_endpoint`, when discovery advertises one, then back to `/`.                                                                                                                                                                                                                        |
+| `/api/*`                     | Forwards to `BACKEND_ORIGIN` + the same path and query, streaming the body. Adds `Authorization: Bearer <session token>` from the cookie. Details below.                                                                                                                                                                    |
+
+**Session cookie.** The backend session token is kept only in `__Host-hs_session`: AES-256-GCM
+encrypted, `HttpOnly; Secure; SameSite=Lax; Path=/`, and `Max-Age` of 12 hours from sign-in (the
+backend's absolute limit). The backend also ends sessions after 30 minutes idle or on revocation;
+the next API call then gets a 401 and the gateway clears the cookie. The sign-in transaction
+(state, nonce, PKCE verifier, `returnTo`) is in a separate encrypted `__Host-hs_oidc` cookie that
+lasts 10 minutes. Browser JavaScript never sees a token, and the gateway never logs tokens, codes
+or cookie values.
+
+**The `/api/*` proxy:**
+
+- `POST`, `PUT`, `PATCH` and `DELETE` need `X-HeartStone-CSRF: 1` (the API client adds it), and
+  `Origin` and `Sec-Fetch-Site` must be same-origin (at least one present). Any cross-site request,
+  including a `GET`, is refused with 403.
+- Only an allow-list of request headers is forwarded (`Accept`, `Content-Type`, `Idempotency-Key`,
+  `If-Match`, …). The browser's `Cookie` and any client `Authorization` are dropped.
+- `X-Correlation-Id` is forwarded (or generated) and returned on the response. `X-Forwarded-For`
+  (from `CF-Connecting-IP`), `X-Forwarded-Proto` and `X-Forwarded-Host` are set.
+- A backend 401 clears the session cookie, except a step-up 401 (the session is still valid; the
+  user signs in again with `reauth=1`).
+- Backend `Set-Cookie` and hop-by-hop headers are dropped. Nothing is retried.
+- `/api/v1/identity/auth/login*` is blocked: those routes return a session token in the body, so
+  only the gateway calls them.
+
+### Worker variables and secrets
+
+Set these per Worker (and per environment) in **Workers & Pages → the Worker → Settings →
+Variables and Secrets**. `"keep_vars": true` in `wrangler.jsonc` keeps a deploy from removing
+them. Use **Secret** for the secret ones.
+
+| Name                          | Type     | Required | Value                                                                                                                 |
+| ----------------------------- | -------- | -------- | --------------------------------------------------------------------------------------------------------------------- |
+| `BACKEND_ORIGIN`              | Variable | Yes      | Backend origin, `https://…`, no path (the gateway adds `/api/v1/…`).                                                  |
+| `OIDC_ISSUER`                 | Variable | Yes      | Issuer URL, exactly as in the provider's discovery document (Keycloak: `https://<host>/realms/<realm>`).              |
+| `OIDC_CLIENT_ID`              | Variable | Yes      | The app's client id at the provider, e.g. `heartstone-citizen`.                                                       |
+| `OIDC_CLIENT_SECRET`          | Secret   | No       | For a confidential client (sent with `client_secret_basic`). Omit for a public client: PKCE still applies.            |
+| `OIDC_PROVIDER_CODE`          | Variable | No\*     | The provider's `code` in the backend's `OIDC_PROVIDERS_JSON`. \*Required when the backend has more than one provider. |
+| `OIDC_REDIRECT_URI`           | Variable | No       | Defaults to `<request origin>/auth/callback`. Set it when the app has one canonical hostname.                         |
+| `SESSION_COOKIE_KEY`          | Secret   | Yes      | Base64 of 32 random bytes: `openssl rand -base64 32`. Different for every Worker and environment.                     |
+| `SESSION_COOKIE_KEY_PREVIOUS` | Secret   | No       | During key rotation only (below).                                                                                     |
+
+If any required value is missing or invalid, the gateway logs the variable names (never values)
+and fails closed.
+
+**Rotating `SESSION_COOKIE_KEY`:** set `SESSION_COOKIE_KEY_PREVIOUS` to the current key and
+`SESSION_COOKIE_KEY` to a new one, and deploy. Cookies sealed with the old key are still accepted
+and are re-sealed with the new key on the next request. After 12 hours (the cookie's maximum life),
+delete `SESSION_COOKIE_KEY_PREVIOUS`. To sign everyone out at once instead (suspected key
+compromise), replace `SESSION_COOKIE_KEY` without setting the previous key, and revoke backend
+sessions.
+
+### Identity provider and backend settings (Keycloak)
+
+The gateway works with any OIDC provider through discovery. For Keycloak, per app:
+
+1. **Client:** OpenID Connect, Standard flow on, Implicit flow and Direct access grants off. Client
+   authentication on (confidential, set `OIDC_CLIENT_SECRET`) or off (public). **Advanced → Proof
+   Key for Code Exchange Code Challenge Method: S256.**
+2. **Valid redirect URIs:** `https://<app host>/auth/callback` for each hostname the app is served
+   on. **Valid post logout redirect URIs:** `https://<app host>/`. **Web origins:** none needed (no
+   browser CORS).
+3. **Audience:** the backend checks that the access token's `aud` equals its provider `audience`.
+   Add an **Audience** mapper to the client (or a client scope assigned to it) with "Included
+   Client Audience" (or "Included Custom Audience") set to the backend's audience and "Add to
+   access token" on. Check a real token's `aud` before go-live.
+4. **MFA:** the backend reads MFA from the access token's `amr` (`mfa`, `otp`, `hwk`, `sms`,
+   `pin`) or an `acr` containing `mfa`/`multi`. Configure the realm's authentication flow and
+   token mappers so an MFA sign-in emits one of these; otherwise the session is recorded without
+   MFA and MFA-protected routes answer with a step-up 401.
+5. **Hostname:** the issuer in tokens must equal `OIDC_ISSUER` and the backend's `issuer`, so fix
+   Keycloak's public hostname (`KC_HOSTNAME`).
+
+Backend (`heartstone-backend`) configuration for the same provider:
+
+- `OIDC_ENABLED=true` and an `OIDC_PROVIDERS_JSON` entry: `code` (= `OIDC_PROVIDER_CODE`),
+  `issuer` (= `OIDC_ISSUER`), `audience` (= the Audience mapper value), `jwksUri`
+  (`<issuer>/protocol/openid-connect/certs` for Keycloak), `allowedAlgorithms` (e.g. `["RS256"]`).
+- Every person must already have a linked OIDC credential (provider code + the provider's `sub`).
+  The backend never links by email. An unlinked sign-in returns to the app with "We could not find
+  your account".
+- Keep CORS off: browsers never call the backend directly.
+- The gateway sends one `X-Forwarded-For` hop. With `trustProxy` on, check the backend's proxy
+  hop count matches what sits between the Worker and the backend.
+
+Preview URLs change per branch, so each would need its own redirect URI. Leave the gateway
+variables unset on Preview (sign-in stays off there) and test sign-in on a staging Worker with a
+fixed hostname.
+
+### Local development
+
+`pnpm --filter @heartstone/citizen dev` runs Vite only, with no gateway, so the page reports that
+it could not check the session. To run the real Worker:
+
+```sh
+cp apps/citizen/.dev.vars.example apps/citizen/.dev.vars   # fill in; .dev.vars is git-ignored
+pnpm --filter @heartstone/citizen preview:worker           # vite build && wrangler dev → :8787
+```
+
+`__Host-` cookies need a secure context; browsers treat `http://localhost` as one. Each app has a
+`deploy:check` script (`wrangler deploy --dry-run`), which CI runs for all four Worker apps.
 
 ## Prototype site: step by step
 

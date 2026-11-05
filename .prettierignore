@@ -8,3 +8,6 @@ design/citizen/
 design/website/
 apps/presentation/public/index.html
 apps/presentation/public/overview.js
+# Vendored backend contract and the types generated from it (checked byte-for-byte in CI)
+packages/api-client/openapi/
+packages/api-client/src/generated/

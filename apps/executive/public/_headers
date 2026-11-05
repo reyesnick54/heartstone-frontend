@@ -1,5 +1,5 @@
 # Baseline security headers for every response served from static assets.
-# Tighten connect-src to the HeartStone API origin in F2 (API + identity foundation).
+# connect-src stays 'self': the app calls the backend through its own Worker (/api/*, /auth/*), never directly.
 /*
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
   X-Frame-Options: DENY
