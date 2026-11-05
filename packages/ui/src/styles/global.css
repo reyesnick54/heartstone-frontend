@@ -1,0 +1,57 @@
+/*
+ * HeartStone base styles. Low specificity (:where) so app and component styles win.
+ * Requires @heartstone/tokens/tokens.css to be loaded first.
+ */
+:where(*, *::before, *::after) {
+  box-sizing: border-box;
+}
+
+:where(html) {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+:where(body) {
+  margin: 0;
+  background: var(--hs-color-bg);
+  color: var(--hs-color-text);
+  font-family: var(--hs-font-ui);
+  font-size: var(--hs-font-size-lg);
+  line-height: var(--hs-line-height-normal);
+}
+
+:where(h1, h2, h3, h4, h5, h6, p) {
+  margin: 0;
+}
+
+:where(a) {
+  color: var(--hs-color-link);
+}
+
+:where(a:hover) {
+  color: var(--hs-color-link-hover);
+}
+
+/* One focus indicator everywhere. Outline (not box-shadow) so it survives forced-colours mode. */
+:where(:focus-visible) {
+  outline: var(--hs-focus-width) solid var(--hs-color-focus);
+  outline-offset: var(--hs-focus-offset);
+}
+
+:where([tabindex="-1"]:focus:not(:focus-visible)) {
+  outline: none;
+}
+
+/* Applied to <body> while a modal dialog is open. */
+.hs-scroll-locked {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(*, *::before, *::after) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

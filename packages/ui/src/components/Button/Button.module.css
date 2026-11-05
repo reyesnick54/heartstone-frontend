@@ -1,0 +1,116 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hs-space-2-5);
+  min-height: var(--hs-layout-control-height-compact);
+  padding: 0 var(--hs-space-4-5);
+  border: 1.5px solid transparent;
+  border-radius: var(--hs-radius-md);
+  font: inherit;
+  font-size: var(--hs-font-size-base);
+  font-weight: var(--hs-font-weight-semibold);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--hs-motion-fast) var(--hs-motion-easing);
+}
+
+.large {
+  min-height: var(--hs-layout-control-height);
+  padding: 0 var(--hs-space-6);
+  font-size: var(--hs-font-size-lg);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.primary {
+  background: var(--hs-color-action-primary-bg);
+  color: var(--hs-color-action-primary-text);
+}
+
+.primary:hover {
+  background: var(--hs-color-action-primary-hover-bg);
+  color: var(--hs-color-action-primary-text);
+}
+
+.secondary {
+  background: var(--hs-color-action-secondary-bg);
+  border-color: var(--hs-color-action-secondary-border);
+  color: var(--hs-color-action-secondary-text);
+}
+
+.secondary:hover {
+  background: var(--hs-color-action-secondary-hover-bg);
+  color: var(--hs-color-action-secondary-text);
+}
+
+.quiet {
+  background: transparent;
+  color: var(--hs-color-action-quiet-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.quiet:hover {
+  background: var(--hs-color-action-quiet-hover-bg);
+  color: var(--hs-color-action-quiet-text);
+}
+
+.danger {
+  background: var(--hs-color-action-danger-bg);
+  color: var(--hs-color-action-danger-text);
+}
+
+.danger:hover {
+  background: var(--hs-color-action-danger-hover-bg);
+  color: var(--hs-color-action-danger-text);
+}
+
+/* aria-disabled (not the disabled attribute) keeps the button focusable and announced. */
+.root[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.primary[aria-disabled="true"]:hover {
+  background: var(--hs-color-action-primary-bg);
+}
+
+.secondary[aria-disabled="true"]:hover {
+  background: var(--hs-color-action-secondary-bg);
+}
+
+.quiet[aria-disabled="true"]:hover {
+  background: transparent;
+}
+
+.danger[aria-disabled="true"]:hover {
+  background: var(--hs-color-action-danger-bg);
+}
+
+.spinner {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (forced-colors: active) {
+  .root {
+    border-color: ButtonText;
+  }
+}

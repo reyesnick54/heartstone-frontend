@@ -1,0 +1,71 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hs-space-1-5);
+  min-width: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.label {
+  color: var(--hs-color-text);
+  font-size: var(--hs-font-size-lg);
+  font-weight: var(--hs-font-weight-semibold);
+  padding: 0;
+}
+
+.optional {
+  color: var(--hs-color-text-muted);
+  font-weight: var(--hs-font-weight-regular);
+}
+
+.hint {
+  color: var(--hs-color-text-muted);
+  font-size: var(--hs-font-size-md);
+}
+
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--hs-space-1-5);
+  color: var(--hs-color-error-text);
+  font-size: var(--hs-font-size-base);
+  font-weight: var(--hs-font-weight-semibold);
+}
+
+.errorIcon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Shared control styles (inputs, textareas, selects). */
+.control {
+  width: 100%;
+  min-height: var(--hs-layout-control-height);
+  padding: 0 var(--hs-space-3);
+  border: 1.5px solid var(--hs-color-border-control);
+  border-radius: var(--hs-radius-sm);
+  background: var(--hs-color-surface);
+  color: var(--hs-color-text);
+  font: inherit;
+  font-size: var(--hs-font-size-lg);
+}
+
+.control::placeholder {
+  color: var(--hs-color-text-muted);
+  opacity: 1;
+}
+
+.control[aria-invalid="true"] {
+  border: 2px solid var(--hs-color-error-border);
+}
+
+.control:read-only:not(select) {
+  background: var(--hs-color-surface-sunken);
+}
+
+.control:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

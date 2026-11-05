@@ -1,0 +1,18 @@
+.root {
+  position: absolute;
+  top: var(--hs-space-2);
+  left: var(--hs-space-2);
+  z-index: var(--hs-z-skip-link);
+  padding: var(--hs-space-3) var(--hs-space-4);
+  border-radius: var(--hs-radius-md);
+  background: var(--hs-color-action-primary-bg);
+  color: var(--hs-color-action-primary-text);
+  font-weight: var(--hs-font-weight-semibold);
+  text-decoration: none;
+  transform: translateY(calc(-100% - var(--hs-space-4)));
+}
+
+.root:focus {
+  transform: none;
+  color: var(--hs-color-action-primary-text);
+}

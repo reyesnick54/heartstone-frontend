@@ -1,0 +1,6 @@
+.root {
+  min-height: 96px;
+  padding: var(--hs-space-3);
+  resize: vertical;
+  line-height: var(--hs-line-height-normal);
+}

@@ -1,0 +1,94 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hs-space-1-5);
+  padding: 3px var(--hs-space-2-5);
+  border: 1px solid transparent;
+  border-radius: var(--hs-radius-pill);
+  font-size: var(--hs-font-size-xs);
+  font-weight: var(--hs-font-weight-semibold);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Shape marker: a second, non-colour cue for the tone (circle, triangle, diamond, square…). */
+.marker {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  background: currentColor;
+}
+
+.neutral {
+  background: var(--hs-color-neutral-surface);
+  color: var(--hs-color-neutral-text);
+}
+
+.neutral .marker {
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid currentColor;
+}
+
+.info {
+  background: var(--hs-color-info-surface);
+  color: var(--hs-color-info-text);
+}
+
+.info .marker {
+  border-radius: 50%;
+}
+
+.success {
+  background: var(--hs-color-success-surface);
+  color: var(--hs-color-success-text);
+}
+
+.success .marker {
+  width: 9px;
+  height: 5px;
+  background: transparent;
+  border: solid currentColor;
+  border-width: 0 0 2px 2px;
+  transform: translateY(-2px) rotate(-45deg);
+}
+
+.warning {
+  background: var(--hs-color-warning-surface);
+  color: var(--hs-color-warning-text);
+}
+
+.warning .marker {
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-bottom: 8px solid currentColor;
+}
+
+.error {
+  background: var(--hs-color-error-surface);
+  color: var(--hs-color-error-strong-text);
+}
+
+.error .marker {
+  transform: rotate(45deg);
+}
+
+.official {
+  background: var(--hs-color-official-surface);
+  border-color: var(--hs-color-official-border);
+  color: var(--hs-color-official-text);
+}
+
+.seal {
+  flex-shrink: 0;
+  color: var(--hs-color-official-accent);
+}
+
+@media (forced-colors: active) {
+  .root {
+    border-color: CanvasText;
+  }
+}

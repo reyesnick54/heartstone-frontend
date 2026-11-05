@@ -1,0 +1,14 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--hs-layout-touch-target);
+  color: inherit;
+  font-family: var(--hs-font-display);
+  font-size: var(--hs-font-size-3xl);
+  font-weight: var(--hs-font-weight-semibold);
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: inherit;
+}

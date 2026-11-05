@@ -1,0 +1,20 @@
+.workstation {
+  min-height: 100vh;
+  background: var(--hs-color-bg);
+  color: var(--hs-color-text);
+}
+
+.workstation-main {
+  max-width: var(--hs-layout-content-max);
+  padding: var(--hs-space-8);
+}
+
+.workstation-main:focus {
+  outline: none;
+}
+
+@media (max-width: 899.98px) {
+  .workstation-main {
+    padding: var(--hs-space-5) var(--hs-space-4);
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "extends": "@heartstone/config/tsconfig.app.json",
+  "include": ["src", "vite.config.ts"]
+}

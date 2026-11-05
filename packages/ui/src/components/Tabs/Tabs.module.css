@@ -1,0 +1,58 @@
+.list {
+  display: flex;
+  gap: var(--hs-space-1);
+  overflow-x: auto;
+  border-bottom: 1px solid var(--hs-color-border-strong);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hs-space-2);
+  min-height: 46px;
+  padding: 0 var(--hs-space-3-5);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--hs-color-text-secondary);
+  font: inherit;
+  font-size: var(--hs-font-size-base);
+  font-weight: var(--hs-font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: var(--hs-color-heading);
+}
+
+/* Selected state uses weight and an underline bar, not colour alone. */
+.tab[aria-selected="true"] {
+  border-bottom-color: var(--hs-color-heading);
+  color: var(--hs-color-heading);
+  font-weight: var(--hs-font-weight-bold);
+}
+
+.tab:focus-visible {
+  outline-offset: -3px;
+}
+
+.count {
+  padding: 1px 7px;
+  border-radius: var(--hs-radius-md);
+  background: var(--hs-color-neutral-surface);
+  color: var(--hs-color-neutral-text);
+  font-size: var(--hs-font-size-xs);
+  font-weight: var(--hs-font-weight-bold);
+}
+
+.panel {
+  min-width: 0;
+  padding-top: var(--hs-space-4);
+}
+
+@media (forced-colors: active) {
+  .tab[aria-selected="true"] {
+    border-bottom-color: Highlight;
+  }
+}

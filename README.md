@@ -4,8 +4,8 @@ Shared front-end platform for HeartStone, the sovereign Digital Government Opera
 One repository, one design system, persona-specific web applications, all running against the
 HeartStone backend as the sole system of record.
 
-> **Status: F0 baseline.** The apps are placeholders. No government service is live or
-> operational from this repository.
+> **Status: F1 design system.** The shared tokens and components exist; the apps are demo shells
+> with example content. No government service is live or operational from this repository.
 
 ## Structure
 
@@ -18,6 +18,8 @@ apps/
   prototype/    Clickable prototype: website + dashboard designs as one site (behind Access)
 packages/
   config/       Shared strict TypeScript configuration
+  tokens/       Design tokens: brand palette, themes, type, spacing, tokens.css (+ contrast test)
+  ui/           Accessible React components built on the tokens (see packages/ui/README.md)
 docs/
   deployment.md Cloudflare Workers deployment and access control
 design/
@@ -30,7 +32,7 @@ design/
 browser to click through the citizen designs, and `design/website/index.html` for the public
 website; see `design/README.md`.
 
-Further packages (`ui`, `design-system`, `api-client`, `auth`, `permissions`, `forms`, …) are
+Further packages (`api-client`, `auth`, `permissions`, `forms`, …) are
 added in the stage that introduces them, per the Front-End Build Plan (29 Sep 2026). They are not
 created empty in advance.
 
