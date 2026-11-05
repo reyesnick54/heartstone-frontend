@@ -28,9 +28,16 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm format:check
+      - name: Generated API types match the vendored contract
+        run: pnpm --filter @heartstone/api-client check:generated
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
+      - name: Worker bundles (wrangler deploy --dry-run)
+        run: |
+          for app in citizen government executive admin; do
+            pnpm --filter "@heartstone/$app" deploy:check
+          done
       - name: Dependency audit (high and critical)
         run: pnpm audit --audit-level high
