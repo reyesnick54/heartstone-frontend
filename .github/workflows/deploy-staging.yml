@@ -32,14 +32,30 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     environment: staging
+    outputs:
+      configured: ${{ steps.token.outputs.configured }}
     steps:
-      - uses: actions/checkout@v4
+      # Until the token is added (docs/deployment.md, "Staging"), the run is skipped, not failed.
+      - id: token
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::CLOUDFLARE_API_TOKEN is not set; staging was not deployed."
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.token.outputs.configured == 'true'
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
-      - uses: actions/setup-node@v4
+      - if: steps.token.outputs.configured == 'true'
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-      - run: node scripts/ensure-staging-access.mjs
+      - if: steps.token.outputs.configured == 'true'
+        run: node scripts/ensure-staging-access.mjs
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
@@ -49,6 +65,7 @@ jobs:
   deploy:
     name: Deploy ${{ matrix.app }} (staging)
     needs: access
+    if: needs.access.outputs.configured == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment: staging
