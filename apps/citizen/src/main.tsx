@@ -4,6 +4,7 @@ import { ApiProvider } from "@heartstone/api-client/react";
 import "@heartstone/tokens/tokens.css";
 import "@heartstone/ui/styles.css";
 import "./app.css";
+import "./site.css";
 import { App } from "./App";
 
 const container = document.getElementById("root");

@@ -37,7 +37,7 @@ describe("Apply: start", () => {
   it("asks who is applying, then creates a draft for a represented business", async () => {
     const user = userEvent.setup();
     const { mutations } = renderAt(
-      "/services/register-employer/apply",
+      "/dashboard/services/register-employer/apply",
       [
         ...base,
         on("POST", "/experience/citizen/services/register-employer/applications", () =>
@@ -76,7 +76,7 @@ describe("Apply: start", () => {
 
   it("requires a choice before starting", async () => {
     const user = userEvent.setup();
-    const { mutations } = renderAt("/services/register-employer/apply", base, {
+    const { mutations } = renderAt("/dashboard/services/register-employer/apply", base, {
       me: representingMe,
     });
     await user.click(await screen.findByRole("button", { name: "Start application" }));
@@ -87,7 +87,7 @@ describe("Apply: start", () => {
   });
 
   it("explains an information-only service that cannot be started", async () => {
-    renderAt("/services/register-employer/apply", [
+    renderAt("/dashboard/services/register-employer/apply", [
       on("GET", "/experience/citizen/services/register-employer", () => json(serviceDetail)),
       on("GET", "/experience/citizen/services/register-employer/start", () =>
         json({ statusCode: 404, message: "Public service 'x' is not available to start" }, 404),
@@ -98,7 +98,7 @@ describe("Apply: start", () => {
 });
 
 describe("Apply: dynamic form", () => {
-  const stepUrl = `/services/register-employer/apply?application=${draftId}&step=1`;
+  const stepUrl = `/dashboard/services/register-employer/apply?application=${draftId}&step=1`;
 
   it("renders fields from the schema with labels, hints and optional markers", async () => {
     renderAt(stepUrl, [...base, ...draftStore()]);
@@ -163,7 +163,7 @@ describe("Apply: dynamic form", () => {
 
   it("validates numbers against the schema's limits", async () => {
     const user = userEvent.setup();
-    renderAt(`/services/register-employer/apply?application=${draftId}&step=2`, [
+    renderAt(`/dashboard/services/register-employer/apply?application=${draftId}&step=2`, [
       ...base,
       ...draftStore(),
     ]);
@@ -202,7 +202,7 @@ describe("Apply: dynamic form", () => {
 });
 
 describe("Review and submit", () => {
-  const reviewUrl = `/services/register-employer/review?application=${draftId}`;
+  const reviewUrl = `/dashboard/services/register-employer/review?application=${draftId}`;
   const answered = {
     businessName: "Example Ltd",
     registrationNumber: "C-1",
@@ -216,7 +216,7 @@ describe("Review and submit", () => {
     expect(await screen.findByText("No, we own them")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Change business name" })).toHaveAttribute(
       "href",
-      `/services/register-employer/apply?application=${draftId}&step=1`,
+      `/dashboard/services/register-employer/apply?application=${draftId}&step=1`,
     );
     expect(
       screen.getByText(/Paying the fee does not mean your application is approved/),
@@ -297,7 +297,7 @@ describe("Review and submit", () => {
     });
     expect(link).toHaveAttribute(
       "href",
-      `/services/register-employer/apply?application=${draftId}&step=1`,
+      `/dashboard/services/register-employer/apply?application=${draftId}&step=1`,
     );
   });
 
@@ -337,7 +337,7 @@ describe("Review and submit", () => {
     const link = await screen.findByRole("link", { name: "Sign in again" });
     expect(link.getAttribute("href")).toContain("reauth=1");
     expect(link.getAttribute("href")).toContain(
-      encodeURIComponent("/services/register-employer/review"),
+      encodeURIComponent("/dashboard/services/register-employer/review"),
     );
   });
 
@@ -363,7 +363,7 @@ describe("Review and submit", () => {
 
 describe("Submitted", () => {
   it("does not claim a draft was submitted", async () => {
-    renderAt(`/applications/${draftId}/submitted`, [
+    renderAt(`/dashboard/applications/${draftId}/submitted`, [
       on("GET", `/experience/citizen/applications/${draftId}`, () =>
         json(applicationDetail({ status: "DRAFT", applicationNumber: undefined })),
       ),

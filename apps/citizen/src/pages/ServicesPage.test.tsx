@@ -9,7 +9,7 @@ const families = on("GET", "/public/service-families", () =>
 
 describe("Find a service", () => {
   it("lists published services with the backend's availability and office", async () => {
-    renderAt("/services", [
+    renderAt("/dashboard/services", [
       families,
       on("GET", "/experience/citizen/services", () =>
         json({
@@ -37,7 +37,7 @@ describe("Find a service", () => {
     expect(items).toHaveLength(2);
     expect(
       within(items[0] as HTMLElement).getByRole("link", { name: "Register as an employer" }),
-    ).toHaveAttribute("href", "/services/register-employer");
+    ).toHaveAttribute("href", "/dashboard/services/register-employer");
     expect(items[0]).toHaveTextContent("Labour Department");
     expect(items[0]).toHaveTextContent("Apply online");
     expect(items[1]).toHaveTextContent("Information only");
@@ -46,7 +46,7 @@ describe("Find a service", () => {
 
   it("filters by category through the query string", async () => {
     const user = userEvent.setup();
-    const { fetch } = renderAt("/services", [
+    const { fetch } = renderAt("/dashboard/services", [
       families,
       on("GET", "/experience/citizen/services", () =>
         json({ items: [], page: 1, limit: 20, total: 0, totalPages: 0 }),
@@ -66,7 +66,7 @@ describe("Find a service", () => {
 
   it("matches what the person describes (rule-based) and shows an empty result honestly", async () => {
     const user = userEvent.setup();
-    const { mutations } = renderAt("/services", [
+    const { mutations } = renderAt("/dashboard/services", [
       families,
       on("GET", "/experience/citizen/services", () =>
         json({ items: [], page: 1, limit: 20, total: 0, totalPages: 0 }),
@@ -86,7 +86,7 @@ describe("Find a service", () => {
 
   it("shows loading and a retryable error", async () => {
     let calls = 0;
-    renderAt("/services", [
+    renderAt("/dashboard/services", [
       families,
       on("GET", "/experience/citizen/services", () =>
         ++calls === 1
@@ -102,7 +102,7 @@ describe("Find a service", () => {
   });
 
   it("announces loading", async () => {
-    renderAt("/services", [families, on("GET", "/experience/citizen/services", never)]);
+    renderAt("/dashboard/services", [families, on("GET", "/experience/citizen/services", never)]);
     expect(await screen.findByText("Loading services")).toBeInTheDocument();
   });
 });

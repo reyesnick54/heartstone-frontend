@@ -77,7 +77,7 @@ const payAction = {
 
 describe("Home", () => {
   it("greets the person and shows the backend's counts, actions, activity and suggestions", async () => {
-    renderAt("/", [home(), actions([payAction])]);
+    renderAt("/dashboard", [home(), actions([payAction])]);
     expect(await screen.findByRole("heading", { level: 1, name: /Alex$/ })).toBeInTheDocument();
     const glance = await screen.findByRole("list", { name: "At a glance" });
     expect(within(glance).getByText("Active applications").closest("li")).toHaveTextContent("3");
@@ -91,7 +91,7 @@ describe("Home", () => {
     );
     expect(screen.getByRole("link", { name: "Register as an employer" })).toHaveAttribute(
       "href",
-      "/services/register-employer",
+      "/dashboard/services/register-employer",
     );
     expect(screen.getByText("This page summarises your records.")).toBeInTheDocument();
   });
@@ -103,25 +103,25 @@ describe("Home", () => {
       label: { label: "Submit appeal" },
       deepLink: { route: "citizen.unknown", params: {} },
     };
-    renderAt("/", [home(), actions([payAction, unknown])]);
+    renderAt("/dashboard", [home(), actions([payAction, unknown])]);
     const todo = await screen.findByRole("list", { name: "Things to do" });
     expect(within(todo).getByRole("link", { name: "Pay invoice" })).toHaveAttribute(
       "href",
-      "/payments/inv-1",
+      "/dashboard/payments/inv-1",
     );
     expect(within(todo).queryByRole("link", { name: "Submit appeal" })).not.toBeInTheDocument();
     expect(todo).toHaveTextContent("Submit appeal");
   });
 
   it("shows empty states", async () => {
-    renderAt("/", [home({ recentItems: [], serviceRecommendations: [] }), actions([])]);
+    renderAt("/dashboard", [home({ recentItems: [], serviceRecommendations: [] }), actions([])]);
     expect(await screen.findByText("Nothing needs your attention right now.")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "No recent activity" })).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "Suggested for you" })).not.toBeInTheDocument();
   });
 
   it("announces loading", async () => {
-    renderAt("/", [
+    renderAt("/dashboard", [
       on("GET", "/experience/citizen/home", never),
       on("GET", "/experience/citizen/actions", never),
     ]);
@@ -130,7 +130,7 @@ describe("Home", () => {
 
   it("offers Try again for a failed read, and recovers", async () => {
     let calls = 0;
-    const { unhandled } = renderAt("/", [
+    const { unhandled } = renderAt("/dashboard", [
       on("GET", "/experience/citizen/home", () =>
         ++calls === 1
           ? json({ statusCode: 500, message: "x" }, 500)
@@ -150,16 +150,21 @@ describe("Home", () => {
     expect(unhandled).toEqual([]);
   });
 
-  it("shows the identity assurance level the backend returned, never a generic 'verified'", async () => {
-    renderAt("/", [home(), actions([])]);
-    expect(await screen.findByRole("heading", { name: "Identity assurance" })).toBeInTheDocument();
+  it("says the account is a basic digital ID, shows sign-in strength, and never claims 'verified'", async () => {
+    renderAt("/dashboard", [home(), actions([])]);
+    expect(
+      await screen.findByRole("heading", { name: "Your account is a basic digital ID" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/has not been through an identity check/)).toBeInTheDocument();
     expect(screen.getByText("Medium")).toBeInTheDocument();
     expect(screen.queryByText(/verified/i)).not.toBeInTheDocument();
+    // No gold (official) styling for an account that has not been identity-checked.
+    expect(document.querySelector('[data-tone="official"]')).toBeNull();
   });
 
   it("sends 'describe what you need' to the service search", async () => {
     const user = userEvent.setup();
-    renderAt("/", [
+    renderAt("/dashboard", [
       home(),
       actions([]),
       on("POST", "/experience/citizen/services/match", () => json([])),

@@ -2,6 +2,7 @@
 // GET /experience/citizen/me. The backend has no citizen route to change details, contact
 // preferences or the organisation being acted for, so those are shown as "not available yet".
 import { Card, ItemList, Link, Stack, StatusBadge, SummaryList } from "@heartstone/ui";
+import { AccountAssuranceNotice } from "../components/AccountAssurance";
 import { Disclaimer } from "../components/Disclaimer";
 import { NotAvailable } from "../components/NotAvailable";
 import { Page } from "../components/Page";
@@ -17,7 +18,7 @@ export function ProfilePage() {
   return (
     <Page
       title="Profile and identity"
-      description="The details government holds about you, and how your identity was confirmed."
+      description="The details government holds about you, and what kind of account you have."
     >
       <Card title="Your details" titleLevel={2}>
         <SummaryList
@@ -45,14 +46,7 @@ export function ProfilePage() {
         />
         <p className="muted">{classification.classificationNote}</p>
       </Card>
-      <Card title="Identity assurance" titleLevel={2}>
-        <Stack gap="2">
-          <p>
-            Level: <StatusBadge status={accountAssurance.assuranceLevel} tone="info" />
-          </p>
-          <p>{accountAssurance.assuranceNote}</p>
-        </Stack>
-      </Card>
+      <AccountAssuranceNotice />
       <Card title="Account" titleLevel={2}>
         <SummaryList
           rows={[

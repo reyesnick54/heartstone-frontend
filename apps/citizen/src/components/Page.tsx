@@ -11,11 +11,16 @@ export interface PageProps {
   children?: ReactNode;
 }
 
-/** Every routed page: one h1 (PageHeader), the document title, and the page body. */
-export function Page({ title, description, eyebrow, actions, children }: PageProps) {
+/** Sets the document title: "<page> — <tenant display name>". */
+export function useDocumentTitle(title: string): void {
   useEffect(() => {
     document.title = `${title} — ${TENANT.displayName}`;
   }, [title]);
+}
+
+/** Every routed page: one h1 (PageHeader), the document title, and the page body. */
+export function Page({ title, description, eyebrow, actions, children }: PageProps) {
+  useDocumentTitle(title);
   return (
     <>
       <PageHeader title={title} description={description} eyebrow={eyebrow} actions={actions} />

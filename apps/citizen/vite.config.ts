@@ -11,5 +11,7 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./src/test/setup.ts"],
+    // Above the 5 s findBy timeout (src/test/setup.ts), so a failed query reports itself.
+    testTimeout: 15000,
   },
 });

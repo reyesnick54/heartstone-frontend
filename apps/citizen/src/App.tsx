@@ -1,15 +1,19 @@
-// Citizen web app: the gateway session decides between the signed-out landing and the signed-in
-// dashboard; the router decides the page. Every page reads the backend through
+// Citizen web app: one site with two areas.
+//
+//   /, /services, /help, …   the public website (SiteShell), for every visitor
+//   /dashboard/…             the signed-in area (AppShell); signed-out visitors get "Sign in"
+//                            with the page they asked for as the return path
+//
+// A signed-in visitor who opens "/" goes to /dashboard. Every page reads the backend through
 // @heartstone/api-client and shows only what the backend returned.
 import { useEffect, useState, type ReactNode } from "react";
-import { SIGNIN_ERROR_PARAM, loginUrl, providerLogoutUrl } from "@heartstone/api-client";
-import { useSession, type SignedOutReason } from "@heartstone/api-client/react";
+import { SIGNIN_ERROR_PARAM } from "@heartstone/api-client";
+import { useSession, type SessionState } from "@heartstone/api-client/react";
 import {
   AppShell,
   ApplicationsIcon,
   BrandLockup,
   Button,
-  Card,
   Cluster,
   HomeIcon,
   Link,
@@ -17,41 +21,23 @@ import {
   MenuIcon,
   MessagesIcon,
   Notice,
-  OfficialMark,
   ServicesIcon,
-  ShieldIcon,
-  Stack,
   type AppShellNavItem,
   type AppShellNavSection,
 } from "@heartstone/ui";
 import { ApiErrorNotice, currentPath } from "./components/ApiErrorNotice";
 import { Page } from "./components/Page";
+import { SitePage, SiteShell, siteBanner } from "./components/SiteShell";
 import { initials } from "./lib/format";
 import { MeProvider, activeRepresentations, useMe } from "./lib/me";
 import { FOOTER_NAV, MAIN_NAV, MY_GOVERNMENT, type NavEntry } from "./lib/nav";
-import { paths } from "./lib/paths";
-import { hasRoute, isPublicRoute, renderRoute } from "./routes";
-import { RouterProvider, useLocation, useRouteFocus } from "./router/router";
-import { LAUNCH, TENANT } from "./tenant";
+import { isDashboardPath, paths, site } from "./lib/paths";
+import { hasRoute, renderDashboardRoute, renderSiteRoute } from "./routes";
+import { SignInErrorNotice, SignInPage } from "./pages/site/AccountSitePages";
+import { RouterProvider, useLocation, useNavigate, useRouteFocus } from "./router/router";
+import { TENANT } from "./tenant";
 
 export const EXPERIENCE_NAME = "Citizen services";
-
-const SIGN_IN_ERRORS: Record<string, { title: string; body: string }> = {
-  cancelled: { title: "Sign-in cancelled", body: "You can sign in again when you are ready." },
-  expired: {
-    title: "Sign-in took too long",
-    body: "For your security the sign-in link expired. Please sign in again.",
-  },
-  "not-linked": {
-    title: "We could not find your account",
-    body: "Your digital ID signed you in, but it is not linked to an account here yet.",
-  },
-  unavailable: {
-    title: "Sign-in is not available right now",
-    body: "Please try again later.",
-  },
-  failed: { title: "Sign-in did not complete", body: "Please try signing in again." },
-};
 
 /** Reads `?signin_error=` once, then removes it from the address bar. */
 function useSignInError(): string | undefined {
@@ -69,7 +55,7 @@ function useSignInError(): string | undefined {
 }
 
 function isCurrent(href: string, pathname: string): boolean {
-  if (href === "/") return pathname === "/";
+  if (href === paths.home) return pathname === paths.home;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -79,25 +65,7 @@ function navItems(entries: NavEntry[], pathname: string): AppShellNavItem[] {
     .map((entry) => ({ ...entry, current: isCurrent(entry.href, pathname) }));
 }
 
-function tabItems(pathname: string, signedIn: boolean): AppShellNavItem[] {
-  if (!signedIn) {
-    return [
-      {
-        id: "home",
-        label: "Home",
-        href: "/",
-        icon: <HomeIcon size={22} />,
-        current: pathname === "/",
-      },
-      {
-        id: "verify",
-        label: "Check a document",
-        href: paths.verify,
-        icon: <ShieldIcon size={22} />,
-        current: isCurrent(paths.verify, pathname),
-      },
-    ].filter((item) => item.href === "/" || hasRoute(item.href));
-  }
+function tabItems(pathname: string): AppShellNavItem[] {
   const tabs: AppShellNavItem[] = [
     { id: "home", label: "Home", href: paths.home, icon: <HomeIcon size={22} /> },
     { id: "services", label: "Services", href: paths.services, icon: <ServicesIcon size={22} /> },
@@ -116,18 +84,12 @@ function tabItems(pathname: string, signedIn: boolean): AppShellNavItem[] {
 }
 
 /** Sidebar (Midnight): the lockup with the light wordmark. */
-const brand = <BrandLockup href="/" image={TENANT.lockup.onDark} alt={TENANT.lockup.alt} />;
+const brand = (
+  <BrandLockup href={paths.home} image={TENANT.lockup.onDark} alt={TENANT.lockup.alt} />
+);
 /** Top bar (light surface, below 900px): the lockup with the dark wordmark. */
 const brandCompact = (
-  <BrandLockup href="/" image={TENANT.lockup.onLight} alt={TENANT.lockup.alt} size="sm" />
-);
-
-const banner = (
-  <OfficialMark
-    statement={TENANT.officialStatement}
-    learnMoreHref={TENANT.howToTellHref}
-    {...(LAUNCH.isLiveService ? {} : { aside: LAUNCH.notLiveNotice })}
-  />
+  <BrandLockup href={paths.home} image={TENANT.lockup.onLight} alt={TENANT.lockup.alt} size="sm" />
 );
 
 function SignOutButton() {
@@ -201,7 +163,7 @@ function ActingAsPanel() {
   );
 }
 
-function NotFoundPage() {
+function DashboardNotFound() {
   return (
     <Page title="Page not found" description="The page you asked for does not exist here.">
       <p>
@@ -212,68 +174,38 @@ function NotFoundPage() {
   );
 }
 
-function Landing({
-  reason,
-  signInError,
-}: {
-  reason: SignedOutReason | undefined;
-  signInError: string | undefined;
-}) {
-  const errorCopy = signInError
-    ? (SIGN_IN_ERRORS[signInError] ?? SIGN_IN_ERRORS["failed"])
-    : undefined;
+function SiteNotFound() {
   return (
-    <Page
-      title={`${TENANT.displayName} — ${EXPERIENCE_NAME}`}
-      description="Apply for government services, track your applications, pay fees and read messages from government offices, in one place."
-    >
-      {!LAUNCH.isLiveService && (
-        <Notice tone="info" title="Development build">
-          Not a live government service. Do not use real personal information.
-        </Notice>
-      )}
-      {errorCopy && (
-        <Notice tone="error" title={errorCopy.title}>
-          {errorCopy.body}
-        </Notice>
-      )}
-      <Card title="Sign in" titleLevel={2}>
-        <Stack gap="4">
-          {reason === "signed-out" && (
-            <p>
-              You have signed out of this service.{" "}
-              <Link href={providerLogoutUrl()}>Also sign out of your digital ID</Link>
-            </p>
-          )}
-          {reason === "session-ended" && (
-            <p>Your session has ended. Please sign in again to continue.</p>
-          )}
-          {reason === undefined && (
-            <p>Sign in with {TENANT.digitalIdName} to see your services and records.</p>
-          )}
-          <Link href={loginUrl({ returnTo: currentPath() })} standalone className="sign-in-link">
-            Sign in
-          </Link>
-        </Stack>
-      </Card>
-      {hasRoute(paths.verify) && (
-        <Card title="Has someone shown you a government document?" titleLevel={2}>
-          <p>
-            Anyone can check that a licence or certificate is genuine using its verification code.
-            No account needed. <Link href={paths.verify}>Check a document</Link>
-          </p>
-        </Card>
-      )}
-    </Page>
+    <SitePage>
+      <Page title="Page not found">
+        <p>
+          If you typed the web address, check it&rsquo;s correct. If you followed a link, it may be
+          out of date.
+        </p>
+        <ul className="bullets">
+          <li>
+            <Link href={site.home}>Go to the homepage</Link>
+          </li>
+          <li>
+            <Link href={site.services}>Browse all services</Link>
+          </li>
+          <li>
+            <Link href={site.signIn}>Sign in to your account</Link>
+          </li>
+        </ul>
+        <p>
+          Still can&rsquo;t find it? <Link href={site.contact}>Contact us</Link>.
+        </p>
+      </Page>
+    </SitePage>
   );
 }
 
-function SignedInApp({ pathname }: { pathname: string }) {
+function DashboardShell({ pathname, children }: { pathname: string; children: ReactNode }) {
   const navigation: AppShellNavSection[] = [
     { id: "main", items: navItems(MAIN_NAV, pathname) },
     { id: "my-government", heading: "My government", items: navItems(MY_GOVERNMENT, pathname) },
   ].filter((section) => section.items.length > 0);
-  const content = renderRoute(pathname, { signedIn: true }) ?? <NotFoundPage />;
   return (
     <AppShell
       brand={brand}
@@ -281,11 +213,11 @@ function SignedInApp({ pathname }: { pathname: string }) {
       navigation={navigation}
       sidebarHeader={<ActingAsPanel />}
       sidebarFooter={navItems(FOOTER_NAV, pathname)}
-      tabs={tabItems(pathname, true)}
+      tabs={tabItems(pathname)}
       topBar={<AccountBar />}
-      banner={banner}
+      banner={siteBanner}
     >
-      <MeGate>{content}</MeGate>
+      {children}
     </AppShell>
   );
 }
@@ -308,65 +240,102 @@ function MeGate({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
-function SignedOutApp({
+function DashboardArea({
   pathname,
-  reason,
+  session,
+  refresh,
+}: {
+  pathname: string;
+  session: SessionState;
+  refresh: () => void;
+}) {
+  if (session.status === "loading") {
+    return (
+      <SiteShell signedIn={false}>
+        <SitePage>
+          <Loading label="Checking whether you are signed in" />
+        </SitePage>
+      </SiteShell>
+    );
+  }
+  if (session.status === "error") {
+    return (
+      <SiteShell signedIn={false}>
+        <SitePage>
+          <Page title="We could not check whether you are signed in">
+            <ApiErrorNotice
+              error={session.error}
+              title="Sign-in could not be checked"
+              onRetry={refresh}
+            />
+          </Page>
+        </SitePage>
+      </SiteShell>
+    );
+  }
+  if (session.status === "unauthenticated") {
+    return (
+      <SiteShell signedIn={false}>
+        <SignInPage returnTo={currentPath()} reason={session.reason} />
+      </SiteShell>
+    );
+  }
+  const content = renderDashboardRoute(pathname, { signedIn: true }) ?? <DashboardNotFound />;
+  return (
+    <MeProvider identityId={session.session.identityId ?? ""}>
+      <DashboardShell pathname={pathname}>
+        <MeGate>{content}</MeGate>
+      </DashboardShell>
+    </MeProvider>
+  );
+}
+
+function SiteArea({
+  pathname,
+  signedIn,
   signInError,
 }: {
   pathname: string;
-  reason: SignedOutReason | undefined;
+  signedIn: boolean;
   signInError: string | undefined;
 }) {
-  const publicPage = isPublicRoute(pathname)
-    ? renderRoute(pathname, { signedIn: false })
-    : undefined;
+  const page = renderSiteRoute(pathname, { signedIn }) ?? <SiteNotFound />;
   return (
-    <AppShell
-      brand={brand}
-      brandCompact={brandCompact}
-      navigation={[{ id: "main", items: tabItems(pathname, false) }]}
-      tabs={tabItems(pathname, false)}
-      banner={banner}
-    >
-      {publicPage ?? <Landing reason={reason} signInError={signInError} />}
-    </AppShell>
+    <SiteShell signedIn={signedIn}>
+      {signInError && (
+        <div className="site-wrap site-page-notice">
+          <SignInErrorNotice code={signInError} />
+        </div>
+      )}
+      {page}
+    </SiteShell>
   );
 }
 
 function Routed() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { state: session, refresh } = useSession();
   const signInError = useSignInError();
   useRouteFocus(pathname);
 
-  if (session.status === "loading") {
-    return (
-      <AppShell brand={brand} brandCompact={brandCompact} navigation={[]} tabs={[]} banner={banner}>
-        <Loading label="Checking whether you are signed in" />
-      </AppShell>
-    );
+  const signedIn = session.status === "authenticated";
+  const signedOutByUser = session.status === "unauthenticated" && session.reason === "signed-out";
+  const dashboard = isDashboardPath(pathname);
+
+  useEffect(() => {
+    // Signed in: "/" is the dashboard home.
+    if (signedIn && pathname === site.home && !signInError) {
+      navigate(paths.home, { replace: true });
+    }
+    // Just signed out from a signed-in page: confirm it on the signed-out page.
+    if (signedOutByUser && dashboard) navigate(site.signedOut, { replace: true });
+  }, [signedIn, signedOutByUser, dashboard, pathname, signInError, navigate]);
+
+  if (dashboard) {
+    return <DashboardArea pathname={pathname} session={session} refresh={() => void refresh()} />;
   }
-  if (session.status === "error") {
-    return (
-      <AppShell brand={brand} brandCompact={brandCompact} navigation={[]} tabs={[]} banner={banner}>
-        <Page title={`${TENANT.displayName} — ${EXPERIENCE_NAME}`}>
-          <ApiErrorNotice
-            error={session.error}
-            title="We could not check whether you are signed in"
-            onRetry={() => void refresh()}
-          />
-        </Page>
-      </AppShell>
-    );
-  }
-  if (session.status === "unauthenticated") {
-    return <SignedOutApp pathname={pathname} reason={session.reason} signInError={signInError} />;
-  }
-  return (
-    <MeProvider identityId={session.session.identityId ?? ""}>
-      <SignedInApp pathname={pathname} />
-    </MeProvider>
-  );
+  return <SiteArea pathname={pathname} signedIn={signedIn} signInError={signInError} />;
 }
 
 export function App() {
