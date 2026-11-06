@@ -1,0 +1,153 @@
+// Service areas: the application categories of Appendix D (A–P), plus financial services
+// (Article 20, Article 27 K) and compliance (Articles 17, 37–39, Article 27 J), which the
+// Protocol treats as case categories but Appendix D does not letter. Category Q ("future
+// administrative categories") is described on About, not listed as a service area.
+import type { ServiceCategory } from "../schema";
+import { appx, art } from "./sources";
+
+export const CATEGORIES: readonly ServiceCategory[] = [
+  {
+    code: "companies",
+    reference: "Category A",
+    name: "Companies and corporate registration",
+    summary: "Register a new company, change its details and keep its filings up to date.",
+    keywords: ["company", "business", "incorporate", "corporate", "registry"],
+    sources: [appx("D", "Category A"), art(11)],
+  },
+  {
+    code: "licences",
+    reference: "Category B",
+    name: "Licences and permits",
+    summary: "Apply for a licence to operate in the zone, renew it or change it.",
+    keywords: ["licence", "license", "permit", "renewal"],
+    sources: [appx("D", "Category B"), art(12)],
+  },
+  {
+    code: "investment",
+    reference: "Category C",
+    name: "Investment projects",
+    summary: "Hotel, resort, marina, industrial and commercial investment projects.",
+    keywords: ["investment", "investor", "hotel", "resort", "marina", "tourism"],
+    sources: [appx("D", "Category C"), art(10)],
+  },
+  {
+    code: "development",
+    reference: "Category D",
+    name: "Development and construction",
+    summary: "Land development, construction, infrastructure and mixed-use projects.",
+    keywords: ["development", "construction", "building", "planning", "infrastructure"],
+    sources: [appx("D", "Category D"), art(16)],
+  },
+  {
+    code: "work",
+    reference: "Category E",
+    name: "Work and employment",
+    summary: "Work permits, employer and workforce registration, and labour support.",
+    keywords: ["work", "job", "employment", "labour", "work permit", "employer"],
+    sources: [appx("D", "Category E"), art(15)],
+  },
+  {
+    code: "immigration",
+    reference: "Category F",
+    name: "Immigration and relocation",
+    summary: "Immigration applications, relocation support and applications for family members.",
+    keywords: ["immigration", "visa", "relocation", "family", "dependants"],
+    sources: [appx("D", "Category F"), art(13)],
+  },
+  {
+    code: "customs",
+    reference: "Category G",
+    name: "Customs and trade",
+    summary: "Imports, exports, customs clearance and trade facilitation.",
+    keywords: ["customs", "import", "export", "trade", "shipping"],
+    sources: [appx("D", "Category G"), art(14)],
+  },
+  {
+    code: "strategic",
+    reference: "Category H",
+    name: "Strategic projects",
+    summary: "Major development and large-scale infrastructure projects of national importance.",
+    keywords: ["strategic project", "major project", "infrastructure", "national importance"],
+    sources: [appx("D", "Category H"), art(42), appx("K")],
+  },
+  {
+    code: "land",
+    reference: "Category I",
+    name: "Land and property",
+    summary: "Land registration, leases, title transfers and property records.",
+    keywords: ["land", "property", "title", "lease", "real estate"],
+    sources: [appx("D", "Category I"), appx("B", "1")],
+  },
+  {
+    code: "citizenship-residency",
+    reference: "Category J",
+    name: "Citizenship and residency",
+    summary: "Citizenship applications and residency programmes, including investor residency.",
+    keywords: ["citizenship", "residency", "residence", "investor residency"],
+    sources: [appx("D", "Category J"), appx("B", "12")],
+  },
+  {
+    code: "vehicles",
+    reference: "Category K",
+    name: "Vehicles and transport",
+    summary: "Vehicle registration, licence plates, transport permits and vehicle inspections.",
+    keywords: ["vehicle", "car", "transport", "licence plate"],
+    sources: [appx("D", "Category K"), appx("B", "6")],
+  },
+  {
+    code: "public-safety",
+    reference: "Category L",
+    name: "Security and public safety",
+    summary: "Security approvals, emergency management, incident reporting and safety programmes.",
+    keywords: ["security", "safety", "emergency", "incident"],
+    sources: [appx("D", "Category L"), appx("B", "7")],
+  },
+  {
+    code: "cannabis",
+    reference: "Category M",
+    name: "Cannabis administration and licensing",
+    summary:
+      "Licences and registration for lawful cannabis cultivation, manufacturing and research.",
+    keywords: ["cannabis", "cultivation", "research"],
+    sources: [appx("D", "Category M"), appx("B", "8")],
+  },
+  {
+    code: "blue-economy",
+    reference: "Category N",
+    name: "Blue economy",
+    summary: "Marine industry, ocean economy and maritime development projects.",
+    keywords: ["blue economy", "marine", "ocean", "maritime"],
+    sources: [appx("D", "Category N"), appx("B", "9")],
+  },
+  {
+    code: "carbon",
+    reference: "Category O",
+    name: "Carbon management and trading",
+    summary: "Carbon credit registration, carbon banking, carbon exchanges and sustainability.",
+    keywords: ["carbon", "carbon credit", "climate", "sustainability", "environment"],
+    sources: [appx("D", "Category O"), appx("B", "10")],
+  },
+  {
+    code: "digital-assets",
+    reference: "Category P",
+    name: "Digital assets and blockchain",
+    summary: "Digital asset registration, blockchain, tokenisation and FinTech projects.",
+    keywords: ["digital assets", "blockchain", "crypto", "fintech", "tokenisation"],
+    sources: [appx("D", "Category P"), appx("B", "11")],
+  },
+  {
+    code: "financial-services",
+    name: "Financial services",
+    summary: "Applications and licences for regulated financial services in the zone.",
+    keywords: ["financial services", "bank", "finance", "financial licence"],
+    sources: [art(20), art(27), appx("A"), appx("B", "5")],
+  },
+  {
+    code: "compliance",
+    name: "Compliance and inspections",
+    summary:
+      "Inspections, licence conditions, compliance reports, corrective actions and project evidence files.",
+    keywords: ["compliance", "inspection", "conditions", "corrective action", "evidence file"],
+    sources: [art(17), art(33), art(37), art(38), art(39), art(18)],
+  },
+];
