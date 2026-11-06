@@ -110,6 +110,28 @@ allowed redirect URIs are fixed when the realm is first imported, from `HEARTSTO
 the Keycloak service. To add an address later, add `https://<host>/auth/callback` to the client in
 the Keycloak admin console as well as updating that variable.
 
+## absez.org
+
+The ABSEZ deployment. `.github/workflows/deploy-absez.yml` deploys it after CI passes on `main`
+(or by hand: **Actions → Deploy absez.org → Run workflow**), using the `env.absez` block in each
+app's `wrangler.jsonc`.
+
+| App        | Worker                        | Address                   | Who can open it        |
+| ---------- | ----------------------------- | ------------------------- | ---------------------- |
+| Citizen    | `heartstone-citizen-absez`    | `https://absez.org`       | Everyone               |
+| Government | `heartstone-government-absez` | `https://gov.absez.org`   | Cloudflare Access only |
+| Executive  | `heartstone-executive-absez`  | `https://exec.absez.org`  | Cloudflare Access only |
+| Admin      | `heartstone-admin-absez`      | `https://admin.absez.org` | Cloudflare Access only |
+
+The citizen site is public by the product owner's decision. It still talks to the Render
+staging backend (synthetic-data tier, US region), so the tenant's development-build banner stays
+on until a production backend in the approved region exists. The internal apps sit behind the
+"ABSEZ internal apps" Access application, checked before every deploy.
+
+Prerequisites: `absez.org` is an active zone in the same Cloudflare account, the
+`CLOUDFLARE_API_TOKEN` includes that zone, and Keycloak's `HEARTSTONE_WEB_ORIGINS` lists the four
+`https://…absez.org` origins (so their `/auth/callback` redirect URIs are allowed).
+
 ## Secrets
 
 Never commit Cloudflare tokens, SSO secrets, backend credentials, API keys, signing material or

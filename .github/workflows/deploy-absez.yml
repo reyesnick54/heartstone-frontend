@@ -1,0 +1,98 @@
+name: Deploy absez.org
+
+# Deploys the four gateway apps to the ABSEZ addresses after CI passes on main:
+#   absez.org        citizen website and dashboard (public)
+#   gov.absez.org    government workstation   ┐
+#   exec.absez.org   executive command centre ├ behind Cloudflare Access (team only)
+#   admin.absez.org  platform administration  ┘
+# The Access check for the three internal apps runs first; nothing deploys if it fails.
+# Uses the same Cloudflare token as staging, which must include the absez.org zone.
+# See docs/deployment.md, "absez.org".
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-absez
+  cancel-in-progress: false
+
+jobs:
+  access:
+    name: Cloudflare Access covers the internal apps
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: absez
+    outputs:
+      configured: ${{ steps.token.outputs.configured }}
+    steps:
+      - id: token
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::CLOUDFLARE_API_TOKEN is not set; absez.org was not deployed."
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.token.outputs.configured == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - if: steps.token.outputs.configured == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - if: steps.token.outputs.configured == 'true'
+        run: node scripts/ensure-staging-access.mjs
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          ACCESS_APP_NAME: ABSEZ internal apps
+          ACCESS_HOSTNAMES: gov.absez.org exec.absez.org admin.absez.org
+          STAGING_ACCESS_EMAIL_DOMAIN: ${{ vars.STAGING_ACCESS_EMAIL_DOMAIN || 'abraxas-eu.com' }}
+          STAGING_ACCESS_EMAILS: ${{ vars.STAGING_ACCESS_EMAILS }}
+
+  deploy:
+    name: Deploy ${{ matrix.app }} (absez.org)
+    needs: access
+    if: needs.access.outputs.configured == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: absez
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [citizen, government, executive, admin]
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run build --filter=@heartstone/${{ matrix.app }}
+      - name: Deploy Worker
+        working-directory: apps/${{ matrix.app }}
+        run: pnpm exec wrangler deploy --env absez
+      - name: Session cookie key exists
+        working-directory: apps/${{ matrix.app }}
+        run: |
+          if pnpm exec wrangler secret list --env absez --format json | grep -q '"SESSION_COOKIE_KEY"'; then
+            echo "SESSION_COOKIE_KEY already set."
+          else
+            openssl rand -base64 32 | tr -d '\n' | pnpm exec wrangler secret put SESSION_COOKIE_KEY --env absez
+          fi

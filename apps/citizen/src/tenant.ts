@@ -48,6 +48,7 @@ export const TENANT = {
    */
   workstationUrlByHost: {
     "staging.heartstone.site": "https://staging-gov.heartstone.site",
+    "absez.org": "https://gov.absez.org",
   },
   /** Name of the national digital ID used to sign in. */
   digitalIdName: "your digital ID",
