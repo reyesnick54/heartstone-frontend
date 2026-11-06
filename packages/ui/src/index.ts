@@ -8,6 +8,8 @@ export type {
   AppShellNavSection,
   AppShellProps,
 } from "./components/AppShell/AppShell";
+export { BrandLockup } from "./components/BrandLockup/BrandLockup";
+export type { BrandLockupProps, BrandLockupSize } from "./components/BrandLockup/BrandLockup";
 export { Button } from "./components/Button/Button";
 export type { ButtonProps, ButtonSize, ButtonVariant } from "./components/Button/Button";
 export { Card } from "./components/Card/Card";
@@ -81,4 +83,5 @@ export type { TextFieldProps } from "./components/TextField/TextField";
 export { VisuallyHidden } from "./components/VisuallyHidden/VisuallyHidden";
 export type { VisuallyHiddenProps } from "./components/VisuallyHidden/VisuallyHidden";
 export * from "./components/icons";
+export type { TenantBranding, TenantImage } from "./tenant";
 export { humanizeStatus } from "./internal/humanize";

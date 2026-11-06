@@ -3,7 +3,7 @@ import { Card, Link, Stack, SummaryList } from "@heartstone/ui";
 import { Page } from "../components/Page";
 import { RouteLink } from "../components/RouteLink";
 import { paths } from "../lib/paths";
-import { TENANT_PLACEHOLDER } from "../tenant";
+import { TENANT } from "../tenant";
 
 export function HelpPage() {
   return (
@@ -11,8 +11,8 @@ export function HelpPage() {
       <Card title="Using this site" titleLevel={2}>
         <ul className="bullets">
           <li>
-            You sign in with {TENANT_PLACEHOLDER.digitalIdName}. If it asks you to sign in again,
-            that keeps your records safe.
+            You sign in with {TENANT.digitalIdName}. If it asks you to sign in again, that keeps
+            your records safe.
           </li>
           <li>
             To act for a business, choose it when you start an application. You need a recorded
@@ -47,8 +47,8 @@ export function HelpPage() {
           <p>Service advisers can help you find the right service and complete forms.</p>
           <SummaryList
             rows={[
-              { id: "phone", label: "Phone", value: TENANT_PLACEHOLDER.supportPhone },
-              { id: "hours", label: "Hours", value: TENANT_PLACEHOLDER.supportHours },
+              { id: "phone", label: "Phone", value: TENANT.contactPhone.display },
+              { id: "hours", label: "Hours", value: TENANT.supportHours },
             ]}
           />
         </Stack>

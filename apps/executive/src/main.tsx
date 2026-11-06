@@ -1,5 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "@heartstone/tokens/tokens.css";
+import "@heartstone/ui/styles.css";
+import "./app.css";
 import { App } from "./App";
 
 const container = document.getElementById("root");

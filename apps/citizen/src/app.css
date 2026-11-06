@@ -1,20 +1,5 @@
 /* Citizen app layout helpers. Component styles live in @heartstone/ui; this file only arranges
    them. Colours come from semantic tokens. */
-.brand {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--hs-layout-touch-target);
-  color: inherit;
-  font-family: var(--hs-font-display);
-  font-size: var(--hs-font-size-3xl);
-  font-weight: var(--hs-font-weight-semibold);
-  text-decoration: none;
-}
-
-.brand:hover {
-  color: inherit;
-}
-
 .account-bar {
   flex-grow: 1;
 }

@@ -1,6 +1,7 @@
 import { act, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { EXPERIENCE_NAME } from "./App";
+import { TENANT } from "./tenant";
 import { json, never, on, renderAt, safeHaltBody, stepUpBody } from "./test/harness";
 
 const emptyHome = on("GET", "/experience/citizen/home", () =>
@@ -60,12 +61,28 @@ describe("signed out", () => {
     expect(link).toHaveAttribute("href", "/auth/login?returnTo=%2Fapplications%2Fabc");
   });
 
-  it("uses tenant placeholders, not a government name, in the official banner", async () => {
+  it("shows the tenant's official statement, how-to-tell link and lockup", async () => {
     renderAt("/", [], { signedIn: false });
     await screen.findByRole("link", { name: "Sign in" });
-    expect(screen.getByRole("region", { name: "Official website notice" })).toHaveTextContent(
-      /tenant configuration/i,
+    const banner = screen.getByRole("region", { name: "Official website notice" });
+    expect(banner).toHaveTextContent(TENANT.officialStatement);
+    expect(banner).toHaveTextContent(TENANT.environmentNotice);
+    expect(within(banner).getByRole("link", { name: "How to tell" })).toHaveAttribute(
+      "href",
+      TENANT.howToTellHref,
     );
+    const lockups = screen.getAllByRole("img", { name: TENANT.lockup.alt });
+    expect(lockups.map((img) => img.getAttribute("src")).sort()).toEqual(
+      [TENANT.lockup.onDark.src, TENANT.lockup.onLight.src].sort(),
+    );
+  });
+
+  it("serves the how-to-tell page to signed-out visitors", async () => {
+    renderAt(TENANT.howToTellHref, [], { signedIn: false });
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "How to tell this site is official" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(TENANT.officialSiteAddress))).toBeInTheDocument();
   });
 
   it("shows gateway sign-in errors and removes them from the address bar", async () => {
