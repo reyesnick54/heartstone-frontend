@@ -39,5 +39,21 @@
         "OIDC_REDIRECT_URI": "https://staging-exec.heartstone.site/auth/callback",
       },
     },
+    // ABSEZ deployment on absez.org. Deployed by .github/workflows/deploy-absez.yml
+    // (docs/deployment.md, "absez.org"). Uses the same Render backend and Keycloak as staging
+    // until a production backend exists; SESSION_COOKIE_KEY is a separate Worker secret.
+    "absez": {
+      "name": "heartstone-executive-absez",
+      "workers_dev": false,
+      "preview_urls": false,
+      "routes": [{ "pattern": "exec.absez.org", "custom_domain": true }],
+      "vars": {
+        "BACKEND_ORIGIN": "https://heartstone-api-staging-0r4k.onrender.com",
+        "OIDC_ISSUER": "https://heartstone-keycloak-staging-0r4k.onrender.com/realms/heartstone",
+        "OIDC_CLIENT_ID": "heartstone-web",
+        "OIDC_PROVIDER_CODE": "heartstone-keycloak",
+        "OIDC_REDIRECT_URI": "https://exec.absez.org/auth/callback",
+      },
+    },
   },
 }

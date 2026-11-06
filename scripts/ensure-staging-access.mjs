@@ -4,17 +4,20 @@
 // Env:
 //   CLOUDFLARE_API_TOKEN        required (Access: Apps and Policies Edit, Account Settings Read)
 //   CLOUDFLARE_ACCOUNT_ID       optional; looked up when the token sees exactly one account
-//   STAGING_HOSTNAMES           required, space-separated
+//   ACCESS_HOSTNAMES            required, space-separated (STAGING_HOSTNAMES also accepted)
+//   ACCESS_APP_NAME             optional; default "HeartStone staging (synthetic data)"
 //   STAGING_ACCESS_EMAIL_DOMAIN optional, e.g. abraxas-eu.com
 //   STAGING_ACCESS_EMAILS       optional, comma-separated named people
 //
 // Never prints the token or any secret.
 
 const API = "https://api.cloudflare.com/client/v4";
-const APP_NAME = "HeartStone staging (synthetic data)";
+const APP_NAME = process.env.ACCESS_APP_NAME || "HeartStone staging (synthetic data)";
 
 const token = process.env.CLOUDFLARE_API_TOKEN;
-const hostnames = (process.env.STAGING_HOSTNAMES ?? "").split(/\s+/).filter(Boolean);
+const hostnames = (process.env.ACCESS_HOSTNAMES ?? process.env.STAGING_HOSTNAMES ?? "")
+  .split(/\s+/)
+  .filter(Boolean);
 const emailDomain = (process.env.STAGING_ACCESS_EMAIL_DOMAIN ?? "").trim();
 const emails = (process.env.STAGING_ACCESS_EMAILS ?? "")
   .split(",")
@@ -27,7 +30,7 @@ function fail(message) {
 }
 
 if (!token) fail("CLOUDFLARE_API_TOKEN is not set");
-if (hostnames.length === 0) fail("STAGING_HOSTNAMES is empty");
+if (hostnames.length === 0) fail("ACCESS_HOSTNAMES is empty");
 if (!emailDomain && emails.length === 0) {
   fail(
     "set STAGING_ACCESS_EMAIL_DOMAIN or STAGING_ACCESS_EMAILS so only named people can open staging",
@@ -73,7 +76,7 @@ if (!existing) {
     self_hosted_domains: hostnames,
     session_duration: "12h",
     app_launcher_visible: false,
-    policies: [{ name: "HeartStone staging testers", decision: "allow", include, precedence: 1 }],
+    policies: [{ name: `${APP_NAME} — allowed people`, decision: "allow", include, precedence: 1 }],
   });
   console.log(`Created Access application covering ${hostnames.join(", ")}.`);
 } else {

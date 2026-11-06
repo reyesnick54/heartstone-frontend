@@ -12,6 +12,9 @@ const CITIZEN_SITE_BY_HOST: Readonly<Record<string, string>> = {
   "staging-gov.heartstone.site": "https://staging.heartstone.site",
   "staging-exec.heartstone.site": "https://staging.heartstone.site",
   "staging-admin.heartstone.site": "https://staging.heartstone.site",
+  "gov.absez.org": "https://absez.org",
+  "exec.absez.org": "https://absez.org",
+  "admin.absez.org": "https://absez.org",
 };
 
 /** The production public site, used for any host not listed above. */
