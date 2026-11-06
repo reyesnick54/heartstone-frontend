@@ -1,13 +1,14 @@
 // The public website's frame (design: website/pages/*.html): official banner, header with the
-// tenant lockup and main navigation, the page, and the footer. Mobile-first: below 760px the
-// navigation folds behind a "Menu" button.
+// tenant lockup, site search and main navigation, the page, and the footer. Mobile-first: below
+// 760px the search and navigation fold behind a "Menu" button.
 import { useId, useState, type ReactNode } from "react";
 import { loginUrl } from "@heartstone/api-client";
 import { BrandLockup, OfficialMark, SkipLink } from "@heartstone/ui";
 import { paths, site } from "../lib/paths";
 import { useLocation } from "../router/router";
-import { LAUNCH, TENANT } from "../tenant";
+import { LAUNCH, TENANT, WEBSITE_CONTENT } from "../tenant";
 import { Phone } from "./Phone";
+import { SiteSearchForm } from "./SiteSearch";
 
 const MAIN_NAV = [
   { label: "Services", href: site.services },
@@ -35,7 +36,7 @@ const FOOTER_GROUPS = [
     heading: "Services",
     links: [
       { label: "All services", href: site.services },
-      { label: "Browse by topic", href: site.topics },
+      { label: "Service areas", href: site.topics },
       { label: "Life events", href: site.lifeEvents },
       { label: "Business and investors", href: site.business },
       { label: "Check a document", href: site.verify },
@@ -54,7 +55,10 @@ const FOOTER_GROUPS = [
   {
     heading: "About",
     links: [
-      { label: "About this site", href: site.about },
+      { label: `About ${WEBSITE_CONTENT.organisation.shortName}`, href: site.about },
+      { label: "Departments", href: site.departments },
+      { label: "Help", href: site.help },
+      { label: "Glossary", href: site.glossary },
       { label: "Contact us", href: site.contact },
       { label: "Accessibility", href: site.accessibility },
       { label: "Privacy", href: site.privacy },
@@ -115,6 +119,7 @@ export function SiteShell({ signedIn, children }: SiteShellProps) {
             aria-label="Main"
             className={menuOpen ? "site-nav site-nav-open" : "site-nav"}
           >
+            <SiteSearchForm label="Search this website" compact landmarkLabel="Site search" />
             <ul className="site-nav-list">
               {MAIN_NAV.map((item) => (
                 <li key={item.href}>

@@ -1,5 +1,6 @@
 // Every citizen route, in two areas:
-//   SITE_ROUTES       the public website (any visitor, signed in or out), in the website shell
+//   SITE_ROUTES       the public website (any visitor, signed in or out), in the website shell.
+//                     Its pages render the tenant's website content (tenant.ts WEBSITE_CONTENT).
 //   DASHBOARD_ROUTES  the signed-in area under /dashboard, in the dashboard shell
 // Signed-in users who open "/" are sent to /dashboard (App.tsx).
 import type { ReactNode } from "react";
@@ -34,8 +35,17 @@ import { HowToTellPage } from "./pages/HowToTellPage";
 import { DASHBOARD } from "./lib/paths";
 import { SitePage } from "./components/SiteShell";
 import { WebsiteHomePage } from "./pages/site/WebsiteHomePage";
-import { TopicPage, TopicsPage } from "./pages/site/TopicsPages";
-import { AudiencePage } from "./pages/site/AudiencePage";
+import {
+  ServicePage,
+  ServicesIndexPage,
+  TopicPage,
+  TopicsPage,
+} from "./pages/site/ServicesSitePages";
+import { IndividualsPage } from "./pages/site/AudiencePage";
+import { BusinessArticlePage, BusinessPage } from "./pages/site/BusinessPages";
+import { LifeEventPage, LifeEventsPage } from "./pages/site/LifeEventsPages";
+import { AboutPage, DepartmentPage, DepartmentsPage } from "./pages/site/AboutPages";
+import { SearchPage } from "./pages/site/SearchPage";
 import {
   DigitalIdPage,
   OfficialsPage,
@@ -43,12 +53,15 @@ import {
   SignInPage,
   SignedOutPage,
 } from "./pages/site/AccountSitePages";
-import { PublicHelpPage } from "./pages/site/PublicHelpPage";
 import {
-  AboutPage,
+  GlossaryPage,
+  HelpArticlePage,
+  PublicHelpPage,
+  QuestionsPage,
+} from "./pages/site/PublicHelpPage";
+import {
   AccessibilityPage,
   ContactPage,
-  LifeEventsPage,
   OfficesPage,
   PrivacyPage,
   ScamPage,
@@ -77,33 +90,33 @@ const d = (path: string) => `${DASHBOARD}${path}`;
 
 export const SITE_ROUTES: readonly CitizenRoute[] = [
   { path: "/", render: () => <WebsiteHomePage /> },
-  {
-    path: "/services",
-    render: () => (
-      <SitePage>
-        <ServicesPage area="public" />
-      </SitePage>
-    ),
-  },
-  {
-    path: "/services/:slug",
-    render: (params) => (
-      <SitePage>
-        <ServiceDetailPage area="public" slug={p(params, "slug")} />
-      </SitePage>
-    ),
-  },
+  { path: "/search", render: () => <SearchPage /> },
+  { path: "/services", render: () => <ServicesIndexPage /> },
+  { path: "/services/:slug", render: (params) => <ServicePage slug={p(params, "slug")} /> },
   { path: "/topics", render: () => <TopicsPage /> },
   { path: "/topics/:code", render: (params) => <TopicPage code={p(params, "code")} /> },
-  { path: "/individuals", render: () => <AudiencePage audience="individuals" /> },
-  { path: "/business", render: () => <AudiencePage audience="business" /> },
+  { path: "/individuals", render: () => <IndividualsPage /> },
+  { path: "/business", render: () => <BusinessPage /> },
+  {
+    path: "/business/:slug",
+    render: (params) => <BusinessArticlePage slug={p(params, "slug")} />,
+  },
   { path: "/life-events", render: () => <LifeEventsPage /> },
+  { path: "/life-events/:slug", render: (params) => <LifeEventPage slug={p(params, "slug")} /> },
+  { path: "/departments", render: () => <DepartmentsPage /> },
+  {
+    path: "/departments/:slug",
+    render: (params) => <DepartmentPage slug={p(params, "slug")} />,
+  },
   { path: "/officials", render: () => <OfficialsPage /> },
   { path: "/digital-id", render: () => <DigitalIdPage /> },
   { path: "/sign-in", render: () => <SignInPage /> },
   { path: "/sign-in-help", render: () => <SignInHelpPage /> },
   { path: "/signed-out", render: () => <SignedOutPage /> },
   { path: "/help", render: () => <PublicHelpPage /> },
+  { path: "/help/questions", render: () => <QuestionsPage /> },
+  { path: "/help/:slug", render: (params) => <HelpArticlePage slug={p(params, "slug")} /> },
+  { path: "/glossary", render: () => <GlossaryPage /> },
   { path: "/contact", render: () => <ContactPage /> },
   { path: "/offices", render: () => <OfficesPage /> },
   { path: "/status", render: () => <StatusPage /> },
