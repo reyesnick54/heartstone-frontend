@@ -3,6 +3,8 @@
 // here, never in shared packages. The ABSEZ wording and crest are authorised by ABSEZ (confirmed
 // by the product owner, November 2026).
 import type { TenantBranding } from "@heartstone/ui";
+import { ABSEZ_CONTENT } from "./content/absez";
+import type { WebsiteContent } from "./content/schema";
 
 /** Logo files are in public/brand/ (optimised copies of design/brand/logo/). */
 export const TENANT = {
@@ -66,6 +68,12 @@ export function workstationUrl(): string | undefined {
   const byHost: Readonly<Record<string, string>> = TENANT.workstationUrlByHost;
   return byHost[window.location.hostname];
 }
+
+/**
+ * The public website's content: what ABSEZ is, its services, life events, business and investor
+ * guidance, help and glossary (content/absez). Another government supplies its own module.
+ */
+export const WEBSITE_CONTENT: WebsiteContent = ABSEZ_CONTENT;
 
 /** Language and formatting for this deployment. */
 export const LOCALE = {
