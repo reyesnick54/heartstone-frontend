@@ -169,6 +169,106 @@ describe("GET /auth/login", () => {
   });
 });
 
+describe("GET /auth/register", () => {
+  /** Runs /auth/register and returns the registration URL and the transaction cookie. */
+  async function startRegister(h: Harness, returnTo?: string) {
+    const qs = returnTo === undefined ? "" : `?returnTo=${encodeURIComponent(returnTo)}`;
+    const response = await h.send(`/auth/register${qs}`);
+    const location = new URL(response.headers.get("Location") as string);
+    h.fakes.nonce = location.searchParams.get("nonce") ?? undefined;
+    return { response, location, oidc: cookieValue(setCookie(response, OIDC_COOKIE)) };
+  }
+
+  it("redirects Keycloak to its registrations endpoint with PKCE S256, state and nonce", async () => {
+    const h = createHarness();
+    const { response, location, oidc } = await startRegister(h, "/dashboard");
+
+    expect(response.status).toBe(302);
+    expect(`${location.origin}${location.pathname}`).toBe(
+      `${ISSUER}/protocol/openid-connect/registrations`,
+    );
+    const p = location.searchParams;
+    expect(p.get("response_type")).toBe("code");
+    expect(p.get("client_id")).toBe("heartstone-citizen");
+    expect(p.get("redirect_uri")).toBe(`${APP}/auth/callback`);
+    expect(p.get("scope")).toBe("openid profile email");
+    expect(p.get("code_challenge_method")).toBe("S256");
+    expect(p.get("code_challenge")).toMatch(/^[A-Za-z0-9_-]{43}$/);
+    expect(p.get("state")).toMatch(/^[A-Za-z0-9_-]{43}$/);
+    expect(p.get("nonce")).toMatch(/^[A-Za-z0-9_-]{43}$/);
+    expect(p.get("prompt")).toBeNull();
+
+    const line = setCookie(response, OIDC_COOKIE) as string;
+    expect(line).toMatch(/HttpOnly/);
+    expect(line).toMatch(/Secure/);
+    expect(line).toMatch(/SameSite=Lax/);
+    expect(line).toMatch(/Max-Age=600/);
+    expect(oidc).not.toContain(p.get("state"));
+    expect(response.headers.get("Cache-Control")).toBe("no-store");
+  });
+
+  it("uses prompt=create on the authorize endpoint for a non-Keycloak issuer", async () => {
+    const issuer = "https://login.example.test";
+    const h = createHarness(baseEnv({ OIDC_ISSUER: issuer }));
+    h.fakes.discovery["issuer"] = issuer;
+    h.fakes.discovery["authorization_endpoint"] = `${issuer}/authorize`;
+    const response = await h.send("/auth/register");
+    const location = new URL(response.headers.get("Location") as string);
+    expect(`${location.origin}${location.pathname}`).toBe(`${issuer}/authorize`);
+    expect(location.searchParams.get("prompt")).toBe("create");
+    expect(location.searchParams.get("code_challenge_method")).toBe("S256");
+  });
+
+  it("finishes through the normal callback and lands on returnTo", async () => {
+    const h = createHarness();
+    const { location, oidc } = await startRegister(h, "/dashboard");
+    const state = location.searchParams.get("state") as string;
+    const response = await h.send(`/auth/callback?code=auth-code&state=${state}`, {
+      cookies: { [OIDC_COOKIE]: oidc },
+    });
+    expect(response.status).toBe(302);
+    expect(response.headers.get("Location")).toBe("/dashboard");
+    expect(setCookie(response, SESSION_COOKIE)).toMatch(/HttpOnly/);
+  });
+
+  it("never returns off-site", async () => {
+    const h = createHarness();
+    const { location, oidc } = await startRegister(h, "https://evil.example/");
+    const state = location.searchParams.get("state") as string;
+    const response = await h.send(`/auth/callback?code=auth-code&state=${state}`, {
+      cookies: { [OIDC_COOKIE]: oidc },
+    });
+    expect(response.headers.get("Location")).toBe("/");
+  });
+
+  it("ignores reauth (registration is never a step-up)", async () => {
+    const h = createHarness();
+    const response = await h.send("/auth/register?reauth=1");
+    const location = new URL(response.headers.get("Location") as string);
+    expect(location.searchParams.get("max_age")).toBeNull();
+    expect(location.searchParams.get("prompt")).toBeNull();
+  });
+
+  it("reports an unreachable or wrong provider as unavailable", async () => {
+    const h = createHarness();
+    h.fakes.discovery["issuer"] = "https://evil.example";
+    const response = await h.send("/auth/register");
+    expect(response.headers.get("Location")).toBe("/?signin_error=unavailable");
+  });
+
+  it("redirects with signin_error=unavailable when the gateway is not configured", async () => {
+    const h = createHarness(baseEnv({ OIDC_ISSUER: undefined }));
+    const response = await h.send("/auth/register");
+    expect(response.status).toBe(302);
+    expect(response.headers.get("Location")).toBe("/?signin_error=unavailable");
+  });
+
+  it("only accepts GET", async () => {
+    const h = createHarness();
+    expect((await h.send("/auth/register", { method: "POST" })).status).toBe(405);
+  });
+});
+
 describe("GET /auth/callback", () => {
   it("exchanges the code with the PKCE verifier, opens a backend session and sets the cookie", async () => {
     const h = createHarness();

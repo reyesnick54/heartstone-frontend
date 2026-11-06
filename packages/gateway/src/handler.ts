@@ -1,6 +1,7 @@
 // The app Worker's request handler. One gateway per persona app, same origin as the app:
 //
 //   GET  /auth/login?returnTo=/path   start OIDC Authorization Code + PKCE
+//   GET  /auth/register?returnTo=…    the same, but opening the provider's registration page
 //   GET  /auth/callback               finish it, open a backend session, set the session cookie
 //   GET  /auth/session                { authenticated, expiresAt?, identityId? } (never the token)
 //   POST /auth/logout                 revoke the backend session, clear the cookie (CSRF header)
@@ -41,6 +42,7 @@ import {
   buildEndSessionUrl,
   discover,
   exchangeCode,
+  toRegistrationUrl,
   verifyIdTokenClaims,
 } from "./oidc.js";
 import { safeReturnTo } from "./returnTo.js";
@@ -262,9 +264,14 @@ function redirectUriFor(ctx: Pick<Ctx, "config" | "url">): string {
 }
 
 // ---------------------------------------------------------------------------------------------
-// /auth/login
+// /auth/login, /auth/register
 
-async function handleLogin(ctx: Ctx): Promise<Response> {
+/**
+ * Starts Authorization Code + PKCE. `register` sends the browser to the provider's
+ * self-registration page instead of its sign-in page; the transaction (state, nonce, PKCE
+ * verifier, encrypted cookie) and the callback are identical, so a new account signs straight in.
+ */
+async function handleLogin(ctx: Ctx, mode: "login" | "register" = "login"): Promise<Response> {
   const returnTo = safeReturnTo(ctx.url.searchParams.get("returnTo"), ctx.url.origin);
   let doc;
   try {
@@ -298,6 +305,11 @@ async function handleLogin(ctx: Ctx): Promise<Response> {
       codeChallenge: await codeChallengeS256(verifier),
     }),
   );
+  if (mode === "register") {
+    return redirect(toRegistrationUrl(location.toString(), doc.issuer), [
+      serialiseCookie(OIDC_COOKIE, sealed, OIDC_TRANSACTION_SECONDS),
+    ]);
+  }
   // Step-up: `reauth=1` asks the provider for a fresh sign-in, which the backend sees as a recent
   // `auth_time` on the new session.
   if (ctx.url.searchParams.get("reauth") === "1") {
@@ -694,6 +706,8 @@ export async function handleGatewayRequest(
   switch (path) {
     case "/auth/login":
       return method === "GET" ? handleLogin(c) : methodNotAllowed("GET");
+    case "/auth/register":
+      return method === "GET" ? handleLogin(c, "register") : methodNotAllowed("GET");
     case "/auth/callback":
       return method === "GET" ? handleCallback(c) : methodNotAllowed("GET");
     case "/auth/session":

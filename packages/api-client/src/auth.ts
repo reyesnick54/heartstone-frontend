@@ -38,6 +38,24 @@ export function loginUrl(options: LoginUrlOptions = {}): string {
   return query ? `${base}?${query}` : base;
 }
 
+export interface RegisterUrlOptions {
+  /** Same-origin path to land on after the new account signs in. */
+  returnTo?: string;
+  authBasePath?: string;
+}
+
+/**
+ * URL that opens the identity provider's self-registration page (a full-page navigation). The new
+ * account then signs in through the same callback as `loginUrl`.
+ */
+export function registerUrl(options: RegisterUrlOptions = {}): string {
+  const base = `${(options.authBasePath ?? "/auth").replace(/\/$/, "")}/register`;
+  const params = new URLSearchParams();
+  if (options.returnTo) params.set("returnTo", options.returnTo);
+  const query = params.toString();
+  return query ? `${base}?${query}` : base;
+}
+
 /** URL that ends the identity-provider session too, when the provider supports it. */
 export function providerLogoutUrl(authBasePath = "/auth"): string {
   return `${authBasePath.replace(/\/$/, "")}/logout/redirect`;

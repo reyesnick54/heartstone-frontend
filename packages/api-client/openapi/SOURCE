@@ -1,5 +1,5 @@
 repository: reyesnick54/heartstone-backend
 ref: main
-commit: fc353eccf98660197a869b2c5e06fa66485979db
+commit: f0c42f5436f32489cfcd05402b0ccf7ea6833bf8
 path: openapi/openapi.json
-sha256: 987b98958f4c38d51ec4c3d8b9ac66ec393ec4847c7adb9d094e3cf7de011ae5
+sha256: ee6e163ca82c8961c56d6d9e83b55b4b2d543e896bf59436a83267375bfa4902

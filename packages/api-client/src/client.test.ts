@@ -2,7 +2,7 @@ import { createHeartStoneClient, unwrap } from "./client";
 import { createHeartStoneFetch } from "./fetch";
 import { CORRELATION_HEADER, CSRF_HEADER } from "./protocol";
 import { HeartStoneApiError } from "./errors";
-import { fetchSession, loginUrl, logout } from "./auth";
+import { fetchSession, loginUrl, logout, registerUrl } from "./auth";
 
 const BASE = "https://citizen.example.test/api/v1";
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
@@ -209,5 +209,10 @@ describe("gateway auth helpers", () => {
       "/auth/login?returnTo=%2Fapplications%3Fx%3D1",
     );
     expect(loginUrl({ returnTo: "/", reauth: true })).toBe("/auth/login?returnTo=%2F&reauth=1");
+  });
+
+  it("registerUrl encodes returnTo", () => {
+    expect(registerUrl()).toBe("/auth/register");
+    expect(registerUrl({ returnTo: "/dashboard" })).toBe("/auth/register?returnTo=%2Fdashboard");
   });
 });
