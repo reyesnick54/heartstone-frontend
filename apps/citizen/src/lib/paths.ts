@@ -59,7 +59,6 @@ export const site = {
   home: "/",
   services: "/services",
   service: (slug: string) => `/services/${enc(slug)}`,
-  servicesSearch: (q: string) => `/services?q=${enc(q)}`,
   /** Website search results. */
   search: (q?: string) => (q ? `/search?q=${enc(q)}` : "/search"),
   topics: "/topics",

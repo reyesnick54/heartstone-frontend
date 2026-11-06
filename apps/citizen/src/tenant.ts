@@ -35,16 +35,6 @@ export const TENANT = {
   /** Ownership line at the foot of every website page. */
   copyright: "© Government of Antigua and Barbuda",
   /**
-   * Shortcuts under the homepage search. Each runs a real search of the service catalogue (or
-   * opens a signed-in page); none is a promise that a service exists.
-   */
-  quickLinks: [
-    { label: "Register a business", search: "register a business" },
-    { label: "Work permit", search: "work permit" },
-    { label: "Birth certificate", search: "birth certificate" },
-    { label: "Pay a fee", href: "/dashboard/payments" },
-  ],
-  /**
    * The government officials' workstation for each host this site is served on. A host that is
    * not listed shows "ask your department" instead of a link.
    */
@@ -59,8 +49,6 @@ export const TENANT = {
   /** Emergency phone number shown on Public safety and in the website footer. */
   emergencyNumber: "911",
 } as const satisfies TenantBranding & Record<string, unknown>;
-
-export type QuickLink = (typeof TENANT.quickLinks)[number];
 
 /** The officials' workstation address for the host this page is served on, if configured. */
 export function workstationUrl(): string | undefined {

@@ -1,49 +1,19 @@
-// Public website home (design: website/pages/WebsiteHome.html). Popular services and topics come
-// from the backend's public catalogue (GET /public/services, GET /public/service-families); when
-// it is empty the page says so rather than showing example services.
-import { useState } from "react";
-import { loginUrl, registerUrl, unwrap } from "@heartstone/api-client";
-import { useApi } from "@heartstone/api-client/react";
-import { Button, EmptyState, ItemList, Link, Loading, TextField } from "@heartstone/ui";
+// Public website home (design: website/pages/WebsiteHome.html). Everything on it comes from the
+// tenant's website content, so it renders in full with no backend: what the organisation is, the
+// one-stop path, popular services, life events and the business teaser. The search box searches
+// the website (/search).
+import { loginUrl, registerUrl } from "@heartstone/api-client";
+import { Link } from "@heartstone/ui";
 import { useDocumentTitle } from "../../components/Page";
 import { Phone } from "../../components/Phone";
+import { SiteSearchForm } from "../../components/SiteSearch";
 import { paths, site } from "../../lib/paths";
-import { useQuery } from "../../lib/query";
-import { useNavigate } from "../../router/router";
-import { TENANT, workstationUrl, type QuickLink } from "../../tenant";
-import { ServiceList } from "../ServicesPage";
+import type { Audience } from "../../content/schema";
+import { WEBSITE_CONTENT, workstationUrl } from "../../tenant";
+import { LifeEventItems } from "./LifeEventsPages";
+import { CategoryTiles, ServiceItems, findService } from "./ServicesSitePages";
 
-/** How many published services the home page lists (the catalogue's first page, not a ranking). */
-const POPULAR_LIMIT = 8;
-
-function quickLinkHref(link: QuickLink): string {
-  return "href" in link ? link.href : site.servicesSearch(link.search);
-}
-
-function HeroSearch() {
-  const navigate = useNavigate();
-  const [text, setText] = useState("");
-  return (
-    <form
-      role="search"
-      aria-label="Find a service"
-      className="site-hero-search"
-      onSubmit={(event) => {
-        event.preventDefault();
-        const q = text.trim();
-        navigate(q ? site.servicesSearch(q) : site.services);
-      }}
-    >
-      <TextField
-        label="What do you need to do?"
-        hint="For example: renew my driving licence"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <Button type="submit">Search</Button>
-    </form>
-  );
-}
+const C = WEBSITE_CONTENT;
 
 function AccountPanel() {
   const workstation = workstationUrl();
@@ -79,114 +49,65 @@ function AccountPanel() {
   );
 }
 
+/** The names of the service areas that have services for `audience`, for a door's summary. */
+function areasFor(audience: Audience): string {
+  const codes = new Set(
+    C.services.filter((s) => s.audiences.includes(audience)).map((s) => s.categoryCode),
+  );
+  return C.categories
+    .filter((c) => codes.has(c.code))
+    .slice(0, 5)
+    .map((c) => c.name)
+    .join(" · ");
+}
+
 const DOORS = [
   {
     href: site.individuals,
-    title: "Individuals and residents",
-    points: [
-      "IDs, certificates and civil records",
-      "Work, residency and immigration",
-      "Vehicles, property, tax and health",
-    ],
+    title: "Individuals and families",
+    text: areasFor("individuals"),
     more: "Services for you",
   },
   {
     href: site.business,
     title: "Businesses and investors",
-    points: [
-      "Register and run a company",
-      "Licences, permits and inspections",
-      "Hiring, customs, land and investment",
-    ],
-    more: "Services for business",
+    text: areasFor("business"),
+    more: "Business and investors",
   },
   {
-    href: site.officials,
-    title: "Government officials",
-    points: [
-      "Your work queue and cases",
-      "Reviews, inspections and decisions",
-      "Authorised staff only",
-    ],
-    more: "Sign in to your workstation",
+    href: site.help,
+    title: "Help with applying",
+    text: "How to apply, what happens next and what your case status means.",
+    more: "Get help",
   },
 ];
 
-function PopularServices() {
-  const client = useApi();
-  const services = useQuery("public-services:popular", (signal) =>
-    unwrap(client.GET("/public/services", { params: { query: { limit: POPULAR_LIMIT } }, signal })),
-  );
-  if (services.status === "loading") return <Loading label="Loading services" />;
-  if (services.status === "error") {
-    return (
-      <p className="muted">
-        We could not load services just now. <Link href={site.services}>Find a service</Link>
-      </p>
-    );
-  }
-  if (services.data.items.length === 0) {
-    return (
-      <EmptyState
-        title="No services are published yet"
-        titleLevel={3}
-        description="Services appear here when a government office publishes them online."
-      />
-    );
-  }
-  return <ServiceList items={services.data.items} label="Services" area="public" />;
-}
-
-function Topics() {
-  const client = useApi();
-  const families = useQuery("service-families", (signal) =>
-    unwrap(client.GET("/public/service-families", { signal })),
-  );
-  if (families.status === "loading") return <Loading label="Loading topics" />;
-  if (families.status === "error") {
-    return <p className="muted">We could not load topics just now.</p>;
-  }
-  if (families.data.length === 0) {
-    return (
-      <EmptyState
-        title="No topics yet"
-        titleLevel={3}
-        description="Topics appear here when services are published."
-      />
-    );
-  }
-  return (
-    <ItemList
-      label="Topics"
-      variant="grid"
-      items={families.data.map((f) => ({
-        id: f.id,
-        title: f.name,
-        href: site.topic(f.code),
-        ...(f.description ? { description: f.description } : {}),
-      }))}
-    />
-  );
-}
-
 export function WebsiteHomePage() {
-  useDocumentTitle("Government services, in one place");
+  useDocumentTitle(C.home.heroTitle.replace(/\.$/, ""));
+  const popular = C.home.popularServiceSlugs.map(findService).filter((s) => s !== undefined);
+  const events = C.home.featuredLifeEventSlugs
+    .map((slug) => C.lifeEvents.find((e) => e.slug === slug))
+    .filter((e) => e !== undefined);
+
   return (
     <>
       <section className="site-hero">
         <div className="site-wrap site-hero-inner">
           <div className="site-hero-main">
-            <h1 className="site-h1">Government services, in one place.</h1>
-            <p className="site-hero-lead">
-              Tell us what you need. You don&rsquo;t need to know which department handles it.
-            </p>
-            <HeroSearch />
+            <h1 className="site-h1">{C.home.heroTitle}</h1>
+            <p className="site-hero-lead">{C.home.heroLead}</p>
+            <SiteSearchForm
+              label="What do you need to do?"
+              hint={C.home.searchHint}
+              className="site-hero-search"
+              landmarkLabel="Find a service"
+            />
             <nav aria-label="Common searches">
               <ul className="site-chips">
-                {TENANT.quickLinks.map((link) => (
-                  <li key={link.label}>
-                    <a href={quickLinkHref(link)} className="site-chip">
-                      {link.label}
+                {C.home.quickSearches.map((s) => (
+                  <li key={s.q}>
+                    <a href={site.search(s.q)} className="site-chip">
+                      {s.label}
                     </a>
                   </li>
                 ))}
@@ -198,6 +119,40 @@ export function WebsiteHomePage() {
       </section>
 
       <div className="site-wrap">
+        <section className="site-section" aria-labelledby="what-heading">
+          <h2 id="what-heading" className="site-h2">
+            What {C.organisation.shortName} is
+          </h2>
+          <div className="site-prose">
+            {C.organisation.whatItIs.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
+          <Link href={site.about}>About {C.organisation.shortName}</Link>
+        </section>
+
+        <section className="site-section" aria-labelledby="path-heading">
+          <h2 id="path-heading" className="site-h2">
+            One application, one path
+          </h2>
+          <ol
+            className="site-path"
+            aria-label="How your application moves through the One-Stop Service"
+          >
+            {C.home.onePath.map((step, i) => (
+              <li key={step.title} className="site-path-step">
+                <span className="site-path-number" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <h3 className="site-h3">{step.title}</h3>
+                {step.target && <p className="site-path-target">{step.target}</p>}
+                <p>{step.detail}</p>
+              </li>
+            ))}
+          </ol>
+          <Link href={site.help}>Help with applying</Link>
+        </section>
+
         <section className="site-section" aria-labelledby="doors-heading">
           <h2 id="doors-heading" className="site-h2">
             Who are you here as?
@@ -207,11 +162,7 @@ export function WebsiteHomePage() {
               <li key={door.href}>
                 <a href={door.href} className="site-door">
                   <span className="site-door-title">{door.title}</span>
-                  <span className="site-door-points">
-                    {door.points.map((point) => (
-                      <span key={point}>{point}</span>
-                    ))}
-                  </span>
+                  <span className="site-door-points">{door.text}</span>
                   <span className="site-door-more">{door.more} →</span>
                 </a>
               </li>
@@ -222,31 +173,50 @@ export function WebsiteHomePage() {
         <section className="site-section" aria-labelledby="popular-heading">
           <div className="site-section-head">
             <h2 id="popular-heading" className="site-h2">
-              Services
+              Popular services
             </h2>
             <Link href={site.services}>All services</Link>
           </div>
-          <PopularServices />
+          <ServiceItems services={popular} label="Popular services" />
         </section>
 
         <section className="site-section" aria-labelledby="life-heading">
-          <h2 id="life-heading" className="site-h2">
-            Something happening in your life?
-          </h2>
-          <p className="site-lead">
-            Step-by-step guides that bring together everything you need to do, across every office,
-            are being prepared. <Link href={site.lifeEvents}>About life event guides</Link>
-          </p>
+          <div className="site-section-head">
+            <h2 id="life-heading" className="site-h2">
+              Something happening in your life?
+            </h2>
+            <Link href={site.lifeEvents}>All life events</Link>
+          </div>
+          <LifeEventItems events={events} label="Life events" />
         </section>
 
-        <section className="site-section" aria-labelledby="topics-heading">
-          <div className="site-section-head">
-            <h2 id="topics-heading" className="site-h2">
-              Browse by topic
+        <section className="site-section" aria-labelledby="business-heading">
+          <div className="site-teaser">
+            <h2 id="business-heading" className="site-h2">
+              {C.home.businessTeaser.title}
             </h2>
-            <Link href={site.topics}>All topics</Link>
+            <p className="site-lead">{C.home.businessTeaser.text}</p>
+            <ul className="site-plain-list">
+              <li>
+                <Link href={site.business}>Business and investors</Link>
+              </li>
+              {C.business.articles.slice(0, 3).map((a) => (
+                <li key={a.slug}>
+                  <Link href={site.businessArticle(a.slug)}>{a.title}</Link>
+                </li>
+              ))}
+            </ul>
           </div>
-          <Topics />
+        </section>
+
+        <section className="site-section" aria-labelledby="areas-heading">
+          <div className="site-section-head">
+            <h2 id="areas-heading" className="site-h2">
+              Browse by area
+            </h2>
+            <Link href={site.topics}>All service areas</Link>
+          </div>
+          <CategoryTiles categories={C.categories} />
         </section>
 
         <section className="site-section" aria-labelledby="help-heading">
@@ -260,9 +230,9 @@ export function WebsiteHomePage() {
               <Phone />
             </li>
             <li className="site-card">
-              <h3 className="site-h3">Visit an office</h3>
-              <p>Find a government service centre, with opening hours and what to bring.</p>
-              <Link href={site.offices}>Find an office</Link>
+              <h3 className="site-h3">Common questions</h3>
+              <p>How long things take, what happens if something is missing, and more.</p>
+              <Link href={site.questions}>Read the answers</Link>
             </li>
             <li className="site-card">
               <h3 className="site-h3">Beware of scams</h3>
