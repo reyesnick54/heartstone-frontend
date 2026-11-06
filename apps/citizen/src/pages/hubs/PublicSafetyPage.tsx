@@ -8,7 +8,7 @@ import { HubSection } from "../../components/Hub";
 import { NotAvailable } from "../../components/NotAvailable";
 import { Page } from "../../components/Page";
 import { useQuery } from "../../lib/query";
-import { TENANT_PLACEHOLDER } from "../../tenant";
+import { TENANT } from "../../tenant";
 
 export function PublicSafetyPage() {
   const client = useApi();
@@ -30,7 +30,7 @@ export function PublicSafetyPage() {
       description="Emergency notices, incidents you have reported, and recovery assistance."
     >
       <Notice tone="warning" title="In an emergency, call for help">
-        Call {TENANT_PLACEHOLDER.emergencyNumber}. Do not use this website to report an emergency.
+        Call {TENANT.emergencyNumber}. Do not use this website to report an emergency.
       </Notice>
       <HubSection
         title="Emergency notices"

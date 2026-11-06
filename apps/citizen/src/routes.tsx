@@ -28,6 +28,7 @@ import { ProfilePage, RepresentationPage, SettingsPage } from "./pages/AccountPa
 import { HelpPage } from "./pages/HelpPage";
 import { MenuPage } from "./pages/MenuPage";
 import { VerifyPage } from "./pages/VerifyPage";
+import { HowToTellPage } from "./pages/HowToTellPage";
 import { BenefitsPage } from "./pages/hubs/BenefitsPage";
 import { CivilRecordsPage } from "./pages/hubs/CivilRecordsPage";
 import { EducationPage } from "./pages/hubs/EducationPage";
@@ -111,6 +112,7 @@ export const ROUTES: readonly CitizenRoute[] = [
   { path: "/help", render: () => <HelpPage />, public: true },
   { path: "/menu", render: () => <MenuPage /> },
   { path: "/verify", render: () => <VerifyPage />, public: true },
+  { path: "/how-to-tell", render: () => <HowToTellPage />, public: true },
 ];
 
 /** True when `href` (a path) has a page, so links to pages that do not exist are not shown. */

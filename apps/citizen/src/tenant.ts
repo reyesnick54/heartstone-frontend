@@ -1,18 +1,40 @@
-// TODO(tenant config): branding and the official-website statement come from the deployment's
-// tenant configuration, not from code. These placeholders keep the shell honest: no government,
-// agency or programme is named until that wording is approved.
-export const TENANT_PLACEHOLDER = {
-  productName: "HeartStone",
-  officialStatement: "[OFFICIAL WEBSITE STATEMENT — set by tenant configuration]",
-  officialInfoHref: "#official-sites",
+// Tenant configuration for this deployment: Antigua and Barbuda Special Economic Zone (ABSEZ),
+// the first HeartStone tenant. Everything that names a government, programme or contact lives
+// here, never in shared packages. The ABSEZ wording and crest are authorised by ABSEZ (confirmed
+// by the product owner, November 2026).
+import type { TenantBranding } from "@heartstone/ui";
+
+/** Logo files are in public/brand/ (optimised copies of design/brand/logo/). */
+export const TENANT = {
+  displayName: "ABSEZ e-Gov Platform",
+  lockup: {
+    onLight: { src: "/brand/absez-lockup.png", width: 553, height: 160 },
+    onDark: { src: "/brand/absez-lockup-light.png", width: 553, height: 160 },
+    alt: "ABSEZ e-Gov Platform",
+  },
+  crest: {
+    src: "/brand/absez-crest.png",
+    width: 140,
+    height: 160,
+    alt: "Coat of arms of Antigua and Barbuda",
+  },
+  officialStatement: "An official website of the Government of Antigua and Barbuda",
+  howToTellHref: "/how-to-tell",
+  /**
+   * The address of the official public site, shown on "How to tell this site is official".
+   * The ABSEZ site is absez.org.
+   */
+  officialSiteAddress: "absez.org",
+  // Placeholder until the public number is confirmed: shown as text, not linked.
+  contactPhone: { display: "[PHONE]" },
+  environmentNotice: "Development build. Not a live government service.",
   /** Name of the national digital ID used to sign in. */
   digitalIdName: "your digital ID",
-  /** Service-adviser phone line and hours shown on Help. */
-  supportPhone: "[SUPPORT PHONE — set by tenant configuration]",
+  /** Service-adviser hours shown on Help. */
   supportHours: "[SUPPORT HOURS — set by tenant configuration]",
-  /** Emergency phone number shown on Public safety. */
-  emergencyNumber: "[EMERGENCY NUMBER — set by tenant configuration]",
-} as const;
+  /** Emergency phone number shown on Public safety and in the website footer. */
+  emergencyNumber: "911",
+} as const satisfies TenantBranding & Record<string, unknown>;
 
 /** Language and formatting for this deployment. */
 export const LOCALE = {
@@ -35,5 +57,5 @@ export const LOCALE_CURRENCY = "XCD";
  */
 export const LAUNCH = {
   isLiveService: false,
-  notLiveNotice: "Development build. Not a live government service.",
+  notLiveNotice: TENANT.environmentNotice,
 } as const;

@@ -1,6 +1,6 @@
 import { useEffect, type ReactNode } from "react";
 import { PageHeader, Stack } from "@heartstone/ui";
-import { TENANT_PLACEHOLDER } from "../tenant";
+import { TENANT } from "../tenant";
 
 export interface PageProps {
   /** The page's single h1. Plain text, also used for the document title. */
@@ -14,7 +14,7 @@ export interface PageProps {
 /** Every routed page: one h1 (PageHeader), the document title, and the page body. */
 export function Page({ title, description, eyebrow, actions, children }: PageProps) {
   useEffect(() => {
-    document.title = `${title} — ${TENANT_PLACEHOLDER.productName}`;
+    document.title = `${title} — ${TENANT.displayName}`;
   }, [title]);
   return (
     <>

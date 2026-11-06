@@ -4,6 +4,21 @@
   color: var(--hs-color-text);
 }
 
+.workstation-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--hs-space-3) var(--hs-space-5);
+  padding: var(--hs-space-3) var(--hs-space-8);
+  border-bottom: 1px solid var(--hs-color-border);
+  background: var(--hs-color-nav-bg);
+}
+
+.workstation-name {
+  color: var(--hs-color-nav-text);
+  font-weight: var(--hs-font-weight-semibold);
+}
+
 .workstation-main {
   max-width: var(--hs-layout-content-max);
   padding: var(--hs-space-8);
@@ -14,6 +29,10 @@
 }
 
 @media (max-width: 899.98px) {
+  .workstation-header {
+    padding-inline: var(--hs-space-4);
+  }
+
   .workstation-main {
     padding: var(--hs-space-5) var(--hs-space-4);
   }
