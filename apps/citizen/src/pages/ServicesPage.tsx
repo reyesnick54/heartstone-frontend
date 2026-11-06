@@ -1,5 +1,7 @@
-// Find a service (design: Services.html). Browsing uses GET /experience/citizen/services;
-// "describe what you need" uses POST /experience/citizen/services/match (rule-based, no AI).
+// Find a service (designs: Services.html, website PublicServices.html). Signed in (`account`):
+// GET /experience/citizen/services and POST /experience/citizen/services/match. On the public
+// website (`public`): GET /public/services and POST /public/services/match. Matching is
+// rule-based, no AI. Both show only what the backend returns, with honest empty states.
 import { useState } from "react";
 import { unwrap } from "@heartstone/api-client";
 import { useApi } from "@heartstone/api-client/react";
@@ -18,14 +20,29 @@ import { Page } from "../components/Page";
 import { QueryView } from "../components/QueryView";
 import type { ServiceSummary } from "../lib/api-types";
 import { formatDate } from "../lib/format";
-import { paths } from "../lib/paths";
+import { paths, site } from "../lib/paths";
 import { useQuery } from "../lib/query";
 import { availabilityText } from "../lib/services";
 import { useNavigate, useSearchParams } from "../router/router";
 
 const PAGE_SIZE = 20;
 
-function ServiceList({ items, label }: { items: readonly ServiceSummary[]; label: string }) {
+export type ServicesArea = "public" | "account";
+
+/** Where a service's page is, for the area the visitor is in. */
+export function serviceHref(area: ServicesArea, slug: string): string {
+  return area === "public" ? site.service(slug) : paths.service(slug);
+}
+
+export function ServiceList({
+  items,
+  label,
+  area,
+}: {
+  items: readonly ServiceSummary[];
+  label: string;
+  area: ServicesArea;
+}) {
   return (
     <ItemList
       label={label}
@@ -34,7 +51,7 @@ function ServiceList({ items, label }: { items: readonly ServiceSummary[]; label
         return {
           id: s.serviceId,
           title: s.publicName,
-          href: paths.service(s.slug),
+          href: serviceHref(area, s.slug),
           description: s.plainLanguagePurpose,
           meta: [
             s.responsibleDepartmentDisplayName,
@@ -58,7 +75,7 @@ function ServiceList({ items, label }: { items: readonly ServiceSummary[]; label
   );
 }
 
-export function ServicesPage() {
+export function ServicesPage({ area }: { area: ServicesArea }) {
   const client = useApi();
   const navigate = useNavigate();
   const params = useSearchParams();
@@ -70,17 +87,18 @@ export function ServicesPage() {
   const families = useQuery("service-families", (signal) =>
     unwrap(client.GET("/public/service-families", { signal })),
   );
-  const matches = useQuery(q ? `match:${q}` : null, (signal) =>
-    unwrap(client.POST("/experience/citizen/services/match", { body: { query: q }, signal })),
+  const matches = useQuery(q ? `match:${area}:${q}` : null, (signal) =>
+    area === "public"
+      ? unwrap(client.POST("/public/services/match", { body: { query: q }, signal }))
+      : unwrap(client.POST("/experience/citizen/services/match", { body: { query: q }, signal })),
   );
-  const list = useQuery(q ? null : `services:${family}:${page}`, (signal) =>
-    unwrap(
-      client.GET("/experience/citizen/services", {
-        params: { query: { page, limit: PAGE_SIZE, ...(family ? { family } : {}) } },
-        signal,
-      }),
-    ),
-  );
+  const list = useQuery(q ? null : `services:${area}:${family}:${page}`, (signal) => {
+    const query = { page, limit: PAGE_SIZE, ...(family ? { family } : {}) };
+    return area === "public"
+      ? unwrap(client.GET("/public/services", { params: { query }, signal }))
+      : unwrap(client.GET("/experience/citizen/services", { params: { query }, signal }));
+  });
+  const base = area === "public" ? site.services : paths.services;
 
   function go(next: { q?: string; family?: string; page?: number }) {
     const search = new URLSearchParams();
@@ -88,7 +106,7 @@ export function ServicesPage() {
     if (next.family) search.set("family", next.family);
     if (next.page && next.page > 1) search.set("page", String(next.page));
     const query = search.toString();
-    navigate(`${paths.services}${query ? `?${query}` : ""}`);
+    navigate(`${base}${query ? `?${query}` : ""}`);
   }
 
   return (
@@ -165,7 +183,7 @@ export function ServicesPage() {
                     }
                   />
                 ) : (
-                  <ServiceList items={items} label="Matching services" />
+                  <ServiceList items={items} label="Matching services" area={area} />
                 )}
               </>
             )}
@@ -190,7 +208,7 @@ export function ServicesPage() {
                     description="Services appear here when an office publishes them."
                   />
                 ) : (
-                  <ServiceList items={data.items} label="Services" />
+                  <ServiceList items={data.items} label="Services" area={area} />
                 )}
                 {data.totalPages > 1 && (
                   <nav aria-label="Pages of services" className="pager">

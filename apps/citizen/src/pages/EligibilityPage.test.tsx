@@ -11,7 +11,7 @@ const base = [
 describe("Eligibility", () => {
   it("asks the service's rules, sends the answers, and shows the non-binding result", async () => {
     const user = userEvent.setup();
-    const { mutations } = renderAt("/services/register-employer/eligibility", [
+    const { mutations } = renderAt("/dashboard/services/register-employer/eligibility", [
       ...base,
       on("POST", "/experience/citizen/services/register-employer/eligibility", () =>
         json(
@@ -47,7 +47,7 @@ describe("Eligibility", () => {
 
   it("explains a failed check without retrying it", async () => {
     const user = userEvent.setup();
-    const { mutations } = renderAt("/services/register-employer/eligibility", [
+    const { mutations } = renderAt("/dashboard/services/register-employer/eligibility", [
       ...base,
       on("POST", "/experience/citizen/services/register-employer/eligibility", () =>
         json({ statusCode: 500, message: "x" }, 500),

@@ -13,9 +13,9 @@ import {
   StatGrid,
   StatTile,
   Stack,
-  StatusBadge,
   TextField,
 } from "@heartstone/ui";
+import { AccountAssuranceNotice } from "../components/AccountAssurance";
 import { Disclaimer } from "../components/Disclaimer";
 import { Page } from "../components/Page";
 import { QueryView } from "../components/QueryView";
@@ -190,7 +190,7 @@ export function HomePage() {
                   />
                 </Card>
               )}
-              <IdentityCard />
+              <AccountAssuranceNotice />
               <Card title="My government" titleLevel={2}>
                 <p className="card-lead">Everything government holds about you, in one place.</p>
                 <ItemList
@@ -209,21 +209,5 @@ export function HomePage() {
         }}
       </QueryView>
     </Page>
-  );
-}
-
-function IdentityCard() {
-  const me = useMe();
-  if (me.status !== "success") return null;
-  const { accountAssurance } = me.data;
-  return (
-    <Card title="Identity assurance" titleLevel={2}>
-      <Stack gap="2">
-        <p>
-          Level: <StatusBadge status={accountAssurance.assuranceLevel} tone="info" />
-        </p>
-        <p className="muted">{accountAssurance.assuranceNote}</p>
-      </Stack>
-    </Card>
   );
 }

@@ -1,52 +1,92 @@
 // In-app URLs, and the mapping from backend deep links (`DeepLinkDto.route`) to them.
 const enc = encodeURIComponent;
 
+/** Prefix of the signed-in area. Everything under it needs a session. */
+export const DASHBOARD = "/dashboard";
+const d = (path = "") => `${DASHBOARD}${path}`;
+
+/** Signed-in pages (the dashboard). */
 export const paths = {
-  home: "/",
-  services: "/services",
-  service: (slug: string) => `/services/${enc(slug)}`,
-  eligibility: (slug: string) => `/services/${enc(slug)}/eligibility`,
+  home: d(),
+  services: d("/services"),
+  service: (slug: string) => d(`/services/${enc(slug)}`),
+  eligibility: (slug: string) => d(`/services/${enc(slug)}/eligibility`),
   apply: (slug: string, applicationId?: string) =>
-    `/services/${enc(slug)}/apply${applicationId ? `?application=${enc(applicationId)}` : ""}`,
+    d(`/services/${enc(slug)}/apply${applicationId ? `?application=${enc(applicationId)}` : ""}`),
   review: (slug: string, applicationId: string) =>
-    `/services/${enc(slug)}/review?application=${enc(applicationId)}`,
-  submitted: (applicationId: string) => `/applications/${enc(applicationId)}/submitted`,
-  applications: "/applications",
-  application: (id: string) => `/applications/${enc(id)}`,
-  caseStatus: (caseId: string) => `/cases/${enc(caseId)}`,
-  appointments: "/appointments",
-  appointment: (id: string) => `/appointments/${enc(id)}`,
-  documents: "/documents",
-  document: (id: string) => `/documents/${enc(id)}`,
-  credentials: "/credentials",
-  credential: (id: string) => `/credentials/${enc(id)}`,
-  payments: "/payments",
-  invoice: (id: string) => `/payments/${enc(id)}`,
+    d(`/services/${enc(slug)}/review?application=${enc(applicationId)}`),
+  submitted: (applicationId: string) => d(`/applications/${enc(applicationId)}/submitted`),
+  applications: d("/applications"),
+  application: (id: string) => d(`/applications/${enc(id)}`),
+  caseStatus: (caseId: string) => d(`/cases/${enc(caseId)}`),
+  appointments: d("/appointments"),
+  appointment: (id: string) => d(`/appointments/${enc(id)}`),
+  documents: d("/documents"),
+  document: (id: string) => d(`/documents/${enc(id)}`),
+  credentials: d("/credentials"),
+  credential: (id: string) => d(`/credentials/${enc(id)}`),
+  payments: d("/payments"),
+  invoice: (id: string) => d(`/payments/${enc(id)}`),
   receipt: (invoiceId: string, receiptId: string) =>
-    `/payments/${enc(invoiceId)}/receipts/${enc(receiptId)}`,
-  messages: "/messages",
-  message: (id: string) => `/messages/${enc(id)}`,
-  renewals: "/renewals",
-  appeals: "/appeals",
-  requestReview: "/appeals/request",
-  work: "/work",
-  immigration: "/immigration",
-  tax: "/tax",
-  property: "/property",
-  vehicles: "/vehicles",
-  health: "/health",
-  benefits: "/benefits",
-  education: "/education",
-  civilRecords: "/civil-records",
-  publicSafety: "/public-safety",
-  representation: "/representation",
-  profile: "/profile",
-  settings: "/settings",
-  help: "/help",
-  menu: "/menu",
+    d(`/payments/${enc(invoiceId)}/receipts/${enc(receiptId)}`),
+  messages: d("/messages"),
+  message: (id: string) => d(`/messages/${enc(id)}`),
+  renewals: d("/renewals"),
+  appeals: d("/appeals"),
+  requestReview: d("/appeals/request"),
+  work: d("/work"),
+  immigration: d("/immigration"),
+  tax: d("/tax"),
+  property: d("/property"),
+  vehicles: d("/vehicles"),
+  health: d("/health"),
+  benefits: d("/benefits"),
+  education: d("/education"),
+  civilRecords: d("/civil-records"),
+  publicSafety: d("/public-safety"),
+  representation: d("/representation"),
+  profile: d("/profile"),
+  settings: d("/settings"),
+  help: d("/help"),
+  menu: d("/menu"),
+  /** Public pages, also linked from the dashboard. */
   verify: "/verify",
   howToTell: "/how-to-tell",
 } as const;
+
+/** Public website pages: reachable signed in or out. */
+export const site = {
+  home: "/",
+  services: "/services",
+  service: (slug: string) => `/services/${enc(slug)}`,
+  servicesSearch: (q: string) => `/services?q=${enc(q)}`,
+  topics: "/topics",
+  topic: (code: string) => `/topics/${enc(code)}`,
+  individuals: "/individuals",
+  business: "/business",
+  lifeEvents: "/life-events",
+  officials: "/officials",
+  digitalId: "/digital-id",
+  signIn: "/sign-in",
+  signInHelp: "/sign-in-help",
+  signedOut: "/signed-out",
+  help: "/help",
+  contact: "/contact",
+  offices: "/offices",
+  status: "/status",
+  scam: "/report-a-scam",
+  about: "/about",
+  accessibility: "/accessibility",
+  privacy: "/privacy",
+  terms: "/terms",
+  verify: "/verify",
+  howToTell: "/how-to-tell",
+} as const;
+
+/** True for paths in the signed-in area. */
+export function isDashboardPath(pathname: string): boolean {
+  return pathname === DASHBOARD || pathname.startsWith(`${DASHBOARD}/`);
+}
 
 /**
  * Turns a backend deep link into an in-app path. Unknown routes return undefined, so the item is

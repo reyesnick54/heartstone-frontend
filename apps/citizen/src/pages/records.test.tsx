@@ -27,7 +27,7 @@ const page = (items: unknown[]) => ({
 
 describe("Applications", () => {
   it("lists applications with the backend's public status, and links drafts back to the form", async () => {
-    renderAt("/applications", [
+    renderAt("/dashboard/applications", [
       on("GET", "/experience/citizen/applications", () =>
         json(
           page([
@@ -47,17 +47,17 @@ describe("Applications", () => {
     expect(items[0]).toHaveTextContent("Received");
     expect(within(items[0] as HTMLElement).getByRole("link")).toHaveAttribute(
       "href",
-      `/applications/${draftId}`,
+      `/dashboard/applications/${draftId}`,
     );
     expect(within(items[1] as HTMLElement).getByRole("link")).toHaveAttribute(
       "href",
-      "/services/register-employer/apply?application=a2",
+      "/dashboard/services/register-employer/apply?application=a2",
     );
     expect(items[1]).toHaveTextContent("Draft");
   });
 
   it("shows an empty state", async () => {
-    renderAt("/applications", [
+    renderAt("/dashboard/applications", [
       on("GET", "/experience/citizen/applications", () => json(page([]))),
     ]);
     expect(
@@ -66,7 +66,7 @@ describe("Applications", () => {
   });
 
   it("explains forbidden", async () => {
-    renderAt("/applications", [
+    renderAt("/dashboard/applications", [
       on("GET", "/experience/citizen/applications", () =>
         json({ statusCode: 403, message: "Forbidden" }, 403),
       ),
@@ -78,7 +78,7 @@ describe("Applications", () => {
 describe("Application detail", () => {
   it("shows the case timeline from the backend's milestones, related invoices and acting-as", async () => {
     renderAt(
-      `/applications/${draftId}`,
+      `/dashboard/applications/${draftId}`,
       [
         on("GET", `/experience/citizen/applications/${draftId}`, () =>
           json(
@@ -103,7 +103,7 @@ describe("Application detail", () => {
     expect(screen.getByText("Inspection proposed")).toBeInTheDocument();
     expect(await screen.findByRole("link", { name: "Invoice INV-2026-018204" })).toHaveAttribute(
       "href",
-      "/payments/88888888-8888-4888-8888-888888888888",
+      "/dashboard/payments/88888888-8888-4888-8888-888888888888",
     );
     expect(screen.getByText("Paying a fee does not decide your application.")).toBeInTheDocument();
     expect(screen.getByText(/are acting for/)).toHaveTextContent("Example Catering Ltd");
@@ -112,21 +112,21 @@ describe("Application detail", () => {
   });
 
   it("shows not found with a way back", async () => {
-    renderAt("/applications/nope", [
+    renderAt("/dashboard/applications/nope", [
       on("GET", "/experience/citizen/applications/nope", () =>
         json({ statusCode: 404, message: "Not found" }, 404),
       ),
     ]);
     expect(await screen.findByRole("link", { name: "Your applications" })).toHaveAttribute(
       "href",
-      "/applications",
+      "/dashboard/applications",
     );
   });
 });
 
 describe("Appointments", () => {
   it("splits upcoming and past and states that booking is not approval", async () => {
-    renderAt("/appointments", [
+    renderAt("/dashboard/appointments", [
       on("GET", "/experience/citizen/appointments", () =>
         json(
           page([
@@ -153,7 +153,7 @@ describe("Appointments", () => {
   it("confirms once and shows the backend's new status", async () => {
     const user = userEvent.setup();
     let confirmed = false;
-    const { mutations } = renderAt("/appointments/77777777-7777-4777-8777-777777777777", [
+    const { mutations } = renderAt("/dashboard/appointments/77777777-7777-4777-8777-777777777777", [
       on("GET", "/experience/citizen/appointments/77777777-7777-4777-8777-777777777777", () =>
         json(
           appointmentDetail(confirmed ? { status: "CONFIRMED", availableActions: ["VIEW"] } : {}),
@@ -184,7 +184,7 @@ describe("Appointments", () => {
 
   it("validates and sends a reschedule request", async () => {
     const user = userEvent.setup();
-    const { mutations } = renderAt("/appointments/77777777-7777-4777-8777-777777777777", [
+    const { mutations } = renderAt("/dashboard/appointments/77777777-7777-4777-8777-777777777777", [
       on("GET", "/experience/citizen/appointments/77777777-7777-4777-8777-777777777777", () =>
         json(appointmentDetail()),
       ),
@@ -217,7 +217,7 @@ describe("Appointments", () => {
 
   it("cancels after confirming in a dialog", async () => {
     const user = userEvent.setup();
-    const { mutations } = renderAt("/appointments/77777777-7777-4777-8777-777777777777", [
+    const { mutations } = renderAt("/dashboard/appointments/77777777-7777-4777-8777-777777777777", [
       on("GET", "/experience/citizen/appointments/77777777-7777-4777-8777-777777777777", () =>
         json(appointmentDetail()),
       ),
@@ -240,7 +240,7 @@ describe("Appointments", () => {
   });
 
   it("only offers the actions the backend allows", async () => {
-    renderAt("/appointments/x", [
+    renderAt("/dashboard/appointments/x", [
       on("GET", "/experience/citizen/appointments/x", () =>
         json(appointmentDetail({ status: "REQUESTED", availableActions: ["VIEW", "CANCEL"] })),
       ),
@@ -252,7 +252,7 @@ describe("Appointments", () => {
 
   it("explains a safe halt on confirm", async () => {
     const user = userEvent.setup();
-    renderAt("/appointments/77777777-7777-4777-8777-777777777777", [
+    renderAt("/dashboard/appointments/77777777-7777-4777-8777-777777777777", [
       on("GET", "/experience/citizen/appointments/77777777-7777-4777-8777-777777777777", () =>
         json(appointmentDetail()),
       ),
@@ -269,7 +269,7 @@ describe("Appointments", () => {
 
 describe("Documents", () => {
   it("says upload is not verification and shows the backend's check status", async () => {
-    renderAt("/documents", [
+    renderAt("/dashboard/documents", [
       on("GET", "/experience/citizen/documents", () => json([documentSummary()])),
     ]);
     expect(
@@ -285,7 +285,7 @@ describe("Documents", () => {
   });
 
   it("shows a document's recorded checks and a same-origin download", async () => {
-    renderAt("/documents/doc-1", [
+    renderAt("/dashboard/documents/doc-1", [
       on("GET", "/experience/citizen/documents/doc-1", () =>
         json({
           ...documentSummary(),
@@ -308,7 +308,7 @@ describe("Documents", () => {
 
 describe("Credentials", () => {
   it("lists credentials without the gold official mark", async () => {
-    renderAt("/credentials", [
+    renderAt("/dashboard/credentials", [
       on("GET", "/experience/citizen/credentials", () =>
         json([
           credential(),
@@ -323,7 +323,7 @@ describe("Credentials", () => {
   });
 
   it("shows gold only when the backend's verification is current and cryptographically passed", async () => {
-    renderAt("/credentials/99999999-9999-4999-8999-999999999999", [
+    renderAt("/dashboard/credentials/99999999-9999-4999-8999-999999999999", [
       on("GET", "/experience/citizen/credentials/99999999-9999-4999-8999-999999999999", () =>
         json(credential()),
       ),
@@ -346,7 +346,7 @@ describe("Credentials", () => {
   });
 
   it("does not show gold when cryptographic verification has not passed", async () => {
-    renderAt("/credentials/99999999-9999-4999-8999-999999999999", [
+    renderAt("/dashboard/credentials/99999999-9999-4999-8999-999999999999", [
       on("GET", "/experience/citizen/credentials/99999999-9999-4999-8999-999999999999", () =>
         json(credential()),
       ),
@@ -368,7 +368,7 @@ describe("Credentials", () => {
 
 describe("Payments", () => {
   it("lists invoices with pay and receipt links, stating payment is not approval", async () => {
-    renderAt("/payments", [
+    renderAt("/dashboard/payments", [
       on("GET", "/experience/citizen/payments", () =>
         json([
           invoice(),
@@ -388,14 +388,14 @@ describe("Payments", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Receipt RCT-1" })).toHaveAttribute(
       "href",
-      "/payments/paid-1/receipts/r1",
+      "/dashboard/payments/paid-1/receipts/r1",
     );
     expect(screen.getByRole("heading", { name: "Payment is not approval" })).toBeInTheDocument();
   });
 
   it("creates one payment intent and never claims the payment or the application succeeded", async () => {
     const user = userEvent.setup();
-    const { mutations } = renderAt("/payments/88888888-8888-4888-8888-888888888888", [
+    const { mutations } = renderAt("/dashboard/payments/88888888-8888-4888-8888-888888888888", [
       on("GET", "/experience/citizen/payments/88888888-8888-4888-8888-888888888888", () =>
         json(invoice()),
       ),
@@ -430,7 +430,7 @@ describe("Payments", () => {
   it("does not retry a payment intent after a network failure", async () => {
     const user = userEvent.setup();
     let posts = 0;
-    renderAt("/payments/88888888-8888-4888-8888-888888888888", [
+    renderAt("/dashboard/payments/88888888-8888-4888-8888-888888888888", [
       on("GET", "/experience/citizen/payments/88888888-8888-4888-8888-888888888888", () =>
         json(invoice()),
       ),
@@ -449,7 +449,7 @@ describe("Payments", () => {
   });
 
   it("shows a receipt from the invoice's receipts", async () => {
-    renderAt("/payments/88888888-8888-4888-8888-888888888888/receipts/r1", [
+    renderAt("/dashboard/payments/88888888-8888-4888-8888-888888888888/receipts/r1", [
       on("GET", "/experience/citizen/payments/88888888-8888-4888-8888-888888888888", () =>
         json(
           invoice({
@@ -472,7 +472,7 @@ describe("Payments", () => {
 
 describe("Messages", () => {
   it("lists messages and filters those not yet acknowledged", async () => {
-    renderAt("/messages", [
+    renderAt("/dashboard/messages", [
       on("GET", "/experience/citizen/messages", () =>
         json([message(), message({ id: "m2", subject: "Decision", acknowledged: true })]),
       ),
@@ -485,7 +485,7 @@ describe("Messages", () => {
 
   it("acknowledges once and shows the backend's receipt time", async () => {
     const user = userEvent.setup();
-    const { mutations } = renderAt("/messages/msg-1", [
+    const { mutations } = renderAt("/dashboard/messages/msg-1", [
       on("GET", "/experience/citizen/messages/msg-1", () => json(message())),
       on("POST", "/experience/citizen/messages/msg-1/acknowledge", () =>
         json(
@@ -508,14 +508,14 @@ describe("Messages", () => {
   });
 
   it("loading is announced", async () => {
-    renderAt("/messages", [on("GET", "/experience/citizen/messages", never)]);
+    renderAt("/dashboard/messages", [on("GET", "/experience/citizen/messages", never)]);
     expect(await screen.findByText("Loading your messages")).toBeInTheDocument();
   });
 });
 
 describe("Renewals", () => {
   it("groups ready and coming-up renewals with the backend's next step", async () => {
-    renderAt("/renewals", [
+    renderAt("/dashboard/renewals", [
       on("GET", "/experience/citizen/renewals", () =>
         json([
           {
@@ -553,7 +553,7 @@ describe("Renewals", () => {
 
 describe("Appeals", () => {
   it("is an honest 'not available yet' page with no form", async () => {
-    renderAt("/appeals/request", []);
+    renderAt("/dashboard/appeals/request", []);
     expect(
       await screen.findByRole("heading", { level: 1, name: "Request a review of a decision" }),
     ).toBeInTheDocument();

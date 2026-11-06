@@ -4,7 +4,7 @@ import { serviceDetail } from "../test/fixtures";
 
 describe("Service detail", () => {
   it("shows the backend's stages, fees (with payment-is-not-approval), outputs and redress", async () => {
-    renderAt("/services/register-employer", [
+    renderAt("/dashboard/services/register-employer", [
       on("GET", "/experience/citizen/services/register-employer", () => json(serviceDetail)),
     ]);
     expect(
@@ -20,16 +20,16 @@ describe("Service detail", () => {
     expect(screen.getByText("Reconsideration")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Start application" })).toHaveAttribute(
       "href",
-      "/services/register-employer/apply",
+      "/dashboard/services/register-employer/apply",
     );
     expect(screen.getByRole("link", { name: "Check if you can apply" })).toHaveAttribute(
       "href",
-      "/services/register-employer/eligibility",
+      "/dashboard/services/register-employer/eligibility",
     );
   });
 
   it("does not offer to apply for an information-only service", async () => {
-    renderAt("/services/info", [
+    renderAt("/dashboard/services/info", [
       on("GET", "/experience/citizen/services/info", () =>
         json({
           ...serviceDetail,
@@ -45,7 +45,7 @@ describe("Service detail", () => {
   });
 
   it("explains not found with a way back", async () => {
-    renderAt("/services/missing", [
+    renderAt("/dashboard/services/missing", [
       on("GET", "/experience/citizen/services/missing", () =>
         json({ statusCode: 404, message: "Public service 'missing' was not found" }, 404),
       ),
@@ -55,7 +55,7 @@ describe("Service detail", () => {
     ) as HTMLElement;
     expect(within(notice).getByRole("link", { name: "Find a service" })).toHaveAttribute(
       "href",
-      "/services",
+      "/dashboard/services",
     );
   });
 });

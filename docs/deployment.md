@@ -212,7 +212,8 @@ The gateway works with any OIDC provider through discovery. For Keycloak, per ap
 5. **Self-registration ("Get a digital ID" → `/auth/register`):** Realm settings → Login → **User
    registration** on, **Verify email** on (and the realm's SMTP settings filled in), so a new
    account proves its email before it can sign in. Without User registration, Keycloak answers the
-   registrations URL with an error page. The backend provider entry must also enable
+   registrations URL with an error page. Also turn on **Forgot password**: the website's "Help
+   with signing in" page tells people to use it. The backend provider entry must also enable
    `provisioning.citizenSelfService` (below), or the new account gets "We could not find your
    account". Only enable this on the citizen client's realm.
 6. **Hostname:** the issuer in tokens must equal `OIDC_ISSUER` and the backend's `issuer`, so fix

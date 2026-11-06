@@ -28,6 +28,27 @@ export const TENANT = {
   // Placeholder until the public number is confirmed: shown as text, not linked.
   contactPhone: { display: "[PHONE]" },
   environmentNotice: "Development build. Not a live government service.",
+  /** One line under the logo in the website footer. */
+  siteTagline: "The digital front door to government services in Antigua and Barbuda.",
+  /** Ownership line at the foot of every website page. */
+  copyright: "© Government of Antigua and Barbuda",
+  /**
+   * Shortcuts under the homepage search. Each runs a real search of the service catalogue (or
+   * opens a signed-in page); none is a promise that a service exists.
+   */
+  quickLinks: [
+    { label: "Register a business", search: "register a business" },
+    { label: "Work permit", search: "work permit" },
+    { label: "Birth certificate", search: "birth certificate" },
+    { label: "Pay a fee", href: "/dashboard/payments" },
+  ],
+  /**
+   * The government officials' workstation for each host this site is served on. A host that is
+   * not listed shows "ask your department" instead of a link.
+   */
+  workstationUrlByHost: {
+    "staging.heartstone.site": "https://staging-gov.heartstone.site",
+  },
   /** Name of the national digital ID used to sign in. */
   digitalIdName: "your digital ID",
   /** Service-adviser hours shown on Help. */
@@ -35,6 +56,15 @@ export const TENANT = {
   /** Emergency phone number shown on Public safety and in the website footer. */
   emergencyNumber: "911",
 } as const satisfies TenantBranding & Record<string, unknown>;
+
+export type QuickLink = (typeof TENANT.quickLinks)[number];
+
+/** The officials' workstation address for the host this page is served on, if configured. */
+export function workstationUrl(): string | undefined {
+  if (typeof window === "undefined") return undefined;
+  const byHost: Readonly<Record<string, string>> = TENANT.workstationUrlByHost;
+  return byHost[window.location.hostname];
+}
 
 /** Language and formatting for this deployment. */
 export const LOCALE = {

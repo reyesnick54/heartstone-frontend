@@ -7,7 +7,7 @@ const fail = (path: string) => on("GET", path, () => json({ statusCode: 500, mes
 
 describe("Work & employment", () => {
   it("shows permits, employers, worker record and backend actions; one failing source does not hide the rest", async () => {
-    renderAt("/work", [
+    renderAt("/dashboard/work", [
       on("GET", "/experience/citizen/employment", () =>
         json({
           profileReferenceNumber: "WRK-1",
@@ -72,7 +72,7 @@ describe("Work & employment", () => {
 
 describe("Immigration", () => {
   it("shows the backend's status label and empty sections", async () => {
-    renderAt("/immigration", [
+    renderAt("/dashboard/immigration", [
       on("GET", "/experience/citizen/immigration", () =>
         json({
           packId: "p",
@@ -106,7 +106,7 @@ describe("Immigration", () => {
 
 describe("Health", () => {
   it("lists programmes and recruiting studies, says it is not the medical record, and has no consent form", async () => {
-    renderAt("/health", [
+    renderAt("/dashboard/health", [
       on("GET", "/experience/citizen/healthcare", () =>
         json({
           disclaimer: "Health disclaimer.",
@@ -179,7 +179,7 @@ describe("Health", () => {
 
 describe("Civil records", () => {
   it("links registry actions to their services", async () => {
-    renderAt("/civil-records", [
+    renderAt("/dashboard/civil-records", [
       on("GET", "/experience/citizen/civil-status", () =>
         json({
           identityId: "identity-1",
@@ -218,13 +218,13 @@ describe("Civil records", () => {
     expect(await screen.findByText("Birth record")).toBeInTheDocument();
     expect(
       await screen.findByRole("link", { name: "Request a birth certificate" }),
-    ).toHaveAttribute("href", "/services/birth-certificate");
+    ).toHaveAttribute("href", "/dashboard/services/birth-certificate");
   });
 });
 
 describe("Public safety", () => {
   it("tells people to call in an emergency, using the tenant's number", async () => {
-    renderAt("/public-safety", [
+    renderAt("/dashboard/public-safety", [
       on("GET", "/experience/citizen/public-safety", never),
       on("GET", "/experience/citizen/public-safety/emergency-events", () =>
         json({ disclaimer: "d", items: [] }),
@@ -241,7 +241,7 @@ describe("Public safety", () => {
 
 describe("Account pages", () => {
   it("shows the profile from /me and that changes are not available yet", async () => {
-    renderAt("/profile", []);
+    renderAt("/dashboard/profile", []);
     expect(
       await screen.findByRole("heading", { level: 1, name: "Profile and identity" }),
     ).toBeInTheDocument();
@@ -252,7 +252,7 @@ describe("Account pages", () => {
   });
 
   it("shows contact preferences read-only, with no save button", async () => {
-    renderAt("/settings", []);
+    renderAt("/dashboard/settings", []);
     expect(
       await screen.findByText("Changing these settings online is not available yet"),
     ).toBeInTheDocument();
@@ -260,7 +260,7 @@ describe("Account pages", () => {
   });
 
   it("lists representations with scope and expiry", async () => {
-    renderAt("/representation", [], { me: representingMe });
+    renderAt("/dashboard/representation", [], { me: representingMe });
     const list = await screen.findByRole("list", { name: "Organisations you can act for" });
     expect(list).toHaveTextContent("Example Catering Ltd");
     expect(list).toHaveTextContent("licences and filings");
@@ -271,7 +271,7 @@ describe("Account pages", () => {
 describe("Menu (mobile More)", () => {
   it("lists every area, shows acting-as, and signs out", async () => {
     const user = userEvent.setup();
-    renderAt("/menu", [], { me: representingMe });
+    renderAt("/dashboard/menu", [], { me: representingMe });
     expect(await screen.findByRole("heading", { level: 1, name: "Menu" })).toBeInTheDocument();
     const main = screen.getByRole("main");
     expect(within(main).getByRole("list", { name: "My government" })).toHaveTextContent(
@@ -292,7 +292,10 @@ describe("Menu (mobile More)", () => {
       "page",
     );
     await user.click(within(screen.getByRole("main")).getByRole("button", { name: "Sign out" }));
-    expect(await screen.findByRole("link", { name: "Sign in" })).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "You've signed out" }),
+    ).toBeInTheDocument();
+    expect(window.location.pathname).toBe("/signed-out");
   });
 });
 
@@ -300,6 +303,8 @@ describe("Help", () => {
   it("is public and uses the tenant's contact details", async () => {
     renderAt("/help", [], { signedIn: false });
     expect(await screen.findByRole("heading", { level: 1, name: "Help" })).toBeInTheDocument();
-    expect(screen.getByText(TENANT.contactPhone.display)).toBeInTheDocument();
+    expect(
+      within(screen.getByRole("main")).getByText(TENANT.contactPhone.display),
+    ).toBeInTheDocument();
   });
 });
