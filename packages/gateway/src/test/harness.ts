@@ -120,7 +120,10 @@ export function fakeFetch(fakes: Fakes) {
       body: request.body ? await request.text() : "",
     };
     fakes.calls.push(recorded);
-    if (request.url === `${ISSUER}/.well-known/openid-configuration`) return json(fakes.discovery);
+    const discoveryUrls = [ISSUER, String(fakes.discovery["issuer"])].map(
+      (issuer) => `${issuer}/.well-known/openid-configuration`,
+    );
+    if (discoveryUrls.includes(request.url)) return json(fakes.discovery);
     if (request.url === fakes.discovery["token_endpoint"]) {
       return fakes.token(new URLSearchParams(recorded.body), recorded);
     }

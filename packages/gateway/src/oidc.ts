@@ -114,6 +114,29 @@ export function buildAuthorizationUrl(
   return url.toString();
 }
 
+/**
+ * The provider's self-registration URL for a sign-in request built by `buildAuthorizationUrl`.
+ * Keycloak (an issuer path containing `/realms/`) serves registration at
+ * `…/protocol/openid-connect/registrations`, taking the same query parameters as `…/auth`. Any
+ * other provider gets the authorization endpoint with `prompt=create` (OpenID Connect Prompt
+ * Create), which providers that do not support it ignore, showing their normal sign-in page.
+ */
+export function toRegistrationUrl(authorizationUrl: string, issuer: string): string {
+  const url = new URL(authorizationUrl);
+  let issuerPath = "";
+  try {
+    issuerPath = new URL(issuer).pathname;
+  } catch {
+    // not a URL: treat as a non-Keycloak issuer
+  }
+  if (issuerPath.includes("/realms/") && /\/auth\/?$/.test(url.pathname)) {
+    url.pathname = url.pathname.replace(/\/auth\/?$/, "/registrations");
+  } else {
+    url.searchParams.set("prompt", "create");
+  }
+  return url.toString();
+}
+
 export interface TokenResponse {
   access_token: string;
   id_token?: string;

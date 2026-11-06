@@ -43,8 +43,10 @@ export {
   loginUrl,
   logout,
   providerLogoutUrl,
+  registerUrl,
   type AuthEndpointsOptions,
   type LoginUrlOptions,
+  type RegisterUrlOptions,
   type GatewaySession,
 } from "./auth.js";
 export type { components, operations, paths } from "./generated/schema.js";

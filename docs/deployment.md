@@ -131,14 +131,15 @@ The citizen, government, executive and admin Workers run `worker/index.ts`, whic
 `"run_worker_first": ["/api/*", "/auth/*"]`, so only those paths run the Worker; every other path
 is a static asset served without running code.
 
-| Route                        | What it does                                                                                                                                                                                                                                                                                                                |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /auth/login?returnTo=/` | OIDC discovery, then a redirect to the provider (Authorization Code + PKCE S256, `state`, `nonce`). `returnTo` must be a same-origin path; anything else becomes `/`. `&reauth=1` forces a fresh sign-in (step-up).                                                                                                         |
-| `GET /auth/callback`         | Checks `state`, exchanges the code, checks the ID token's `iss`/`aud`/`exp`/`nonce`, calls backend `POST /api/v1/identity/auth/login/oidc` with `{ accessToken, providerCode }`, sets the session cookie, redirects to `returnTo`. Failures return to `/?signin_error=cancelled\|expired\|failed\|not-linked\|unavailable`. |
-| `GET /auth/session`          | `{ authenticated, expiresAt?, identityId? }`. Never the token.                                                                                                                                                                                                                                                              |
-| `POST /auth/logout`          | Needs `X-HeartStone-CSRF: 1` and a same-origin `Origin`/`Sec-Fetch-Site`. Calls backend `POST /api/v1/identity/auth/logout` with the bearer token, clears the cookie, returns 204.                                                                                                                                          |
-| `GET /auth/logout/redirect`  | Redirects to the provider's `end_session_endpoint`, when discovery advertises one, then back to `/`.                                                                                                                                                                                                                        |
-| `/api/*`                     | Forwards to `BACKEND_ORIGIN` + the same path and query, streaming the body. Adds `Authorization: Bearer <session token>` from the cookie. Details below.                                                                                                                                                                    |
+| Route                           | What it does                                                                                                                                                                                                                                                                                                                                                              |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /auth/login?returnTo=/`    | OIDC discovery, then a redirect to the provider (Authorization Code + PKCE S256, `state`, `nonce`). `returnTo` must be a same-origin path; anything else becomes `/`. `&reauth=1` forces a fresh sign-in (step-up).                                                                                                                                                       |
+| `GET /auth/register?returnTo=/` | Same as `/auth/login` (discovery, PKCE S256, `state`, `nonce`, encrypted transaction cookie, same callback), but opens the provider's self-registration page. Keycloak (issuer path contains `/realms/`): `<issuer>/protocol/openid-connect/registrations` with the same query. Any other provider: the authorization endpoint with `prompt=create`. `reauth` is ignored. |
+| `GET /auth/callback`            | Checks `state`, exchanges the code, checks the ID token's `iss`/`aud`/`exp`/`nonce`, calls backend `POST /api/v1/identity/auth/login/oidc` with `{ accessToken, providerCode }`, sets the session cookie, redirects to `returnTo`. Failures return to `/?signin_error=cancelled\|expired\|failed\|not-linked\|unavailable`.                                               |
+| `GET /auth/session`             | `{ authenticated, expiresAt?, identityId? }`. Never the token.                                                                                                                                                                                                                                                                                                            |
+| `POST /auth/logout`             | Needs `X-HeartStone-CSRF: 1` and a same-origin `Origin`/`Sec-Fetch-Site`. Calls backend `POST /api/v1/identity/auth/logout` with the bearer token, clears the cookie, returns 204.                                                                                                                                                                                        |
+| `GET /auth/logout/redirect`     | Redirects to the provider's `end_session_endpoint`, when discovery advertises one, then back to `/`.                                                                                                                                                                                                                                                                      |
+| `/api/*`                        | Forwards to `BACKEND_ORIGIN` + the same path and query, streaming the body. Adds `Authorization: Bearer <session token>` from the cookie. Details below.                                                                                                                                                                                                                  |
 
 **Session cookie.** The backend session token is kept only in `__Host-hs_session`: AES-256-GCM
 encrypted, `HttpOnly; Secure; SameSite=Lax; Path=/`, and `Max-Age` of 12 hours from sign-in (the
@@ -208,7 +209,13 @@ The gateway works with any OIDC provider through discovery. For Keycloak, per ap
    `pin`) or an `acr` containing `mfa`/`multi`. Configure the realm's authentication flow and
    token mappers so an MFA sign-in emits one of these; otherwise the session is recorded without
    MFA and MFA-protected routes answer with a step-up 401.
-5. **Hostname:** the issuer in tokens must equal `OIDC_ISSUER` and the backend's `issuer`, so fix
+5. **Self-registration ("Get a digital ID" → `/auth/register`):** Realm settings → Login → **User
+   registration** on, **Verify email** on (and the realm's SMTP settings filled in), so a new
+   account proves its email before it can sign in. Without User registration, Keycloak answers the
+   registrations URL with an error page. The backend provider entry must also enable
+   `provisioning.citizenSelfService` (below), or the new account gets "We could not find your
+   account". Only enable this on the citizen client's realm.
+6. **Hostname:** the issuer in tokens must equal `OIDC_ISSUER` and the backend's `issuer`, so fix
    Keycloak's public hostname (`KC_HOSTNAME`).
 
 Backend (`heartstone-backend`) configuration for the same provider:
@@ -216,9 +223,12 @@ Backend (`heartstone-backend`) configuration for the same provider:
 - `OIDC_ENABLED=true` and an `OIDC_PROVIDERS_JSON` entry: `code` (= `OIDC_PROVIDER_CODE`),
   `issuer` (= `OIDC_ISSUER`), `audience` (= the Audience mapper value), `jwksUri`
   (`<issuer>/protocol/openid-connect/certs` for Keycloak), `allowedAlgorithms` (e.g. `["RS256"]`).
-- Every person must already have a linked OIDC credential (provider code + the provider's `sub`).
-  The backend never links by email. An unlinked sign-in returns to the app with "We could not find
-  your account".
+- Every person must already have a linked OIDC credential (provider code + the provider's `sub`),
+  unless the provider entry opts in to citizen self-service:
+  `"provisioning": { "citizenSelfService": true }`. Then the first sign-in of an unknown subject
+  creates a basic self-service identity (profile claims recorded as self-asserted; identity not
+  proven). The backend never links by email. An unlinked sign-in without self-service returns to
+  the app with "We could not find your account".
 - Keep CORS off: browsers never call the backend directly.
 - The gateway sends one `X-Forwarded-For` hop. With `trustProxy` on, check the backend's proxy
   hop count matches what sits between the Worker and the backend.
