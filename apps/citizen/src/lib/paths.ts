@@ -45,6 +45,7 @@ export const paths = {
   help: "/help",
   menu: "/menu",
   verify: "/verify",
+  howToTell: "/how-to-tell",
 } as const;
 
 /**

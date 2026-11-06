@@ -1,10 +1,12 @@
 // F1 demo of the institutional theme. The real workstation shell (work queues, Authority Panel)
 // arrives in F6. No routing, no API calls and no government data: values are labelled examples.
 import {
+  BrandLockup,
   Button,
   Card,
   Cluster,
   Notice,
+  OfficialMark,
   PageHeader,
   SkipLink,
   Stack,
@@ -12,6 +14,7 @@ import {
   Table,
   type TableColumn,
 } from "@heartstone/ui";
+import { TENANT } from "./tenant";
 
 export const EXPERIENCE_NAME = "Government Workstation";
 
@@ -47,11 +50,20 @@ export function App() {
   return (
     <div className="workstation">
       <SkipLink />
+      <OfficialMark
+        statement={TENANT.officialStatement}
+        learnMoreHref={TENANT.howToTellHref}
+        aside={TENANT.environmentNotice}
+      />
+      <header className="workstation-header">
+        <BrandLockup href="/" image={TENANT.lockup.onDark} alt={TENANT.lockup.alt} />
+        <span className="workstation-name">{EXPERIENCE_NAME}</span>
+      </header>
       <main id="main-content" tabIndex={-1} className="workstation-main">
         <Stack gap="6">
           <PageHeader
             dense
-            title={`HeartStone — ${EXPERIENCE_NAME}`}
+            title={`${TENANT.displayName} — ${EXPERIENCE_NAME}`}
             description="Institutional theme preview (F1)."
           />
           <Notice tone="info" title="Development build">

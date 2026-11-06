@@ -1,6 +1,7 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { json, never, on, renderAt, representingMe } from "../test/harness";
+import { TENANT } from "../tenant";
 
 const fail = (path: string) => on("GET", path, () => json({ statusCode: 500, message: "x" }, 500));
 
@@ -222,7 +223,7 @@ describe("Civil records", () => {
 });
 
 describe("Public safety", () => {
-  it("tells people to call in an emergency, using the tenant placeholder", async () => {
+  it("tells people to call in an emergency, using the tenant's number", async () => {
     renderAt("/public-safety", [
       on("GET", "/experience/citizen/public-safety", never),
       on("GET", "/experience/citizen/public-safety/emergency-events", () =>
@@ -232,7 +233,7 @@ describe("Public safety", () => {
       on("GET", "/experience/citizen/public-safety/assistance", () => json({ items: [] })),
     ]);
     expect(
-      await screen.findByText(/EMERGENCY NUMBER — set by tenant configuration/),
+      await screen.findByText(new RegExp(`Call ${TENANT.emergencyNumber}\\.`)),
     ).toBeInTheDocument();
     expect(await screen.findByText("There are no emergency notices.")).toBeInTheDocument();
   });
@@ -296,9 +297,9 @@ describe("Menu (mobile More)", () => {
 });
 
 describe("Help", () => {
-  it("is public and uses tenant contact placeholders", async () => {
+  it("is public and uses the tenant's contact details", async () => {
     renderAt("/help", [], { signedIn: false });
     expect(await screen.findByRole("heading", { level: 1, name: "Help" })).toBeInTheDocument();
-    expect(screen.getByText(/SUPPORT PHONE — set by tenant configuration/)).toBeInTheDocument();
+    expect(screen.getByText(TENANT.contactPhone.display)).toBeInTheDocument();
   });
 });

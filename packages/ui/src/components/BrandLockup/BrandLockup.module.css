@@ -1,0 +1,25 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--hs-layout-touch-target);
+  border-radius: var(--hs-radius-sm);
+  line-height: 0;
+}
+
+.image {
+  display: block;
+  width: auto;
+  max-width: 100%;
+}
+
+.sm {
+  height: 36px;
+}
+
+.md {
+  height: 44px;
+}
+
+.lg {
+  height: 56px;
+}

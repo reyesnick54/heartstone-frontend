@@ -7,6 +7,7 @@ import { useSession, type SignedOutReason } from "@heartstone/api-client/react";
 import {
   AppShell,
   ApplicationsIcon,
+  BrandLockup,
   Button,
   Card,
   Cluster,
@@ -31,7 +32,7 @@ import { FOOTER_NAV, MAIN_NAV, MY_GOVERNMENT, type NavEntry } from "./lib/nav";
 import { paths } from "./lib/paths";
 import { hasRoute, isPublicRoute, renderRoute } from "./routes";
 import { RouterProvider, useLocation, useRouteFocus } from "./router/router";
-import { LAUNCH, TENANT_PLACEHOLDER } from "./tenant";
+import { LAUNCH, TENANT } from "./tenant";
 
 export const EXPERIENCE_NAME = "Citizen services";
 
@@ -114,16 +115,17 @@ function tabItems(pathname: string, signedIn: boolean): AppShellNavItem[] {
     .map((tab) => ({ ...tab, current: isCurrent(tab.href, pathname) }));
 }
 
-const brand = (
-  <a href="/" className="brand">
-    {TENANT_PLACEHOLDER.productName}
-  </a>
+/** Sidebar (Midnight): the lockup with the light wordmark. */
+const brand = <BrandLockup href="/" image={TENANT.lockup.onDark} alt={TENANT.lockup.alt} />;
+/** Top bar (light surface, below 900px): the lockup with the dark wordmark. */
+const brandCompact = (
+  <BrandLockup href="/" image={TENANT.lockup.onLight} alt={TENANT.lockup.alt} size="sm" />
 );
 
 const banner = (
   <OfficialMark
-    statement={TENANT_PLACEHOLDER.officialStatement}
-    learnMoreHref={TENANT_PLACEHOLDER.officialInfoHref}
+    statement={TENANT.officialStatement}
+    learnMoreHref={TENANT.howToTellHref}
     {...(LAUNCH.isLiveService ? {} : { aside: LAUNCH.notLiveNotice })}
   />
 );
@@ -222,7 +224,7 @@ function Landing({
     : undefined;
   return (
     <Page
-      title={`${TENANT_PLACEHOLDER.productName} — ${EXPERIENCE_NAME}`}
+      title={`${TENANT.displayName} — ${EXPERIENCE_NAME}`}
       description="Apply for government services, track your applications, pay fees and read messages from government offices, in one place."
     >
       {!LAUNCH.isLiveService && (
@@ -247,7 +249,7 @@ function Landing({
             <p>Your session has ended. Please sign in again to continue.</p>
           )}
           {reason === undefined && (
-            <p>Sign in with {TENANT_PLACEHOLDER.digitalIdName} to see your services and records.</p>
+            <p>Sign in with {TENANT.digitalIdName} to see your services and records.</p>
           )}
           <Link href={loginUrl({ returnTo: currentPath() })} standalone className="sign-in-link">
             Sign in
@@ -275,6 +277,7 @@ function SignedInApp({ pathname }: { pathname: string }) {
   return (
     <AppShell
       brand={brand}
+      brandCompact={brandCompact}
       navigation={navigation}
       sidebarHeader={<ActingAsPanel />}
       sidebarFooter={navItems(FOOTER_NAV, pathname)}
@@ -320,6 +323,7 @@ function SignedOutApp({
   return (
     <AppShell
       brand={brand}
+      brandCompact={brandCompact}
       navigation={[{ id: "main", items: tabItems(pathname, false) }]}
       tabs={tabItems(pathname, false)}
       banner={banner}
@@ -337,15 +341,15 @@ function Routed() {
 
   if (session.status === "loading") {
     return (
-      <AppShell brand={brand} navigation={[]} tabs={[]} banner={banner}>
+      <AppShell brand={brand} brandCompact={brandCompact} navigation={[]} tabs={[]} banner={banner}>
         <Loading label="Checking whether you are signed in" />
       </AppShell>
     );
   }
   if (session.status === "error") {
     return (
-      <AppShell brand={brand} navigation={[]} tabs={[]} banner={banner}>
-        <Page title={`${TENANT_PLACEHOLDER.productName} — ${EXPERIENCE_NAME}`}>
+      <AppShell brand={brand} brandCompact={brandCompact} navigation={[]} tabs={[]} banner={banner}>
+        <Page title={`${TENANT.displayName} — ${EXPERIENCE_NAME}`}>
           <ApiErrorNotice
             error={session.error}
             title="We could not check whether you are signed in"
